@@ -15,6 +15,7 @@ csv()
   });
 
 export async function GET() {
-  const data = questions;
+  const randomIndex = Math.floor(Math.random() * questions.length);
+  const data = questions[randomIndex];
   return Response.json({ data });
 }
