@@ -14,8 +14,8 @@ csv()
     questions = jsonObj;
   });
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
+// export const dynamic = "force-dynamic";
+// export const fetchCache = "force-no-store";
 // 'auto' | 'default-cache' | 'only-cache'
 // 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
 
