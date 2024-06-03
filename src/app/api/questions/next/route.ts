@@ -19,7 +19,7 @@ export const fetchCache = "force-no-store";
 // 'auto' | 'default-cache' | 'only-cache'
 // 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
 
-export async function GET(request: Request) {
+export async function GET() {
   const randomIndex = Math.floor(Math.random() * questions.length);
   const data = questions[randomIndex];
   return Response.json({ data });

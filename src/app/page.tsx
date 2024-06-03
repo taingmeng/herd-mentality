@@ -19,6 +19,9 @@ export default function Home() {
       .then((response) => {
         setQuestions([response.data]);
         setIndex(0);
+      })
+      .catch((error) => {
+        console.error("Error loading next question", error);
       });
   }, [setQuestions, setIndex]);
 
