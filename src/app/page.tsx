@@ -14,7 +14,7 @@ export default function Home() {
   const [index, setIndex] = useState<number>(-1);
 
   const nextQuestion = useCallback(() => {
-    fetch("/api/questions/next", { cache: 'no-store' })
+    fetch("/api/questions/next")
       .then((response) => response.json())
       .then((response) => {
         setQuestions([response.data]);
