@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 
 interface Question {
   category: string;
@@ -14,7 +13,7 @@ export default function Home() {
   const [index, setIndex] = useState<number>(-1);
 
   const nextQuestion = useCallback(() => {
-    fetch("/api/questions/next")
+    fetch("/api/questions/next", { next: { revalidate: 5 } })
       .then((response) => response.json())
       .then((response) => {
         setQuestions([response.data]);
