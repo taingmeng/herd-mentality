@@ -13,7 +13,10 @@ export default function Home() {
   const [index, setIndex] = useState<number>(-1);
 
   const nextQuestion = useCallback(() => {
-    fetch("/api/questions/next", { next: { revalidate: 5 } })
+    fetch("/api/questions/next", {
+      cache: "no-cache",
+      next: { tags: ["next"], revalidate: 5 },
+    })
       .then((response) => response.json())
       .then((response) => {
         setQuestions([response.data]);
