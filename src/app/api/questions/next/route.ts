@@ -1,6 +1,4 @@
 import csv from "csvtojson";
-import { revalidateTag, unstable_noStore } from "next/cache";
-import { cookies, headers } from "next/headers";
 
 interface Question {
   category: string;
@@ -23,10 +21,7 @@ export const dynamic = "force-dynamic";
 // 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
 
 export async function GET(request: Request) {
-  cookies();
-  unstable_noStore();
   const randomIndex = Math.floor(Math.random() * questions.length);
   const data = questions[randomIndex];
-  revalidateTag("next");
   return Response.json({ data });
 }

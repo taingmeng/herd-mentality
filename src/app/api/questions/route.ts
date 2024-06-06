@@ -6,15 +6,7 @@ interface Question {
   options: string[] | undefined;
 }
 
-let questions: Question[] = [];
-
-csv()
-  .fromFile("src/data/questions.csv")
-  .then((jsonObj) => {
-    questions = jsonObj;
-  });
-
-export async function GET() {
-  const data = questions;
+export async function GET(request: Request) {
+  const data: Question[] = await csv().fromFile("src/data/questions.csv");
   return Response.json({ data });
 }
