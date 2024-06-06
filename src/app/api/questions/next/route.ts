@@ -1,4 +1,5 @@
 import csv from "csvtojson";
+import { headers } from "next/headers";
 
 interface Question {
   category: string;
@@ -15,13 +16,18 @@ csv()
   });
 
 export const dynamic = "force-dynamic";
-// export const revalidate = 1;
-// export const fetchCache = "default-no-store";
+export const revalidate = 1;
+export const fetchCache = "default-no-store";
 // 'auto' | 'default-cache' | 'only-cache'
 // 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
 
 export async function GET(request: Request) {
+  const headersList = headers();
+  const referer = headersList.get("referer");
   const randomIndex = Math.floor(Math.random() * questions.length);
   const data = questions[randomIndex];
-  return Response.json({ data });
+  return new Response(data.question, {
+    status: 200,
+    headers: { referer: referer || "none" },
+  })
 }

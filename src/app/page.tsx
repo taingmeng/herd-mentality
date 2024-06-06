@@ -12,17 +12,16 @@ export default function Home() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [index, setIndex] = useState<number>(-1);
 
-  // const nextQuestion = useCallback(() => {
-  //   fetch("/api/questions/next")
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setQuestions([response.data]);
-  //       setIndex(0);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error loading next question", error);
-  //     });
-  // }, [setQuestions, setIndex]);
+  const nextOneQuestion = useCallback(() => {
+    fetch("/api/questions/next")
+      .then((response) => response.text())
+      .then((response) => {
+        console.log("================", response);
+      })
+      .catch((error) => {
+        console.error("Error loading next question", error);
+      });
+  }, []);
 
   const nextQuestion = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * questions.length);
@@ -36,7 +35,7 @@ export default function Home() {
         setQuestions(response.data);
       })
       .catch((error) => {
-        console.error("Error loading next question", error);
+        console.error("Error loading all questions", error);
       });
   }, []);
 
