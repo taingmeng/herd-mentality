@@ -16,12 +16,13 @@ csv()
     questions = jsonObj;
   });
 
+export const dynamic = "force-dynamic";
 // export const revalidate = 1;
 // export const fetchCache = "default-no-store";
 // 'auto' | 'default-cache' | 'only-cache'
 // 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
 
-export async function GET() {
+export async function GET(request: Request) {
   cookies();
   unstable_noStore();
   const randomIndex = Math.floor(Math.random() * questions.length);
