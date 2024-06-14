@@ -9,8 +9,6 @@ interface Question {
   error: string | undefined;
 }
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
   const currentQuestion: Question = await fetch(
     "http://localhost:3000/api/questions/next",
