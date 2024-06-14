@@ -1,7 +1,6 @@
 import React from "react";
-import csv from "csvtojson";
 
-import NextButton from "./components/NextButton";
+import NextButton from "../components/NextButton";
 
 interface Question {
   category: string;
@@ -17,29 +16,26 @@ interface QuestionResponse {
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const questions = await csv().fromFile("src/data/questions.csv");
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  const currentQuestion = questions[randomIndex];
-
-  // const baseUrl = process.env.NEXT_PUBLIC_SITE_URL; 
-  // console.log("=========baseUrl", baseUrl)
-  // const res: QuestionResponse = await fetch(
-  //   `${baseUrl}/api/questions/next`,
-  //   { cache: "no-store" }
-  // ).then((res) => {
-  //   try {
-  //     return res.json()
-  //   } catch (error) {
-  //     return res.text()
-  //   }
-  // });
-  // if (typeof res === "string") {
-  //   return <main><div>{res}</div></main>
-  // }
-  // if (res.error) {
-  //   return <main><div>{res.error}</div></main>
-  // }
-  // const currentQuestion = res.data;
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `http://localhost:3000`; 
+  console.log("=========baseUrl", baseUrl)
+  const res: QuestionResponse = await fetch(
+    `${baseUrl}/api/questions/next`,
+    { cache: "no-store" }
+  ).then((res) => {
+    try {
+      return res.json()
+    } catch (error) {
+      return res.text()
+    }
+  });
+  console.log("=========res", res)
+  if (typeof res === "string") {
+    return <main><div>{res}</div></main>
+  }
+  if (res.error) {
+    return <main><div>{res.error}</div></main>
+  }
+  const currentQuestion = res.data;
 
   return (
     <main className="flex min-h-screen flex-col items-center px-4 py-24 justify-between overflow-hidden">
