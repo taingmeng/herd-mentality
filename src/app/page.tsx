@@ -1,4 +1,5 @@
 import React from "react";
+import path from "path";
 import csv from "csvtojson";
 
 import NextButton from "./components/NextButton";
@@ -9,40 +10,18 @@ interface Question {
   options: string | undefined;
 }
 
-interface QuestionResponse {
-  data?: Question
-  error?: string
-}
-
-export const dynamic = "force-dynamic";
+export const revalidate = 1;
 
 export default async function Home() {
-  const questions: Question[] = await csv().fromFile("src/data/questions.csv");
+  const questionPath = path.join(process.cwd(), 'src/data/questions.csv');
+  const questions: Question[] = await csv().fromFile(questionPath);
   const randomIndex = Math.floor(Math.random() * questions.length);
   const currentQuestion = questions[randomIndex];
 
-  // const baseUrl = process.env.NEXT_PUBLIC_SITE_URL; 
-  // console.log("=========baseUrl", baseUrl)
-  // const res: QuestionResponse = await fetch(
-  //   `${baseUrl}/api/questions/next`,
-  //   { cache: "no-store" }
-  // ).then((res) => {
-  //   try {
-  //     return res.json()
-  //   } catch (error) {
-  //     return res.text()
-  //   }
-  // });
-  // if (typeof res === "string") {
-  //   return <main><div>{res}</div></main>
-  // }
-  // if (res.error) {
-  //   return <main><div>{res.error}</div></main>
-  // }
-  // const currentQuestion = res.data;
 
   return (
     <main className="flex min-h-screen flex-col items-center px-4 py-24 justify-between overflow-hidden">
+      
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
         <p className="font-mono fixed left-0 top-0 flex w-full justify-center content-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           🐮 Herd Mentality
