@@ -17,7 +17,7 @@ interface QuestionResponse {
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const questions = await csv().fromFile("src/data/questions.csv");
+  const questions: Question[] = await csv().fromFile("src/data/questions.csv");
   const randomIndex = Math.floor(Math.random() * questions.length);
   const currentQuestion = questions[randomIndex];
 
