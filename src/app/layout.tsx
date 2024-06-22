@@ -6,13 +6,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Herd Mentality",
+  title: "Party Paper Pen",
   description: `
-Discover the fun and engaging online board game, Herd Mentality!
-Perfect for family game nights or virtual gatherings with friends, Herd Mentality challenges players with a series of randomly generated questions.
-The goal? Think like the majority! Players must guess what the majority will answer to score points.
-Simple, interactive, and endlessly entertaining, Herd Mentality is the ideal game for those who love to strategize and connect with others.
-Dive into the excitement and see if you can match your answers with the herd. Join the fun and test your herd mentality today!
+Discover the ultimate collection of party games that transform any gathering into a memorable event filled with fun, laughter, and engaging conversations.
+Our easy-to-play games require only paper and pen, making them perfect for spontaneous entertainment.
+Whether you're breaking the ice or seeking to deepen connections, our party games are designed to create unforgettable moments.
+Explore our one-stop shop for party games and elevate your next celebration with endless joy and excitement!
 `,
 };
 
