@@ -7,7 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    darkMode: ['selector', '[data-mode="dark"]'],
+    darkMode: ['class', '[data-mode="dark"]'],
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -18,4 +18,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

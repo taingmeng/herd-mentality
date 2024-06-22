@@ -8,10 +8,11 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --foreground-rgb: 240, 146,	211;
+    --background-start-rgb: 79, 2, 51;
     --background-end-rgb: 0, 0, 0;
   }
 }
@@ -20,10 +21,65 @@ body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
-      transparent,
+      rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+}
+
+html {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-end-rgb))
+}
+
+.markdown h1 {
+  display: block;
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.markdown h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.markdown p {
+  margin-bottom: 0.5em;
+}
+
+.markdown ul {
+  margin-bottom: 0.5em;
+}
+
+.markdown li {
+  margin-bottom: 0.5em;
+}
+
+/* https://codepen.io/sosuke/pen/Pjoqqp */
+.tint {
+  filter: invert(67%) sepia(9%) saturate(2813%) hue-rotate(283deg) brightness(104%) contrast(103%);
+}
+
+.tint-grey {
+  filter: invert(59%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(91%) contrast(93%);
 }
 
 @layer utilities {
