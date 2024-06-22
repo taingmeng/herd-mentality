@@ -38,7 +38,7 @@ export default async function Home() {
     <>
       <Navbar title="Herd Mentality" menus={NAV_MENU} />
       <main className="flex flex-col min-h-[75vh] items-center justify-center">
-        <div className="relative flex flex-col place-items-center">
+        <div className="relative flex flex-col place-items-center mb-24">
           {currentQuestion && (
             <h3 className="mb-3 text-2l font-semibold relative">
               {currentQuestion.category}

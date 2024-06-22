@@ -52,7 +52,7 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
   const menuHeight = `h-${menus.length * 14}`;
 
   return (
-    <div className="p-4 border-0 sticky top-0 m-0 bg-neutral-100 dark:bg-neutral-800">
+    <div className="p-4 border-0 z-50 sticky top-0 m-0 bg-neutral-100 dark:bg-neutral-800">
       <div className="mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image src="/edit-dark.svg" width="36" height="36" alt="Just Words" className="fill-cyan-500" />

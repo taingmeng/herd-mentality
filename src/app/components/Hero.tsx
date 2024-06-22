@@ -12,7 +12,7 @@ function Hero() {
           >
             Herd Mentality
           </h1>
-          <div className="flex flex-row gap-8 text-gray-500 mt-8">
+          <div className="flex flex-row gap-4 text-gray-500 mt-8">
             <div className="flex flex-row gap-2">
               <Image src="/users.svg" width="24" height="24" alt="Player count" className="tint-grey" />
               <span>4-20 Players</span>
