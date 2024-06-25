@@ -31,18 +31,6 @@ const NAV_MENU = [
 export default async function JustOne() {
   const questionPath = path.join(process.cwd(), 'src/data/just-one/questions.csv');
   const questions: Question[] = await csv().fromFile(questionPath);
-  
-  const map: { [key: string]: number} = {};
-  for (const q of questions) {
-    map[q.question] = (map[q.question] || 0) + 1;
-  }
-  // console.log(map)
-  for (const entry of Object.entries(map)) {
-    if (entry[1] > 1) {
-      console.log(entry[0], entry[1]);
-    }
-  }
-
   const randomIndex = Math.floor(Math.random() * questions.length);
   const currentQuestion = questions[randomIndex];
 
