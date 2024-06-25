@@ -6,13 +6,17 @@ If you blend, you earn a point. If you are the odd one out, then you may earn th
 
 # SETUP
 
-Give everyone a piece of paper and a pen. A small white boards and erasable markers would be better. If not, everyone can use their phone to note down their answers. The purpose is to note down your answer so that you won't forget or change your answer after hearing the majority.
+1. Place your phone or tablet where everyone can see the questions. Questions are randomly picked.
 
-Use any tokens or chips for score tracking. If not, ask everyone to write their score on their paper.
+1. Give everyone a piece of paper and a pen.
 
-Use an object to represent the pink cow. Preferablly something stupid and funny.
+Note: a small white boards and erasable markers would be better. If not, everyone can use any note app on their phone to write down their clue.
 
-Place your phone or tablet where everyone can see the questions. Questions are randomly picked.
+Note: the purpose is to note down your answer so that you won't forget or change your answer after hearing the majority.
+
+1. Use any tokens or chips for score tracking. If not, ask everyone to write their score on their paper.
+
+1. Use an object to represent the pink cow. Preferablly something stupid and funny.
 
 # GAMEPLAY
 

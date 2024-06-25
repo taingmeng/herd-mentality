@@ -1,6 +1,6 @@
 interface ButtonProps {
-  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
-  children: any;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+  children?: any;
 }
 
 export function Button({ onClick, children }: ButtonProps) {

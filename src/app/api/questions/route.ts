@@ -7,6 +7,6 @@ interface Question {
 }
 
 export async function GET() {
-  const data: Question[] = await csv().fromFile("src/data/questions.csv");
+  const data: Question[] = await csv().fromFile("src/data/herd-mentality/questions.csv");
   return Response.json({ data });
 }

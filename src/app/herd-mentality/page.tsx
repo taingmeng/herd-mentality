@@ -29,7 +29,7 @@ const NAV_MENU = [
 ];
 
 export default async function Home() {
-  const questionPath = path.join(process.cwd(), 'src/data/questions.csv');
+  const questionPath = path.join(process.cwd(), 'src/data/herd-mentality/questions.csv');
   const questions: Question[] = await csv().fromFile(questionPath);
   const randomIndex = Math.floor(Math.random() * questions.length);
   const currentQuestion = questions[randomIndex];
