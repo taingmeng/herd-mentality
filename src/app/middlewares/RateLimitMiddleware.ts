@@ -1,6 +1,6 @@
 const rateLimitMap = new Map();
 
-export default function rateLimitMiddleware(req: Request) {
+export default function RateLimitMiddleware(req: Request) {
   const ip = (req.headers?.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0]; //ignore
   const limit = 5; // Limiting requests to 10 per 10 seconds per IP
   const windowMs = 5 * 1000; // 1 minute

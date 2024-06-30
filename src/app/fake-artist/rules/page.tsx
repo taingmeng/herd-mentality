@@ -1,22 +1,24 @@
+"use client";
+
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { getMarkdownContent } from "../../utils/MarkdownUtil";
 
 const NAV_MENU = [
   {
     name: "Back to Game",
     icon: "/arrow-circle-left.svg",
-    href: "/just-one",
+    href: "/fake-artist/local",
   },
 ];
 
-export default async function Rules() {
-  const { content } = await getMarkdownContent("src/data/just-one/rules.md");
-  return <>
-    <Navbar title="Just One Rules" menus={NAV_MENU} />
-    <div className="markdown m-4 lg:mx-64">
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-    </div>
-    <Footer />
-  </>;
+const url = "/fake-artist/fake-artist-rules.pdf";
+
+export default function Rules() {
+  return (
+    <>
+      <Navbar title="Fake Artist Rules" />
+      <div className="main"></div>
+      <Footer />
+    </>
+  );
 }

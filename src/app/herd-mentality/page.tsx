@@ -70,7 +70,7 @@ export default async function Home() {
         <div></div>
       </main>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-          <div className="fixed h-24 bottom-0 left-0 right-0 flex items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
+          <div className="fixed h-24 bottom-0 left-0 right-0 p-4 flex items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
             <NextButton />
           </div>
         </div>
