@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 
 import React from "react";
@@ -9,13 +8,15 @@ import { RxHamburgerMenu, RxCross1 } from 'react-icons/rx';
 interface NavItemProps {
   children: React.ReactNode;
   href?: string;
+  target?: string;
 }
 
-function NavItem({ children, href }: NavItemProps) {
+function NavItem({ children, href, target }: NavItemProps) {
   return (
     <li>
       <Link
         href={href || "#"}
+        target={target || "_self"}
         className="flex items-center gap-2 font-medium h-8"
       >
         {children}
@@ -28,6 +29,7 @@ export interface NavMenu {
   name: string;
   icon: string;
   href: string;
+  target?: string;
 }
 
 interface NavbarProps {
@@ -62,8 +64,8 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
         </Link>
 
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {menus.map(({ name, icon, href }) => (
-            <NavItem key={name} href={href}>
+          {menus.map(({ name, icon, href, target }) => (
+            <NavItem key={name} href={href} target={target}>
               <Image src={icon} width="24" height="24" alt={name} className="tint" />
               <span>{name}</span>
             </NavItem>
@@ -85,10 +87,10 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
         className={`${open ? menuHeight : 'h-0'
           } data-twe-collapse-item transition-all delay-150 duration-300 overflow-hidden w-full`}
       >
-        <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
+        <div className="container mx-auto my-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {menus.map(({ name, icon, href }) => (
-              <NavItem key={name} href={href} className="h-16 text-grey-100 dark:text-grey-100">
+            {menus.map(({ name, icon, href, target }) => (
+              <NavItem key={name} href={href} target={target}>
                 <Image src={icon} width="24" height="24" alt={name} className="tint" />
                 <span>{name}</span>
               </NavItem>

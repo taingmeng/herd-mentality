@@ -29,7 +29,7 @@ export default async function HeroCard({
           {title || "???"}
         </h1>
         <div className="flex flex-row gap-4 text-gray-500 mt-4">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row">
             <Image
               src="/users.svg"
               width="24"
@@ -39,7 +39,7 @@ export default async function HeroCard({
             />
             <span>{playerCount}</span>
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row">
             <Image
               src="/time.svg"
               width="24"
@@ -49,7 +49,7 @@ export default async function HeroCard({
             />
             <span>{duration}</span>
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row">
             <Image
               src="/boy.svg"
               width="24"

@@ -4,14 +4,14 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 
-interface NextButtonProps {
+interface PreviousButtonProps {
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
   children?: any;
   className?: string;
-  disabled?: boolean;
+  disabled?: boolean
 }
 
-export default function NextButton({ onClick, children, className, disabled }: NextButtonProps) {
+export default function PrevButton({ onClick, children, className, disabled }: PreviousButtonProps) {
   const router = useRouter();
 
   const nextQuestion = () => {
@@ -19,10 +19,11 @@ export default function NextButton({ onClick, children, className, disabled }: N
   };
 
   return (
-    <Button className={`${className} w-full`}
+    <Button
+      className={`${className} w-full`}
       onClick={onClick || nextQuestion}
       disabled={disabled}>
-      {children || "Next"} -&gt;
+      &lt;- {children || "Previous"}
     </Button>
   );
 }
