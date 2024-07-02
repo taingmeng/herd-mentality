@@ -30,7 +30,7 @@ export default async function FakeArtistLocal() {
 
   return (
     <>
-      <Navbar title="Fake Artist" menus={NAV_MENU} />
+      <Navbar title="A Fake Artist Goes to New York" menus={NAV_MENU} />
       <main className="flex flex-col min-h-[75vh] items-center justify-center px-4">
         <FakeArtistLocalMain question={question} />
       </main>

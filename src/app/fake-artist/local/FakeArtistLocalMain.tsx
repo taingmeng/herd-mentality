@@ -97,7 +97,12 @@ export default function FakeArtistLocalMain({
     if (isLastPassIndex) {
       setGameState("playing");
     } else {
-      setPassIndex(passIndex + 1);
+      if (players[passIndex].flipped) {
+        setTimeout(() => setPassIndex(passIndex + 1), 800);
+      } else {
+        setPassIndex(passIndex + 1);
+      }
+      
     }
     setUnflipped(passIndex);
   };
@@ -106,7 +111,11 @@ export default function FakeArtistLocalMain({
     if (passIndex === 0) {
       setGameState("new");
     } else {
-      setPassIndex(passIndex - 1);
+      if (players[passIndex].flipped) {
+        setTimeout(() => setPassIndex(passIndex - 1), 800);
+      } else {
+        setPassIndex(passIndex - 1);
+      }
     }
     setUnflipped(passIndex);
   };
