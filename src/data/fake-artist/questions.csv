@@ -5,15 +5,13 @@ Accessory, Backpack
 Accessory, Bandana
 Accessory, Belly Chain
 Accessory, Belt
-Accessory, Bowtie
+Accessory, Bow tie
 Accessory, Bracelet
 Accessory, Briefcase
-Accessory, Brooch
 Accessory, Card Holder
 Accessory, Choker
 Accessory, Clutch
 Accessory, Coin Purse
-Accessory, Crossbody Bag
 Accessory, Cufflinks
 Accessory, Duffel Bag
 Accessory, Earrings
@@ -47,20 +45,30 @@ Accessory, Umbrella
 Accessory, Visor
 Accessory, Wallet
 Accessory, Watch
+Animal, Ant
 Animal, Armadillo
+Animal, Bat
 Animal, Bear
+Animal, Bee
+Animal, Butterfly
 Animal, Camel
 Animal, Cat
+Animal, Caterpillar
+Animal, Centipede
 Animal, Chicken
 Animal, Chimpanzee
+Animal, Clam
+Animal, Coral
 Animal, Cow
 Animal, Crab
 Animal, Crocodile
 Animal, Deer
 Animal, Dog
 Animal, Dolphin
+Animal, Dragonfly
 Animal, Duck
 Animal, Eagle
+Animal, Earthworm
 Animal, Elephant
 Animal, Fox
 Animal, Frog
@@ -68,34 +76,55 @@ Animal, Giraffe
 Animal, Goat
 Animal, Goose
 Animal, Gorilla
+Animal, Grasshopper
 Animal, Hippopotamus
 Animal, Horse
 Animal, Jellyfish
 Animal, Kangaroo
 Animal, Koala
+Animal, Ladybug
 Animal, Lion
 Animal, Lizard
 Animal, Lobster
-Animal, Meerkat
 Animal, Monkey
+Animal, Mosquito
+Animal, Mussel
 Animal, Octopus
 Animal, Otter
 Animal, Owl
+Animal, Oyster
 Animal, Panda
 Animal, Parrot
 Animal, Penguin
 Animal, Pig
+Animal, Pigeon
 Animal, Rabbit
 Animal, Raccoon
 Animal, Rhinoceros
+Animal, Scorpion
+Animal, Sea Cucumber
+Animal, Sea Lion
+Animal, Urchin
+Animal, Seagull
+Animal, Seal
 Animal, Shark
 Animal, Sheep
+Animal, Shrimp
 Animal, Sloth
+Animal, Snail
 Animal, Snake
+Animal, Spider
+Animal, Sponge
+Animal, Squid
 Animal, Squirrel
+Animal, Starfish
+Animal, Stingray
+Animal, Swan
+Animal, Tarantula
 Animal, Tiger
 Animal, Turkey
 Animal, Turtle
+Animal, Walrus
 Animal, Whale
 Animal, Wolf
 Animal, Zebra
@@ -204,14 +233,13 @@ Camping Gear, Flashlight
 Camping Gear, Sleeping Bag
 Camping Gear, Tent
 Cartoon Character, Ash Ketchum
-Cartoon Character, Bart Simpson
 Cartoon Character, Bugs Bunny
 Cartoon Character, Donald Duck
 Cartoon Character, Dora the Explorer
 Cartoon Character, Eeyore
 Cartoon Character, Goofy
-Cartoon Character, Homer Simpson
 Cartoon Character, Jerry (Tom and Jerry)
+Cartoon Character, Johnny Bravo
 Cartoon Character, Mickey Mouse
 Cartoon Character, Minnie Mouse
 Cartoon Character, Mowgli
@@ -219,16 +247,20 @@ Cartoon Character, Piglet
 Cartoon Character, Pikachu
 Cartoon Character, Pink Panther
 Cartoon Character, Popeye
+Cartoon Character, Powerpuff Girls
 Cartoon Character, Pumbaa
 Cartoon Character, Sailor Moon
+Cartoon Character, Sandy Cheeks
 Cartoon Character, Scooby-Doo
 Cartoon Character, Simba
 Cartoon Character, SpongeBob SquarePants
+Cartoon Character, Squidward Tentacles
 Cartoon Character, Tigger
 Cartoon Character, Timon
 Cartoon Character, Tom (Tom and Jerry)
 Cartoon Character, Winnie the Pooh
 Cartoon Character, Yogi Bear
+Certainly! Here are 50 words in the category of Disney characters:
 Cleaning Supply, Broom
 Cleaning Supply, Bucket
 Cleaning Supply, Cleaning Cloth
@@ -268,6 +300,48 @@ Clothing, Sweater
 Clothing, Swimsuit
 Clothing, T-shirt
 Clothing, Tie
+Disney Character, Aladdin
+Disney Character, Alice
+Disney Character, Ariel
+Disney Character, Baloo
+Disney Character, Bambi
+Disney Character, Belle
+Disney Character, Captain Hook
+Disney Character, Cheshire Cat
+Disney Character, Cinderella
+Disney Character, Daisy Duck
+Disney Character, Donald Duck
+Disney Character, Dumbo
+Disney Character, Elsa
+Disney Character, Goofy
+Disney Character, Hades
+Disney Character, Hercules
+Disney Character, Jane
+Disney Character, Jasmine
+Disney Character, Jiminy Cricket
+Disney Character, King Louie
+Disney Character, Merida
+Disney Character, Mickey Mouse
+Disney Character, Minnie Mouse
+Disney Character, Moana
+Disney Character, Mufasa
+Disney Character, Mulan
+Disney Character, Nala
+Disney Character, Peter Pan
+Disney Character, Pinocchio
+Disney Character, Pluto
+Disney Character, Pocahontas
+Disney Character, Pumbaa
+Disney Character, Rapunzel
+Disney Character, Scar
+Disney Character, Simba
+Disney Character, Snow White
+Disney Character, Tarzan
+Disney Character, Timon
+Disney Character, Tinker Bell
+Disney Character, Tramp
+Disney Character, Wendy Darling
+Disney Character, Zazu
 Electronic, Camera
 Electronic, Charger
 Electronic, Desktop Computer
@@ -297,14 +371,27 @@ Famous Landmark, Mount Rushmore
 Famous Landmark, Statue of Liberty
 Famous Landmark, Sydney Opera House
 Famous Landmark, Taj Mahal
+Fictional Character, Albus Dumbledore
 Fictional Character, Batman
+Fictional Character, Bilbo Baggins
+Fictional Character, Dracula
 Fictional Character, Elsa
+Fictional Character, Frankenstein's Monster
+Fictional Character, Gandalf
 Fictional Character, Harry Potter
+Fictional Character, Hercules
+Fictional Character, Hermione Granger
+Fictional Character, James Bond
 Fictional Character, Katniss Everdeen
 Fictional Character, Luke Skywalker
+Fictional Character, Robin Hood
+Fictional Character, Ron Weasley
+Fictional Character, Samwise Gamgee
+Fictional Character, Severus Snape
 Fictional Character, Sherlock Holmes
 Fictional Character, Spider-Man
 Fictional Character, Superman
+Fictional Character, Voldemort
 Fictional Character, Wonder Woman
 Food, Bagel
 Food, Burger
@@ -357,7 +444,6 @@ Fruit, Peach
 Fruit, Pear
 Fruit, Pineapple
 Fruit, Plum
-Fruit, Pomegranate
 Fruit, Raspberry
 Fruit, Strawberry
 Fruit, Watermelon
@@ -438,11 +524,79 @@ Kitchenware, Plate
 Kitchenware, Pot
 Kitchenware, Spoon
 Kitchenware, Whisk
+Marvel Character, Abomination
+Marvel Character, Ant-Man
+Marvel Character, Black Panther
+Marvel Character, Black Widow
+Marvel Character, Captain America
+Marvel Character, Captain Marvel
+Marvel Character, Doctor Strange
+Marvel Character, Dormammu
+Marvel Character, Drax
+Marvel Character, Falcon
+Marvel Character, Gamora
+Marvel Character, Grandmaster
+Marvel Character, Groot
+Marvel Character, Hawkeye
+Marvel Character, Heimdall
+Marvel Character, Hela
+Marvel Character, Howard Stark
+Marvel Character, Hulk
+Marvel Character, Iron Man
+Marvel Character, Jane Foster
+Marvel Character, Killmonger
+Marvel Character, Korg
+Marvel Character, Loki
+Marvel Character, Malekith
+Marvel Character, Mantis
+Marvel Character, Maria Hill
+Marvel Character, Nebula
+Marvel Character, Nick Fury
+Marvel Character, Okoye
+Marvel Character, Peggy Carter
+Marvel Character, Quicksilver
+Marvel Character, Red Skull
+Marvel Character, Rocket Raccoon
+Marvel Character, Ronan the Accuser
+Marvel Character, Scarlet Witch
+Marvel Character, Shuri
+Marvel Character, Spider-Man
+Marvel Character, Star-Lord
+Marvel Character, Thanos
+Marvel Character, The Ancient One
+Marvel Character, The Collector
+Marvel Character, Thor
+Marvel Character, Ultron
+Marvel Character, Valkyrie
+Marvel Character, Vision
+Marvel Character, War Machine
+Marvel Character, Wasp
+Marvel Character, Winter Soldier
+Marvel Character, Wong
+Marvel Character, Yondu
 Medical Supply, Bandage
 Medical Supply, Stethoscope
 Medical Supply, Syringe
 Medical Supply, Thermometer
 Medical Supply, Wheelchair
+Movie Character, Black Widow
+Movie Character, Bruce Wayne
+Movie Character, Captain America
+Movie Character, Clark Kent
+Movie Character, Darth Vader
+Movie Character, Hulk
+Movie Character, Indiana Jones
+Movie Character, Jack Sparrow
+Movie Character, John Wick
+Movie Character, Luke Skywalker
+Movie Character, Princess Leia
+Movie Character, Terminator
+Movie Character, Thanos
+Movie Character, The Joker
+Movie Character, Thor
+Movie Character, Tony Stark
+Movie Character, Wonder Woman
+Movie Character, Yoda
 Musical Instrument, Accordion
 Musical Instrument, Cello
 Musical Instrument, Drum
