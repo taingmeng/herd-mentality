@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Party Paper Pen",
+  title: "Partyz",
   description: `
 Discover the ultimate collection of party games that transform any gathering into a memorable event filled with fun, laughter, and engaging conversations.
 Our easy-to-play games require only paper and pen, making them perfect for spontaneous entertainment.

@@ -9,11 +9,16 @@ interface NavItemProps {
   children: React.ReactNode;
   href?: string;
   target?: string;
+  onClick?: () => void;
+  onLinkClick?: () => void;
 }
 
-function NavItem({ children, href, target }: NavItemProps) {
+function NavItem({ children, href, target, onClick }: NavItemProps) {
   return (
     <li>
+      {onClick ? <div className="flex items-center gap-2 font-medium h-8 cursor-pointer" onClick={onClick}>
+        {children}
+        </div> :
       <Link
         href={href || "#"}
         target={target || "_self"}
@@ -21,6 +26,7 @@ function NavItem({ children, href, target }: NavItemProps) {
       >
         {children}
       </Link>
+}
     </li>
   );
 }
@@ -28,8 +34,9 @@ function NavItem({ children, href, target }: NavItemProps) {
 export interface NavMenu {
   name: string;
   icon: string;
-  href: string;
+  href?: string;
   target?: string;
+  onClick?: () => void;
 }
 
 interface NavbarProps {
@@ -54,18 +61,18 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
   const menuHeight = `h-${menus.length * 14}`;
 
   return (
-    <div className="px-4 border-0 z-50 sticky top-0 m-0 bg-neutral-100 dark:bg-neutral-800">
+    <div className="px-4 border-0 z-40 sticky top-0 m-0 bg-neutral-100 dark:bg-neutral-800">
       <div className="mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image src="/edit-dark.svg" width="36" height="36" alt="Just Words" className="fill-cyan-500" />
-          <h2 className="text-lg font-bold">
-            {title || "Party Paper Pen"}
+          <Image src="/party.svg" width="36" height="36" alt="Just Words" className="fill-cyan-500" />
+          <h2 className="text-lg font-bold my-4">
+            {title || "Partyz"}
           </h2>
         </Link>
 
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {menus.map(({ name, icon, href, target }) => (
-            <NavItem key={name} href={href} target={target}>
+          {menus.map(({ name, icon, href, target, onClick }) => (
+            <NavItem key={name} href={href} target={target} onClick={onClick}>
               <Image src={icon} width="24" height="24" alt={name} className="tint" />
               <span>{name}</span>
             </NavItem>
@@ -89,8 +96,14 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
       >
         <div className="container mx-auto my-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {menus.map(({ name, icon, href, target }) => (
-              <NavItem key={name} href={href} target={target}>
+            {menus.map(({ name, icon, href, target, onClick }) => (
+              <NavItem key={name} href={href} target={target} onClick={() => {
+                handleOpen();
+                if (onClick) {
+                  onClick();
+                }
+                }}
+                onLinkClick={handleOpen}>
                 <Image src={icon} width="24" height="24" alt={name} className="tint" />
                 <span>{name}</span>
               </NavItem>

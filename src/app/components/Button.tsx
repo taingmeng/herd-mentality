@@ -7,8 +7,11 @@ interface ButtonProps {
 
 export function Button({ onClick, children, className, disabled }: ButtonProps) {
   return (
-    <div className={`${className} font-bold py-4 px-2 rounded rounded-lg border transition-colors cursor-pointer text-center
-    bg-pink-200 border-transparent
+    <div className={`${className} font-bold py-4 px-2 rounded rounded-lg border transition-colors cursor-pointer
+      text-center text-white
+    prevent-select
+    flex justify-center items-center
+    bg-pink-700 border-transparent
     hover:border-pink-500 hover:bg-pink-200
     active:border-pink-500 active:bg-pink-500
     dark:bg-neutral-800 dark:border-pink-200

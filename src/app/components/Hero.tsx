@@ -9,7 +9,7 @@ export default async function Hero() {
           color="blue-gray"
           className="mb-2 max-w-sm text-3xl font-bold !leading-snug lg:mb-3 lg:text-5xl"
         >
-          Herd Mentality
+          Herd Party
         </h1>
         <div className="flex flex-row gap-4 text-gray-500 mt-4">
           <div className="flex flex-row">
@@ -39,12 +39,12 @@ export default async function Hero() {
         </p>
         <LinkButton href="/herd-mentality">Play</LinkButton>
       </div>
-      <div className="grid gap-6 lg:mt-0">
+      <div className="grid gap-6 my-4">
         <Image
-          width={384}
+          width={324}
           height={384}
-          src="/herd_mentality.png"
-          alt="Herd Mentality"
+          src="/herd-party/herd-party.png"
+          alt="Herd Party"
         />
       </div>
     </div>

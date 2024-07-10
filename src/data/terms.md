@@ -2,7 +2,7 @@
 
 **Last Updated: 2024-06-22**
 
-Welcome to **Party Paper Pen** ("we," "our," or "us"). These Terms and Conditions ("Terms") govern your access to and use of our website located at https://partypaperpen.vercel.app/ (the "Site"). By accessing or using the Site, you agree to be bound by these Terms. If you do not agree with any part of these Terms, you must not use the Site.
+Welcome to **Partyz** ("we," "our," or "us"). These Terms and Conditions ("Terms") govern your access to and use of our website located at https://partyz.vercel.app/ (the "Site"). By accessing or using the Site, you agree to be bound by these Terms. If you do not agree with any part of these Terms, you must not use the Site.
 
 ## 1. Acceptance of Terms
 
@@ -18,7 +18,7 @@ You agree to use the Site only for lawful purposes and in a way that does not in
 
 ## 4. Intellectual Property
 
-All content on the Site, including but not limited to text, graphics, logos, images, and software, is the property of **Party Paper Pen** or its content suppliers and is protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Site without the prior written consent of **Party Paper Pen**.
+All content on the Site, including but not limited to text, graphics, logos, images, and software, is the property of **Partyz** or its content suppliers and is protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Site without the prior written consent of **Partyz**.
 
 ## 5. Disclaimer of Warranties
 
@@ -26,11 +26,11 @@ The Site is provided on an "as is" and "as available" basis. We make no represen
 
 ## 6. Limitation of Liability
 
-To the fullest extent permitted by applicable law, **Party Paper Pen** and its officers, directors, employees, agents, licensors, and service providers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Site; (ii) any conduct or content of any third party on the Site; (iii) any content obtained from the Site; and (iv) unauthorized access, use, or alteration of your transmissions or content.
+To the fullest extent permitted by applicable law, **Partyz** and its officers, directors, employees, agents, licensors, and service providers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Site; (ii) any conduct or content of any third party on the Site; (iii) any content obtained from the Site; and (iv) unauthorized access, use, or alteration of your transmissions or content.
 
 ## 7. Indemnification
 
-You agree to defend, indemnify, and hold harmless **Party Paper Pen**, its affiliates, and their respective officers, directors, employees, and agents from and against any claims, actions, or demands, including without limitation reasonable legal and accounting fees, arising or resulting from your breach of these Terms or your misuse of the Site.
+You agree to defend, indemnify, and hold harmless **Partyz**, its affiliates, and their respective officers, directors, employees, and agents from and against any claims, actions, or demands, including without limitation reasonable legal and accounting fees, arising or resulting from your breach of these Terms or your misuse of the Site.
 
 ## 8. Governing Law
 
@@ -42,14 +42,14 @@ We reserve the right to modify or replace these Terms at any time. If a revision
 
 ## 10. Contact Us
 
-If you have any questions about these Terms, please contact us at partypaperpen@gmail.com.
+If you have any questions about these Terms, please contact us at partyz@gmail.com.
 
 By using our Site, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions.
 
-**Party Paper Pen**
+**Partyz**
 
-**https://partypaperpen.vercel.app/**
+**https://partyz.vercel.app/**
 
-**partypaperpen@gmail.com**
+**partyz@gmail.com**
 
 **Last Updated: 2024-06-22**

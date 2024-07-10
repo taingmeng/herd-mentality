@@ -13,7 +13,7 @@ const NAV_MENU = [
 export default async function Rules() {
   const { content } = await getMarkdownContent("src/data/herd-mentality/rules.md");
   return <>
-    <Navbar title="Herd Mentality Rules" menus={NAV_MENU} />
+    <Navbar title="Herd Party Rules" menus={NAV_MENU} />
     <div className="markdown m-4 lg:mx-64">
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
