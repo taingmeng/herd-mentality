@@ -8,7 +8,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -20,22 +19,20 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    )
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
 }
 
 html {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-end-rgb))
+  background: rgb(var(--background-end-rgb));
 }
 
-.markdown h1 {
+ h1 {
   display: block;
   font-size: 2em;
-  margin-top: 0.67em;
-  margin-bottom: 0.67em;
   margin-left: 0;
   margin-right: 0;
   font-weight: bold;
@@ -44,8 +41,34 @@ html {
 h2 {
   display: block;
   font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.markdown h1 {
+  display: block;
+  font-size: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.markdown h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   margin-left: 0;
   margin-right: 0;
   font-weight: bold;
@@ -54,8 +77,8 @@ h2 {
 .markdown h3 {
   display: block;
   font-size: 1.17em;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   margin-left: 0;
   margin-right: 0;
   font-weight: bold;
@@ -75,15 +98,18 @@ h2 {
 
 /* https://codepen.io/sosuke/pen/Pjoqqp */
 .tint {
-  filter: invert(67%) sepia(9%) saturate(2813%) hue-rotate(283deg) brightness(104%) contrast(103%);
+  filter: invert(67%) sepia(9%) saturate(2813%) hue-rotate(283deg)
+    brightness(104%) contrast(103%);
 }
 
 .tint-grey {
-  filter: invert(59%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(91%) contrast(93%);
+  filter: invert(59%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(91%)
+    contrast(93%);
 }
 
-.flip-card-front, .flip-card-back {
-  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+.flip-card-front,
+.flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -96,11 +122,24 @@ h2 {
 }
 
 .flip-card-front {
-  background: linear-gradient(120deg, rgb(125, 1, 71) 60%, rgb(89, 4, 52) 88%, rgb(84, 1, 112), 40%, rgba(161, 3, 121, 0.603) 48%);
+  background: linear-gradient(
+    120deg,
+    rgb(125, 1, 71) 60%,
+    rgb(89, 4, 52) 88%,
+    rgb(84, 1, 112),
+    40%,
+    rgba(161, 3, 121, 0.603) 48%
+  );
 }
 
 .flip-card-back {
-  background: linear-gradient(120deg, rgb(245, 166, 208) 30%, rgb(196, 79, 141) 88%, rgb(245, 166, 208) 40%, rgb(255, 173, 229, 0.603) 78%);
+  background: linear-gradient(
+    120deg,
+    rgb(245, 166, 208) 30%,
+    rgb(196, 79, 141) 88%,
+    rgb(245, 166, 208) 40%,
+    rgb(255, 173, 229, 0.603) 78%
+  );
   transform: rotateY(180deg);
 }
 
@@ -128,16 +167,41 @@ h2 {
   transform-style: preserve-3d;
 }
 
-.fake {
-  border: 2px solid blue;
+.flip-card.poetry {
+  background-color: transparent;
+  width: 16rem;
+  height: 12rem;
+  perspective: 1000px;
 }
 
 .flip-card .flipped {
-  transform: rotateY(180deg)
+  transform: rotateY(180deg);
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.lock-scroll {
+  overflow: hidden;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.circle-background {
+  fill: none;
+  stroke: rgb(125, 1, 71);
+}
+
+.circle-progress {
+  fill: none;
+  /* stroke: rgb(125, 1, 71); */
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }

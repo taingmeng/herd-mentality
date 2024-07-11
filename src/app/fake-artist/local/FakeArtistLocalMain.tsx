@@ -6,6 +6,7 @@ import Image from "next/image";
 import NextButton from "@/app/components/NextButton";
 import PrevButton from "@/app/components/PrevButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
+import Modal from "../../components/Modal";
 
 interface FakeArtistLocalMainProps {
   question: Question;
@@ -347,8 +348,8 @@ export default function FakeArtistLocalMain({
               className="tint"
             />
           </div>
-          {showPlayHint && (
-            <div className="text-center">
+          <Modal title="How to Play" visible={showPlayHint} onClose={() => setShowPlayHint(false)} confirmButtonText="Okay">
+          <div>
               <p className="block mt-4">
                 Each player takes turn to draw only 1 stroke on the paper using
                 different color pens, crayons, or markers.
@@ -372,7 +373,7 @@ export default function FakeArtistLocalMain({
                 fake artist wins. Otherwise, other players win.
               </p>
             </div>
-          )}
+            </Modal>
 
           <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex">
             <div className="fixed h-24 bottom-0 left-0 right-0 grid grid-cols-3 gap-4 p-4 items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">

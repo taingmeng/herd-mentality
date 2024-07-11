@@ -2,9 +2,9 @@
 
 **Effective Date:** 2024-06-22
 
-Welcome to **Party Paper Pen**!
+Welcome to **Partyz**!
 
-At **Party Paper Pen** (referred to as "we," "us," or "our"), we are committed to protecting your privacy. This Privacy Policy outlines our practices regarding the non-collection of personal data when you visit our website.
+At **Partyz** (referred to as "we," "us," or "our"), we are committed to protecting your privacy. This Privacy Policy outlines our practices regarding the non-collection of personal data when you visit our website.
 
 ### 1. Information We Do Not Collect
 
@@ -43,6 +43,6 @@ We may update our Privacy Policy from time to time. We will notify you of any ch
 
 If you have any questions or concerns about this Privacy Policy, please contact us at:
 
-partypaperpen@gmail.com
+partyz@gmail.com
 
-Thank you for visiting **Party Paper Pen**.
+Thank you for visiting **Partyz**.

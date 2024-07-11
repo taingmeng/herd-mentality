@@ -1,6 +1,6 @@
-# OVERVIEW OF HERD MENTALITY
+# OVERVIEW OF HERD PARTY
 
-Can you blend into the crowd? That’s the goal of Herd Mentality! One player will read the question to the group. All other players must then attempt to answer the question in the way they expect all other players to answer. 
+Can you blend into the crowd? That’s the goal of Herd Party! One player will read the question to the group. All other players must then attempt to answer the question in the way they expect all other players to answer. 
 
 If you blend, you earn a point. If you are the odd one out, then you may earn the dreaded pink cow, making it impossible to win the game while it is in your possession. Stay with the crowd, give simple answers, and the game could be yours. 
 
@@ -20,11 +20,11 @@ Note: the purpose is to note down your answer so that you won't forget or change
 
 # GAMEPLAY
 
-Randomly choose a starting playe as the active player. The active player read the question prompted by the page. All players will then write an answer on their paper. The goal is to write the same answer as everyone else. Remember, keep that herd mentality. 
+Randomly choose a starting playe as the active player. The active player read the question prompted by the page. All players will then write an answer on their paper. The goal is to write the same answer as everyone else. Remember, keep that herd party. 
 
 After everyone has answered, go around the group and have each player read their answer aloud starting from the active player in clockwise order. If a player’s answer matches the majority, they earn one cow. If there is a majority tie, then none of the players earn a cow.
 
-If all players but one have the same answer, the odd man out gets to keep the pink cow! This is severe punishment for not sticking with the herd mentality.
+If all players but one have the same answer, the odd man out gets to keep the pink cow! This is severe punishment for not sticking with the herd party.
 
 If a player has the pink cow, they are unable to win the game, but they can continue to earn points.
 
