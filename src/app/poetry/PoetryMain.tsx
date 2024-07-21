@@ -38,11 +38,11 @@ interface Team {
 export default function PoetryMain({ question }: PoetryMainProps) {
   const router = useRouter();
 
-  const rightSound = useRef(new Audio(rightSoundFile));
-  const wrongSound = useRef(new Audio(wrongSoundFile));
-  const bonusSound = useRef(new Audio(bonusSoundFile));
-  const timesUpSound = useRef(new Audio(timesUpSoundFile));
-  const newInfoSound = useRef(new Audio(newInfoSoundFile));
+  const rightSound = useRef(typeof Audio !== "undefined" ? new Audio(rightSoundFile) : undefined);
+  const wrongSound = useRef(typeof Audio !== "undefined" ? new Audio(wrongSoundFile) : undefined);
+  const bonusSound = useRef(typeof Audio !== "undefined" ? new Audio(bonusSoundFile) : undefined);
+  const timesUpSound = useRef(typeof Audio !== "undefined" ? new Audio(timesUpSoundFile) : undefined);
+  const newInfoSound = useRef(typeof Audio !== "undefined" ? new Audio(newInfoSoundFile) : undefined);
 
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [gameState, setGameState] = useLocalStorage("poetry.gameState", "new");
@@ -203,7 +203,7 @@ export default function PoetryMain({ question }: PoetryMainProps) {
     }
     setRoundState("ready");
     timerRef.current?.reset();
-    if (currentRound + 1 >= rounds && currentTeamIndex === teams.length - 1) {
+    if (currentRound >= rounds && currentTeamIndex === teams.length - 1) {
       setGameState("end");
     }
   }
@@ -223,8 +223,8 @@ export default function PoetryMain({ question }: PoetryMainProps) {
       <Modal
         title={`Round ${currentRound} of ${rounds}`}
         visible={modalIsOpen || roundState === "end"}
-        onClose={() => setIsOpen(false)}
-        confirmButtonText={currentRound + 1 >= rounds && currentTeamIndex === teams.length - 1 ? "Final Result" : "Next"}
+        onClose={onRoundEndNext}
+        confirmButtonText={currentRound >= rounds && currentTeamIndex === teams.length - 1 ? "Final Result" : "Next"}
         onConfirm={onRoundEndNext}
       >
         {
@@ -239,7 +239,7 @@ export default function PoetryMain({ question }: PoetryMainProps) {
             <ul>
               {roundQuestions.map((roundQuestion) => (
                 <li key={roundQuestion.word + ":" + roundQuestion.long}>
-                  {`${roundQuestion.word}, ${roundQuestion.long}, ${roundQuestion.points || 0 > 0 ? "+" : ""}${roundQuestion.points} pts`}
+                  {`${roundQuestion.word}, ${roundQuestion.long}, ${(roundQuestion.points || 0) > 0 ? "+" : ""}${roundQuestion.points} pts`}
                 </li>
               ))}
             </ul>

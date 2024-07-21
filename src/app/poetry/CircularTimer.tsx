@@ -38,9 +38,7 @@ const CircularTimer = forwardRef(({
     const id = setInterval(() => {
       if (!paused && running) {
         setTimeLeft(timeLeft - 1);
-        if (timeLeft <= 10) {
-          tickingSound.current?.play();
-        }
+        tickingSound.current?.play();
       }
     }, 1000);
     if (timeLeft < 1) {
