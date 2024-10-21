@@ -43,13 +43,17 @@ export default async function Poetry() {
     process.cwd(),
     "src/data/poetry/questions.csv"
   );
-  const questions: PoetryQuestion[] = await csv().fromFile(questionPath);
+  const questions: PoetryQuestion[] = (await csv().fromFile(questionPath))
+  .map(question => ({
+    word: capitalize(question.word),
+    long: capitalize(question.long),
+  }));
   const randomIndex = Math.floor(Math.random() * questions.length);
-  const { word, long } = questions[randomIndex];
-  const currentQuestion = {
-    word: capitalize(word),
-    long: capitalize(long),
-  };
+  // const { word, long } = questions[randomIndex];
+  // const currentQuestion = {
+  //   word: capitalize(word),
+  //   long: capitalize(long),
+  // };
 
-  return <PoetryMain question={currentQuestion} />;
+  return <PoetryMain questions={questions} />;
 }

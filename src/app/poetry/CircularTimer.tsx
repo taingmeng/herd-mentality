@@ -35,10 +35,15 @@ const CircularTimer = forwardRef(({
   }));
 
   useEffect(() => {
+    if (!running) {
+      return;
+    }
     const id = setInterval(() => {
       if (!paused && running) {
         setTimeLeft(timeLeft - 1);
-        tickingSound.current?.play();
+        if (timeLeft <= 10) {
+          tickingSound.current?.play();
+        }
       }
     }, 1000);
     if (timeLeft < 1) {
@@ -69,9 +74,9 @@ const CircularTimer = forwardRef(({
       >
         <defs>
           <linearGradient id="gradient">
-            <stop offset="10%" stop-color="#e62e62" />
-            <stop offset="50%" stop-color="#b30559" />
-            <stop offset="100%" stop-color="#91005c" />
+            <stop offset="10%" stopColor="#e62e62" />
+            <stop offset="50%" stopColor="#b30559" />
+            <stop offset="100%" stopColor="#91005c" />
           </linearGradient>
         </defs>
         <circle
