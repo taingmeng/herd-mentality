@@ -1,23 +1,19 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState, useCallback } from 'react'
+import { useRef, useCallback } from 'react'
 
 export default function useSound<Audio>(
   filePath: string
-): Audio {
-  const isMounted = useRef(false)
+): (() => void) {
   const sound = useRef(
     typeof Audio !== "undefined" ? new Audio(filePath) : undefined
   );
 
   const play = useCallback(() => {
-    if (isMounted.current && sound.current) {
+    if (sound.current) {
       sound.current.pause();
       sound.current.currentTime = 0;
       sound.current.play();
-    } else {
-      isMounted.current = true
     }
   }, [sound])
-
 
   return play;
 }

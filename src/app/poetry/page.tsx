@@ -1,6 +1,5 @@
 import path from "path";
 import csv from "csvtojson";
-import Navbar from "../components/Navbar";
 import PoetryMain, { PoetryQuestion } from "./PoetryMain";
 
 export const dynamic = "force-dynamic";
@@ -48,12 +47,6 @@ export default async function Poetry() {
     word: capitalize(question.word),
     long: capitalize(question.long),
   }));
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  // const { word, long } = questions[randomIndex];
-  // const currentQuestion = {
-  //   word: capitalize(word),
-  //   long: capitalize(long),
-  // };
 
   return <PoetryMain questions={questions} />;
 }

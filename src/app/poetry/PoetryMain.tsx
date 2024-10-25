@@ -22,7 +22,6 @@ import newInfoSoundFile from "@/assets/new-info.mp3";
 export const dynamic = "force-dynamic";
 
 interface PoetryMainProps {
-  question: PoetryQuestion;
   questions: PoetryQuestion[];
 }
 
@@ -36,7 +35,7 @@ interface Team {
   name?: string;
   score: number;
   roundScore: number;
-  roundScores?: number[];
+  roundScores: number[];
 }
 
 const popRandomItem = (items: PoetryQuestion[]): PoetryQuestion => {
@@ -46,32 +45,20 @@ const popRandomItem = (items: PoetryQuestion[]): PoetryQuestion => {
   return item; // Return the popped item
 };
 
-const sum = (nums) => nums.reduce((a, b) => a + b, 0);
-const sumField = (nums, field) => nums.map(n => n[field]).reduce((a, b) => a + b, 0);
+const sum = (nums: number[]): number => nums.reduce((a, b) => a + b, 0);
 
 export default function PoetryMain({ questions }: PoetryMainProps) {
   const router = useRouter();
 
-  const [sessionQuestions, setSessionQuestions] = useSessionStorage<
+  const [sessionQuestions, setSessionQuestions] = useLocalStorage<
     PoetryQuestion[]
-  >("poetry.questions", questions);
-
-  // const [sessionQuestions, setSessionQuestions] =
-  //   useState<PoetryQuestion[]>(questions);
+  >("poetry.questions", [...questions]);
 
   const playRightSound = useSound(rightSoundFile);
-  const wrongSound = useRef(
-    typeof Audio !== "undefined" ? new Audio(wrongSoundFile) : undefined
-  );
-  const bonusSound = useRef(
-    typeof Audio !== "undefined" ? new Audio(bonusSoundFile) : undefined
-  );
-  const timesUpSound = useRef(
-    typeof Audio !== "undefined" ? new Audio(timesUpSoundFile) : undefined
-  );
-  const newInfoSound = useRef(
-    typeof Audio !== "undefined" ? new Audio(newInfoSoundFile) : undefined
-  );
+  const playWrongSound = useSound(wrongSoundFile);
+  const playBonusSound = useSound(bonusSoundFile);
+  const playTimesUpSound = useSound(timesUpSoundFile);
+  const playNewInfoSound = useSound(newInfoSoundFile);
 
   const [currentQuestion, setCurrentQuestion] = useState<PoetryQuestion>();
 
@@ -99,43 +86,27 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
   const refreshRouter = useCallback(() => {
     let poppedQuestion = popRandomItem(sessionQuestions);
-    console.log("============== questions", questions);
-    console.log("============== sessionQuestions", sessionQuestions);
-    // console.log("============== storageQuestions", storageQuestions);
-    console.log("============== poppedQuestion", poppedQuestion);
-    if (currentQuestion && poppedQuestion.word === currentQuestion.word && poppedQuestion.long === currentQuestion.long) {
+    if (
+      currentQuestion &&
+      poppedQuestion.word === currentQuestion.word &&
+      poppedQuestion.long === currentQuestion.long
+    ) {
       poppedQuestion = popRandomItem(sessionQuestions);
     }
     setCurrentQuestion(poppedQuestion);
     setSessionQuestions([...sessionQuestions]);
-    // setStorageQuestions(storageQuestions);
     if (sessionQuestions.length <= 0) {
-      console.log(
-        "============== sessionQuestions.length",
-        sessionQuestions.length
-      );
       setSessionQuestions([...questions]);
-      // setStorageQuestions(questions);
-      // router.refresh();
     }
   }, [
     questions,
     sessionQuestions,
     currentQuestion,
-    // storageQuestions,
     setSessionQuestions,
     setCurrentQuestion,
   ]);
 
-  console.log("============== sessionQuestions onRefresh", rounds);
-  console.log("============== teams", teams);
-
-  // useEffect(() => {
-  //   console.log('================ first refresh')
-  //   refreshRouter()
-  // }, [])
-
-  const highestScore = Math.max(...teams.map((team) => team.score));
+  const highestScore = Math.max(...teams.map((team) => sum(team.roundScores)));
 
   const timerRef = useRef<CircularTimerRefProps>(null);
 
@@ -201,26 +172,18 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
   );
 
   const addPointsToTeam = useCallback(
-    (points: number, isEnded: boolean) => {
+    (points: number, isEnded?: boolean) => {
       if (points === -1) {
-        if (wrongSound.current) {
-          wrongSound.current.pause();
-          wrongSound.current.currentTime = 0;
-          wrongSound.current.play();
-        }
+        playWrongSound();
       } else if (points === 1) {
         playRightSound();
       } else if (points === 3) {
-        if (bonusSound.current) {
-          bonusSound.current.pause();
-          bonusSound.current.currentTime = 0;
-          bonusSound.current.play();
-        }
+        playBonusSound();
       }
       setRoundQuestions([
         ...roundQuestions,
         {
-          ...currentQuestion,
+          ...currentQuestion!,
           points,
         },
       ]);
@@ -232,10 +195,10 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               roundScore: team.roundScore + points,
               roundScores: team.roundScores.map((score, ri) => {
                 if (ri === currentRound - 1) {
-                  return score + points
+                  return score + points;
                 }
                 return score;
-              })
+              }),
             };
           }
           return team;
@@ -252,32 +215,41 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       currentTeamIndex,
       roundQuestions,
       setRoundQuestions,
-      wrongSound,
-      bonusSound,
       refreshRouter,
     ]
   );
 
   const startGame = useCallback(() => {
-    setTeams([...Array(teamCount).keys()].map(() => ({ score: 0, roundScore: 0, roundScores: new Array(rounds).fill(0) })));
+    setTeams(
+      [...Array(teamCount).keys()].map(() => ({
+        score: 0,
+        roundScore: 0,
+        roundScores: new Array(rounds).fill(0),
+      }))
+    );
     setGameState("playing");
   }, [teamCount, setGameState, setTeams, rounds]);
 
   useEffect(() => {
-    console.log('================== timer go', roundState)
     if (roundState === "playing") {
       timerRef.current?.go();
     }
   }, [roundState]);
 
+  useEffect(() => {
+    if (!currentQuestion) {
+      refreshRouter();
+    }
+  }, [currentQuestion]);
+
   const [modalIsOpen, setIsOpen] = useState(roundState === "end");
 
-  function onTimerEnded() {
+  const onTimerEnded = useCallback(() => {
     setIsOpen(true);
     setRoundState("end");
-    // addPointsToTeam(0, true)
-    timesUpSound.current?.play();
-  }
+    addPointsToTeam(0, true);
+    playTimesUpSound();
+  }, [setIsOpen, setRoundState, addPointsToTeam, playTimesUpSound]);
 
   function onRoundEndNext() {
     setIsOpen(false);
@@ -299,40 +271,44 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     setRoundState("playing");
     setRoundQuestions([]);
     timerRef.current?.go();
-    newInfoSound.current?.play();
+    playNewInfoSound();
   }
 
-  const adjustPoints = useCallback((index, points) => {
-    const updatedRoundQuestions = roundQuestions.map((roundQuestion, i) => {
-      if (i === index) {
-        return {
-          ...roundQuestion,
-          points,
-        }
-      }
-      return roundQuestion;
-    });
-    setRoundQuestions(updatedRoundQuestions)
-    const updatedScore = sum(updatedRoundQuestions.map(({ points }) => points));
-    console.log('==========updatedScore', updatedScore)
-    setTeams(
-      teams.map((team, i) => {
-        if (currentTeamIndex === i) {
+  const adjustPoints = useCallback(
+    (index: number, points: number) => {
+      const updatedRoundQuestions = roundQuestions.map((roundQuestion, i) => {
+        if (i === index) {
           return {
-            ...team,
-            roundScore: updatedScore,
-            roundScores: team.roundScores.map((score, ri) => {
-              if (ri === currentRound - 1) {
-                return updatedScore;
-              }
-              return score;
-            })
+            ...roundQuestion,
+            points,
           };
         }
-        return team;
-      })
-    );
-  }, [teams, setTeams, roundQuestions, setRoundQuestions, currentTeamIndex]);
+        return roundQuestion;
+      });
+      setRoundQuestions(updatedRoundQuestions);
+      const updatedScore = sum(
+        updatedRoundQuestions.map(({ points }) => points!)
+      );
+      setTeams(
+        teams.map((team, i) => {
+          if (currentTeamIndex === i) {
+            return {
+              ...team,
+              roundScore: updatedScore,
+              roundScores: team.roundScores.map((score, ri) => {
+                if (ri === currentRound - 1) {
+                  return updatedScore;
+                }
+                return score;
+              }),
+            };
+          }
+          return team;
+        })
+      );
+    },
+    [teams, setTeams, roundQuestions, setRoundQuestions, currentTeamIndex]
+  );
 
   return (
     <>
@@ -373,16 +349,19 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   >
                     <div className="flex justify-between">
                       <div>
-                    {`${roundQuestion.word}, ${roundQuestion.long}`}
-                    </div>
-                    <div className="flex gap-2 my-1">
-                      {[0, -1, 1, 3].map(point => (
-                        <div key={point} className={`cursor-pointer border w-10 text-center rounded ${point === roundQuestion.points ? "border-pink-500 bg-pink-500" : ""}`}
-                        onClick={() => adjustPoints(index, point)}
-                        >{point> 0 ? "+" +point : point}</div>
-                      ))
-                      }
-                    </div>
+                        {`${roundQuestion.word}, ${roundQuestion.long}`}
+                      </div>
+                      <div className="flex gap-2 my-1">
+                        {[0, -1, 1, 3].map((point) => (
+                          <div
+                            key={point}
+                            className={`cursor-pointer border w-10 text-center rounded ${point === roundQuestion.points ? "border-pink-500 bg-pink-500" : ""}`}
+                            onClick={() => adjustPoints(index, point)}
+                          >
+                            {point > 0 ? "+" + point : point}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </li>
                 ))}
@@ -395,21 +374,23 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                       className={`flex p-2 items-center text-center rounded-xl gap-2`}
                     >
                       <div
-                      className={`flex flex-col justify-center items-center gap-1 text-center p-2`}>
-                        <span>Team {index + 1}</span>
-                        <h2 className="text-3xl font-bold">{sum(team.roundScores)}</h2>
-                      </div>
-                      {team.roundScores && team.roundScores.map((roundScore, ri) => 
-                        (<div
-                          key={ri}
-                        className={`flex flex-col justify-center items-center gap-1 text-center p-2 rounded-xl ${index === currentTeamIndex && ri === currentRound - 1 ? "border-2" : ""} border-pink-500`}
+                        className={`flex flex-col justify-center items-center gap-1 text-center p-2`}
                       >
-                        <span>Round {ri + 1}</span>
-                        <h2 className="text-3xl font-bold">{roundScore}</h2>
+                        <span>Team {index + 1}</span>
+                        <h2 className="text-3xl font-bold">
+                          {sum(team.roundScores)}
+                        </h2>
                       </div>
-
-                ))}
-                     
+                      {team.roundScores &&
+                        team.roundScores.map((roundScore, ri) => (
+                          <div
+                            key={ri}
+                            className={`flex flex-col justify-center items-center gap-1 text-center p-2 rounded-xl ${index === currentTeamIndex && ri === currentRound - 1 ? "border-2" : ""} border-pink-500`}
+                          >
+                            <span>Round {ri + 1}</span>
+                            <h2 className="text-3xl font-bold">{roundScore}</h2>
+                          </div>
+                        ))}
                     </div>
                   );
                 })}
@@ -493,7 +474,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               </div>
               <CircularTimer
                 ref={timerRef}
-                duration={duration}
+                duration={30}
                 onEnded={onTimerEnded}
               />
               {teams[currentTeamIndex] && (
@@ -501,8 +482,12 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   <h3>Team {currentTeamIndex + 1}</h3>
                   <div className="flex items-end">
                     <div className="w-10"></div>
-                    <div className="text-5xl font-bold mt-0">{teams[currentTeamIndex].roundScores[currentRound]}</div>
-                    <div className="w-10">{sum(teams[currentTeamIndex].roundScores)}</div>
+                    <div className="text-5xl font-bold mt-0">
+                      {teams[currentTeamIndex].roundScores[currentRound-1]}
+                    </div>
+                    <div className="w-10">
+                      {sum(teams[currentTeamIndex].roundScores.filter((s, index) => index !== currentRound - 1))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -562,30 +547,31 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             <h2 className="mb-4">Final Result</h2>
             <div className="flex flex-col gap-2">
               {teams
-                .sort((a, b) => b.score - a.score)
                 .map((team, index) => {
                   return (
                     <div
                       key={index}
-                      className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${team.score === highestScore ? "border-2" : ""} border-pink-500`}
+                      className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${sum(team.roundScores) === highestScore ? "border-2" : ""} border-pink-500`}
                     >
-                      {team.score === highestScore ? (
+                      {sum(team.roundScores) === highestScore ? (
                         <Image
+                        className="w-24"
                           src="/crown.svg"
-                          width="24"
-                          height="24"
+                          width="48"
+                          height="48"
                           alt="Winner"
                         />
                       ) : (
                         <Image
+                        className="w-24"
                           src="/pile-of-poo.svg"
-                          width="24"
-                          height="24"
+                          width="48"
+                          height="48"
                           alt="Loser"
                         />
                       )}
-                      <h1>Team {index + 1}</h1>
-                      <span>{sum(team.roundScores)} pts</span>
+                      <h1 className="w-64 text-center">Team {index + 1}</h1>
+                      <h2 className="w-24">{sum(team.roundScores)} pts</h2>
                     </div>
                   );
                 })}

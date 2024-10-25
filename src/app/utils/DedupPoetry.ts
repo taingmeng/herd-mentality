@@ -10,9 +10,11 @@ fs.readFile(absolutePath, "utf8", (error, data) => {
   const set = new Set();
   for (let i = 1; i < lines.length; i++) {
     if (lines[i].length > 0) {
-      set.add(lines[i]);
+      const [word, long] = lines[i].split(", ");
+      if (word && long && long.toLowerCase().includes(word.toLowerCase())) {
+        set.add(lines[i]);
+      }
     }
-    
   }
   const newLines = Array.from(set).sort();
   newLines.unshift("word,long");
