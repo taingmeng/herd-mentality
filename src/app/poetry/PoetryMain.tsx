@@ -45,7 +45,7 @@ const popRandomItem = (items: PoetryQuestion[]): PoetryQuestion => {
   return item; // Return the popped item
 };
 
-const sum = (nums: number[]): number => nums.reduce((a, b) => a + b, 0);
+const sum = (nums: number[]): number => (nums || []).reduce((a, b) => a + b, 0);
 
 export default function PoetryMain({ questions }: PoetryMainProps) {
   const router = useRouter();
@@ -330,7 +330,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               <div className="flex justify-between">
                 <h2>Team {currentTeamIndex + 1}</h2>
                 <h2>
-                  {roundQuestions
+                  {(roundQuestions || [])
                     .map((q) => q.points || 0)
                     .reduce((a, b) => a + b, 0)}{" "}
                   pts
@@ -474,7 +474,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               </div>
               <CircularTimer
                 ref={timerRef}
-                duration={30}
+                duration={duration}
                 onEnded={onTimerEnded}
               />
               {teams[currentTeamIndex] && (
