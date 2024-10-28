@@ -7,8 +7,20 @@ export default async function Home() {
   return (
     <>
       <Navbar title="Partyz" />
-      <Hero />
       <div className="px-8 container mx-auto grid w-full grid-cols-1 place-items-center gap-4 xl:grid-cols-2">
+      <HeroCard
+          title="Herd Party"
+          playerCount="4-20 Players"
+          duration="20–30 Min"
+          age="Age: 10+"
+          playPath="/herd-party"
+          imagePath="/herd-party/herd-party.png"
+          paragraphs={[
+            "This is a party game for families, friends and cow rustlers. The aim of the game is simple: think like the herd and write down the same answers as your friends.",
+            "If your answer is part of the majority, you all win cows. Yeehaw! If everyone else writes an answer that is matched by at least one other person, but yours is the odd one out, then you land the angry Pink Cow, and your herd of cows is worthless until you can offload it onto someone else.",
+            "The first player to collect eight cows wins."
+          ]}
+        />
         <HeroCard
           title="Just Word"
           playerCount="3–7 Players"
@@ -43,6 +55,18 @@ export default async function Home() {
           paragraphs={[
             "Party for Neanderthals is a competitive word-guessing game where you can only give clues by speaking in single syllables.",
             "So, instead of saying broccoli, you'd say something like green thing you eat for live long and have good health.",
+          ]}
+        />
+        <HeroCard
+          title="Partikers"
+          playerCount="4-16 Players"
+          duration="30-60 Min"
+          age="Age: 17+"
+          playPath="/partikers"
+          imagePath="/partikers/partikers.jpeg"
+          paragraphs={[
+            "Players take turns attempting to get their teammates to guess names by describing or imitating well-known people.",
+            "In the first round, clue givers can say anything they want, except for the name itself. For the second round, clue givers can only say one word. And in the final round, clue givers can’t say anything at all: they can only use gestures and charades."
           ]}
         />
       </div>

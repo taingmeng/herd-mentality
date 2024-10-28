@@ -23,7 +23,8 @@ export default async function HeroCard({
   horizontal,
 }: HeroCardProps) {
   return (
-    <div className={`container mx-auto grid min-h-[40vh] w-full grid-cols-1 place-items-center ${horizontal ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}>
+    <div className={`container flex flex-col md:flex-row mx-auto min-h-[40vh] w-full  place-items-center`}>
+      <Image width={horizontal ? 300 : 160} height={200} src={imagePath || ""} alt={title || ""} className="m-4 rounded-2xl " />
       <div className={`${horizontal ? "col-span-1" : "col-span-2"} row-start-2 lg:row-auto`}>
         <h1
           className="mb-2 max-w-sm text-xl font-bold !leading-snug lg:mb-3 lg:text-3xl"
@@ -68,7 +69,7 @@ export default async function HeroCard({
 
         <LinkButton href={playPath}>Play</LinkButton>
       </div>
-      <Image width={horizontal ? 300 : 160} height={200} src={imagePath || ""} alt={title || ""} className="my-4" />
+      
     </div>
   );
 }

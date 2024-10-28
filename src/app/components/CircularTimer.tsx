@@ -17,6 +17,7 @@ interface CircularTimerProps {
 export interface CircularTimerRefProps {
   reset: () => void;
   go: () => void;
+  end: () => void;
 }
 
 const CircularTimer = forwardRef(
@@ -35,6 +36,14 @@ const CircularTimer = forwardRef(
       go() {
         setRunning(true);
         setPaused(false);
+      },
+
+      end() {
+        setRunning(false);
+        setPaused(true);
+        if (onEnded) {
+          onEnded();
+        }
       },
     }));
 

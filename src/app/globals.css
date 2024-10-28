@@ -150,6 +150,13 @@ h3 {
   perspective: 1000px;
 }
 
+.flip-card.partikers {
+  background-color: transparent;
+  width: 24rem;
+  height: 16rem;
+  perspective: 1000px;
+}
+
 .flip-card.fake-artist {
   background-color: transparent;
   width: 12rem;
@@ -204,4 +211,13 @@ h3 {
   /* stroke: rgb(125, 1, 71); */
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.normal-button {
+  @apply bg-[#f0f0f0] text-[#242424] text-[1.35rem] font-semibold shadow-[inset_0_0.0625em_0_0_#f4f4f4,0_0.0625em_0_0_#efefef,0_0.125em_0_0_#ececec,0_0.25em_0_0_#e0e0e0,0_0.3125em_0_0_#dedede,0_0.375em_0_0_#dcdcdc,0_0.425em_0_0_#cacaca,0_0.425em_0.5em_0_#cecece] transition-[0.15s] duration-[ease] cursor-pointer px-[1em] py-[0.375em] rounded-[0.5em] border-0 active:shadow-[inset_0_0.03em_0_0_#f4f4f4,0_0.03em_0_0_#efefef,0_0.0625em_0_0_#ececec,0_0.125em_0_0_#e0e0e0,0_0.125em_0_0_#dedede,0_0.2em_0_0_#dcdcdc,0_0.225em_0_0_#cacaca,0_0.225em_0.375em_0_#cecece];
+  font: inherit;
+  text-shadow: 0 0.0625em 0 #fff;
+}
+.normal-button:active {
+  translate: 0 0.225em;
 }

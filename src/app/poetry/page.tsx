@@ -4,13 +4,6 @@ import PoetryMain, { PoetryQuestion } from "./PoetryMain";
 
 export const dynamic = "force-dynamic";
 
-const shuffle = (array: any[]) => {
-  return array
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-};
-
 const capitalize = (words: string) => {
   return words
     .split(" ")

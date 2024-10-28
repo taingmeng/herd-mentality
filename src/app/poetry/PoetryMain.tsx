@@ -6,12 +6,13 @@ import Image from "next/image";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import NextButton from "@/app/components/NextButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import useSessionStorage from "@/app/hooks/useSessionStorage";
 import useSound from "@/app/hooks/useSound";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import BigButton from "../components/BigButton";
-import CircularTimer, { CircularTimerRefProps } from "./CircularTimer";
+import CircularTimer, {
+  CircularTimerRefProps,
+} from "@/app/components/CircularTimer";
 
 import wrongSoundFile from "@/assets/wrong.mp3";
 import rightSoundFile from "@/assets/right.mp3";
