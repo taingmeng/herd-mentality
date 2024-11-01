@@ -1,5 +1,5 @@
 interface ActionButtonProps {
-  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   children?: any;
   className?: string;
   disabled?: boolean;
