@@ -17,19 +17,6 @@ const capitalize = (words: string) => {
     .join(" ");
 };
 
-const NAV_MENU = [
-  {
-    name: "New Game",
-    icon: "/book.svg",
-    href: "/poetry/rules",
-  },
-  {
-    name: "Rules",
-    icon: "/book.svg",
-    href: "/poetry/rules",
-  },
-];
-
 export default async function Poetry() {
   const questionPath = path.join(
     process.cwd(),

@@ -82,10 +82,10 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     0
   );
   const [teamCount, setTeamCount] = useLocalStorage("partikers.teamCount", 2);
-  const [duration, setDuration] = useLocalStorage("partikers.duration", 90);
+  const [duration, setDuration] = useLocalStorage("partikers.duration", 60);
   const [firstRoundWordCount, setFirstRoundWordCount] = useLocalStorage(
     "partikers.firstRoundWordCount",
-    10
+    50
   );
   const [currentRound, setCurrentRound] = useLocalStorage(
     "partikers.currentRound",
@@ -263,14 +263,9 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
   );
 
   const startGame = useCallback(() => {
-    setTeams(
-      [...Array(teamCount).keys()].map(() => ({
-        totalScores: 0,
-        roundScores: new Array(3).fill([]),
-      }))
-    );
+    reset();
     setGameState("playing");
-  }, [teamCount, setGameState, setTeams]);
+  }, [reset, setGameState]);
 
   useEffect(() => {
     if (roundState === "playing") {
