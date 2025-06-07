@@ -132,7 +132,7 @@ const CircularTimer = forwardRef(
           />
         </svg>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
-          <span>{paused ? "Paused" : "Time"}</span>
+          <span>{paused ? "| |" : "Time"}</span>
           <h2 className="w-20 m-0 text-center text-5xl">{timeLeft >= 0 ? timeLeft : 0}</h2>
         </div>
       </div>

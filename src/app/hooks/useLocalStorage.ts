@@ -1,11 +1,15 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
 export default function useLocalStorage<T>(
   key: string,
   defaultValue: T
-): [T, Dispatch<SetStateAction<T>>] {
+): [T, Dispatch<SetStateAction<T>>, () => void] {
   const isMounted = useRef(false)
   const [value, setValue] = useState<T>(defaultValue)
+
+  const clearValue = useCallback(() => {
+    window.localStorage.removeItem(key)
+  }, []);
 
   useEffect(() => {
     try {
@@ -29,5 +33,5 @@ export default function useLocalStorage<T>(
     }
   }, [key, value])
 
-  return [value, setValue]
+  return [value, setValue, clearValue]
 }

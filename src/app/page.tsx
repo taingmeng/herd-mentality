@@ -58,15 +58,17 @@ export default async function Home() {
           ]}
         />
         <HeroCard
-          title="Partikers"
+          title="Monikerz"
           playerCount="4-16 Players"
           duration="30-60 Min"
           age="Age: 17+"
-          playPath="/partikers"
-          imagePath="/partikers/partikers.jpeg"
+          playPath="/monikerz"
+          imagePath="/monikerz/partikers.jpeg"
           paragraphs={[
-            "Players take turns attempting to get their teammates to guess names by describing or imitating well-known people.",
-            "In the first round, clue givers can say anything they want, except for the name itself. For the second round, clue givers can only say one word. And in the final round, clue givers can’t say anything at all: they can only use gestures and charades."
+            "Charade! With a twist.",
+            "Round 1, say anything.",
+            "Round 2, use the same cards, say one word only.",
+            "Round 3, use the same cards again, act it out."
           ]}
         />
       </div>

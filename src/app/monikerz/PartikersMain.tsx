@@ -8,7 +8,6 @@ import ActionButton from "./ActionButton";
 import NextButton from "@/app/components/NextButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import useSound from "@/app/hooks/useSound";
-import Button from "../components/Button";
 import Modal from "../components/Modal";
 import BigButton from "../components/BigButton";
 import CircularTimer, {
@@ -19,6 +18,8 @@ import wrongSoundFile from "@/assets/wrong.mp3";
 import rightSoundFile from "@/assets/right.mp3";
 import timesUpSoundFile from "@/assets/times-up.mp3";
 import newInfoSoundFile from "@/assets/new-info.mp3";
+
+import NewGame from "./NewGame";
 
 export const dynamic = "force-dynamic";
 
@@ -57,9 +58,8 @@ const roundName = (currentRound: number): string => {
 export default function PoetryMain({ questions }: PoetryMainProps) {
   const router = useRouter();
 
-  const [sessionQuestions, setSessionQuestions] = useLocalStorage<
-    PartikersQuestion[]
-  >("partikers.questions", [...questions]);
+  const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
+    useLocalStorage<PartikersQuestion[]>("partikers.questions", questions);
 
   const playRightSound = useSound(rightSoundFile);
   const playWrongSound = useSound(wrongSoundFile);
@@ -158,7 +158,17 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     timerRef,
     deck,
     roundQuestions,
+    firstRoundWordCount,
   ]);
+
+  const [shouldRefreshRouter, setShouldRefreshRouter] = useState(false);
+
+  useEffect(() => {
+    if (shouldRefreshRouter) {
+      refreshRouter();
+      setShouldRefreshRouter(false);
+    }
+  }, [shouldRefreshRouter, refreshRouter]);
 
   const highestScore = Math.max(
     ...teams.map((team) => sum(team.roundScores.map((rs) => sum(rs))))
@@ -181,6 +191,10 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     setDiscardDeck([]);
   }
 
+  function clearCache() {
+    clearSessionQuestions;
+  }
+
   const NAV_MENU: NavMenu[] = [
     {
       name: "New Game",
@@ -192,6 +206,11 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       icon: "/book.svg",
       href: "/poetry/poetry-rules.pdf",
       target: "_blank",
+    },
+    {
+      name: "Clear cache",
+      icon: "/book.svg",
+      onClick: clearCache,
     },
   ];
 
@@ -213,6 +232,9 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
         (incremental < 0 && roundDuration < 30) ||
         (incremental > 0 && roundDuration > 180)
       ) {
+        if (roundDuration < 30) {
+          setDuration(5);
+        }
         return;
       }
       setDuration(roundDuration);
@@ -238,16 +260,19 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       } else if (points === 1) {
         playRightSound();
       }
-      if (currentRound === 0 || !isEnded || !noMoreCards)
-        setRoundQuestions([
-          ...roundQuestions,
-          {
-            ...currentQuestion!!,
-            points,
-          },
-        ]);
+      const updatedRoundQuestions = [
+        ...roundQuestions,
+        {
+          category: "",
+          word: currentQuestion?.word || "",
+          points: points,
+        },
+      ];
+      if (currentRound === 0 || !isEnded || !noMoreCards) {
+        setRoundQuestions(updatedRoundQuestions);
+      }
       if (roundState !== "ended" && !isEnded) {
-        refreshRouter();
+        setShouldRefreshRouter(true);
       }
     },
     [
@@ -281,6 +306,25 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
   const [modalIsOpen, setIsOpen] = useState(roundState === "end");
 
+  const actualDeckLength =
+    currentRound === 0
+      ? roundDeck.length +
+        roundQuestions.filter(({ points }) => points === 1).length
+      : deck.length;
+
+  const currentDeckLength =
+    currentRound != 0 ? roundDeck.length : roundDeck.length;
+
+  const discardDeckLength =
+    currentRound != 0
+      ? discardDeck.length +
+        roundQuestions.filter(({ points }) => points === 0).length
+      : discardDeck.length;
+
+  const currentRoundQuestionScores = sum(
+    roundQuestions.map(({ points }) => points!!)
+  );
+
   const onTimerEnded = useCallback(() => {
     setIsOpen(true);
     setRoundState("end");
@@ -288,7 +332,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     playTimesUpSound();
   }, [setIsOpen, setRoundState, addPointsToTeam, playTimesUpSound]);
 
-  function onRoundEndNext() {
+  const onRoundEndNext = useCallback(() => {
     setIsOpen(false);
     if (currentTeamIndex >= teams.length - 1) {
       setCurrentTeamIndex(0);
@@ -342,7 +386,22 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       })
     );
     setRoundQuestions([]);
-  }
+  }, [
+    roundDeck,
+    discardDeck,
+    currentRound,
+    currentTeamIndex,
+    teams,
+    roundQuestions,
+    setRoundQuestions,
+    setCurrentRound,
+    setGameState,
+    setDeck,
+    setDiscardDeck,
+    setRoundDeck,
+    firstRoundWordCount,
+    currentRoundQuestionScores,
+  ]);
 
   function onRoundStart() {
     refreshRouter();
@@ -368,27 +427,9 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     [roundQuestions, setRoundQuestions, currentTeamIndex]
   );
 
-  const actualDeckLength =
-    currentRound === 0
-      ? deck.length + roundQuestions.filter(({ points }) => points === 1).length
-      : deck.length;
-
-  const currentDeckLength =
-    currentRound != 0 ? roundDeck.length : roundDeck.length;
-
-  const discardDeckLength =
-    currentRound != 0
-      ? discardDeck.length +
-        roundQuestions.filter(({ points }) => points === 0).length
-      : discardDeck.length;
-
-  const currentRoundQuestionScores = sum(
-    roundQuestions.map(({ points }) => points!!)
-  );
-
   return (
     <>
-      <Navbar title="Partikers" menus={NAV_MENU} />
+      <Navbar title="Monikerz" menus={NAV_MENU} />
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <Modal
           title={`Round ${currentRound + 1}`}
@@ -415,9 +456,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   {roundQuestions.map((roundQuestion, index) => (
                     <li key={roundQuestion.word + ":" + index}>
                       <div className="flex justify-between">
-                        <div>
-                          {`${roundQuestion.category}, ${roundQuestion.word}`}
-                        </div>
+                        <div>{roundQuestion.word}</div>
                         <div className="flex gap-2 my-1">
                           {[0, 1].map((point) => (
                             <div
@@ -441,13 +480,9 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                     .map((roundQuestion, index) => (
                       <li key={roundQuestion.word + ":" + index}>
                         <div className="flex justify-between">
-                          <div>
-                            {`${roundQuestion.category}, ${roundQuestion.word}`}
-                          </div>
+                          <div>{roundQuestion.word}</div>
                           <div className="flex gap-2 my-1">
-                            <div
-                              className="border w-10 text-center rounded border-pink-500 bg-pink-500"
-                            >
+                            <div className="border w-10 text-center rounded border-pink-500 bg-pink-500">
                               +1
                             </div>
                           </div>
@@ -465,7 +500,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   return (
                     <div
                       key={index}
-                      className={`flex p-2 items-center text-center rounded-xl gap-2`}
+                      className={`flex p-2 m-2 items-center text-center rounded-xl gap-2 dark:bg-gray-800`}
                     >
                       <div
                         className={`flex flex-col justify-center items-center gap-1 text-center p-2`}
@@ -484,7 +519,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                             className={`flex flex-col justify-center items-center gap-1 text-center p-2 rounded-xl ${index === currentTeamIndex && ri === currentRound ? "border-2" : ""} border-pink-500`}
                           >
                             <span>{roundName(ri)}</span>
-                            <h2 className="text-3xl font-bold">
+                            <h2 className="text-xl font-bold">
                               {sum(roundScore) +
                                 (currentRound === ri
                                   ? currentRoundQuestionScores
@@ -518,68 +553,15 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           }
         </Modal>
         {gameState === "new" && (
-          <>
-            <h1>New Game</h1>
-            <div className="flex flex-col gap-4 mt-20">
-              <div className="flex flex-row gap-4 items-center">
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setNumberOfTeams(-1)}
-                >
-                  -
-                </Button>
-                <div className="flex flex-col items-center w-20">
-                  <h3>Teams</h3>
-                  <h2>{teamCount}</h2>
-                </div>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setNumberOfTeams(1)}
-                >
-                  +
-                </Button>
-              </div>
-              <div className="flex flex-row gap-4 items-center">
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setRoundDuration(-30)}
-                >
-                  -
-                </Button>
-                <div className="flex flex-col items-center w-20">
-                  <h3>Time</h3>
-                  <h2>{duration}s</h2>
-                </div>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setRoundDuration(30)}
-                >
-                  +
-                </Button>
-              </div>
-              <div className="flex flex-row gap-4 items-center">
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setWordCount(-10)}
-                >
-                  -
-                </Button>
-                <div className="flex flex-col items-center w-20">
-                  <h3>Cards</h3>
-                  <h2>{firstRoundWordCount}</h2>
-                </div>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setWordCount(10)}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
-            <div className="z-10 flex w-full items-center justify-center bottom-5 fixed">
-              <ActionButton onClick={startGame}>Start</ActionButton>
-            </div>
-          </>
+          <NewGame
+            teamCount={teamCount}
+            duration={duration}
+            firstRoundWordCount={firstRoundWordCount}
+            onTeamChanged={setNumberOfTeams}
+            onTimeChanged={setRoundDuration}
+            onWordCountChanged={setWordCount}
+            onStart={startGame}
+          />
         )}
 
         {gameState === "playing" && (
@@ -588,10 +570,20 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               <div className="w-full flex flex-col text-center justify-center items-center">
                 <h3>Round {currentRound + 1}</h3>
                 <div className="flex items-end">
-                  <div className="text-2xl font-bold mt-0">
-                    {firstRoundWordCount} / {actualDeckLength} /{" "}
-                    {roundDeck.length} / {discardDeckLength}
-                  </div>
+                  {currentRound === 0 && (
+                    <div className="text-2xl font-bold mt-0">
+                      {firstRoundWordCount} /{" "}
+                      {sum(teams[currentTeamIndex].roundScores[currentRound]) +
+                        roundQuestions.filter(
+                          (question) => question.points!! > 0
+                        ).length}
+                    </div>
+                  )}
+                  {currentRound != 0 && (
+                    <div className="text-2xl font-bold mt-0">
+                      {roundDeck.length} / {discardDeckLength}
+                    </div>
+                  )}
                 </div>
               </div>
               <CircularTimer
@@ -605,13 +597,11 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   <div className="flex items-end">
                     <div className="w-10"></div>
                     <div className="text-5xl font-bold mt-0 mx-2">
-                      {currentRoundQuestionScores}
-                    </div>
-                    <div className="w-10">
                       {sum(
                         teams[currentTeamIndex].roundScores.map((rs) => sum(rs))
                       )}
                     </div>
+                    <div className="text-2xl font-bold w-10">{currentRoundQuestionScores}</div>
                   </div>
                 </div>
               )}
@@ -624,9 +614,6 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                 </h3>
                 <div className="flip-card partikers text-center w-80">
                   <div className="flip-card-front flex">
-                    <h3 className="flex-2 flex flex-col rounded m-4 justify-center text-white">
-                      {currentQuestion.category}
-                    </h3>
                     <h1 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white">
                       {currentQuestion.word}
                     </h1>
@@ -638,7 +625,8 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             {roundState === "ready" && (
               <div className="flex flex-col gap-4 items-center">
                 <h1>Ready?</h1>
-                <h1>{roundName(currentRound)}</h1>
+                <h3>Round {currentRound + 1}</h3>
+                <h1 className="text-7xl italic uppercase">{roundName(currentRound)}</h1>
               </div>
             )}
 

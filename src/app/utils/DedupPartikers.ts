@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const filePath = "src/data/partikers/questions.csv";
+const filePath = "src/app/monikerz/data/questions.csv";
 const absolutePath = path.join(process.cwd(), filePath);
 
 fs.readFile(absolutePath, "utf8", (error, data) => {
@@ -18,7 +18,7 @@ fs.readFile(absolutePath, "utf8", (error, data) => {
     }
   }
   const newLines = Array.from(set).sort();
-  newLines.unshift("category,word");
+  newLines.unshift("word");
   fs.writeFile(absolutePath, newLines.join("\n"), (error) => {
     console.log(error || "Success " + (newLines.length - 1));
   });
