@@ -71,8 +71,8 @@ export default function NewGame({
           </Button>
         </div>
       </div>
-      <div className="z-10 flex w-full items-center justify-center bottom-5 fixed">
-        <ActionButton onClick={onStart}>Start</ActionButton>
+      <div className="z-10 flex w-full items-center justify-center bottom-8 fixed">
+        <ActionButton onClick={onStart}>START</ActionButton>
       </div>
     </>
   );

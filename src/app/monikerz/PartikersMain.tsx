@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import useSound from "use-sound";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import ActionButton from "./ActionButton";
 import NextButton from "@/app/components/NextButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import useSound from "@/app/hooks/useSound";
+// import useSound from "@/app/hooks/useSound";
 import Modal from "../components/Modal";
 import BigButton from "../components/BigButton";
 import CircularTimer, {
@@ -61,10 +62,10 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
   const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
     useLocalStorage<PartikersQuestion[]>("partikers.questions", questions);
 
-  const playRightSound = useSound(rightSoundFile);
-  const playWrongSound = useSound(wrongSoundFile);
-  const playTimesUpSound = useSound(timesUpSoundFile);
-  const playNewInfoSound = useSound(newInfoSoundFile);
+  const [playRightSound] = useSound(rightSoundFile);
+  const [playWrongSound] = useSound(wrongSoundFile);
+  const [playTimesUpSound] = useSound(timesUpSoundFile);
+  const [playNewInfoSound] = useSound(newInfoSoundFile);
 
   const [currentQuestion, setCurrentQuestion] = useState<PartikersQuestion>();
 
@@ -106,9 +107,31 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     "partikers.discardDeck",
     []
   );
+  const [shouldRefreshRouter, setShouldRefreshRouter] = useState(false);
 
   const timerRef = useRef<CircularTimerRefProps>(null);
   const noMoreCards = roundDeck.length === 0 && discardDeck.length === 0;
+
+  const actualDeckLength =
+    currentRound === 0
+      ? deck.length + roundQuestions.filter(({ points }) => points === 1).length
+      : deck.length;
+
+  const currentDeckLength = roundDeck.length;
+
+  const discardDeckLength =
+    currentRound != 0
+      ? discardDeck.length +
+        roundQuestions.filter(({ points }) => points === 0).length
+      : discardDeck.length;
+
+  const currentRoundQuestionScores = sum(
+    roundQuestions.map(({ points }) => points!!)
+  );
+
+  const highestScore = Math.max(
+    ...teams.map((team) => sum(team.roundScores.map((rs) => sum(rs))))
+  );
 
   const refreshRouter = useCallback(() => {
     if (currentRound === 0) {
@@ -126,12 +149,16 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           roundQuestions.filter(({ points }) => points!! > 0).length >=
         firstRoundWordCount
       ) {
-        timerRef.current?.end();
+        timerRef.current?.pause();
+        setRoundState("end");
+        playTimesUpSound();
         return;
       }
     } else if (currentRound === 1 || currentRound === 2) {
       if (noMoreCards) {
-        setTimeout(() => timerRef.current?.end(), 0);
+        timerRef.current?.pause();
+        setRoundState("end");
+        playTimesUpSound();
         return;
       }
       let poppedQuestion;
@@ -161,18 +188,12 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     firstRoundWordCount,
   ]);
 
-  const [shouldRefreshRouter, setShouldRefreshRouter] = useState(false);
-
   useEffect(() => {
     if (shouldRefreshRouter) {
       refreshRouter();
       setShouldRefreshRouter(false);
     }
   }, [shouldRefreshRouter, refreshRouter]);
-
-  const highestScore = Math.max(
-    ...teams.map((team) => sum(team.roundScores.map((rs) => sum(rs))))
-  );
 
   function reset() {
     setGameState("new");
@@ -228,13 +249,12 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
   const setRoundDuration = useCallback(
     (incremental: number) => {
       const roundDuration = duration + incremental;
-      if (
-        (incremental < 0 && roundDuration < 30) ||
-        (incremental > 0 && roundDuration > 180)
-      ) {
-        if (roundDuration < 30) {
-          setDuration(5);
-        }
+      if (incremental < 0 && roundDuration < 30) {
+        setDuration(30);
+        return;
+      }
+      if (incremental > 0 && roundDuration > 180) {
+        setDuration(180);
         return;
       }
       setDuration(roundDuration);
@@ -268,12 +288,8 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           points: points,
         },
       ];
-      if (currentRound === 0 || !isEnded || !noMoreCards) {
-        setRoundQuestions(updatedRoundQuestions);
-      }
-      if (roundState !== "ended" && !isEnded) {
-        setShouldRefreshRouter(true);
-      }
+      setRoundQuestions(updatedRoundQuestions);
+      setShouldRefreshRouter(true);
     },
     [
       roundDeck,
@@ -284,6 +300,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       roundQuestions,
       setRoundQuestions,
       refreshRouter,
+      firstRoundWordCount,
     ]
   );
 
@@ -306,31 +323,27 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
   const [modalIsOpen, setIsOpen] = useState(roundState === "end");
 
-  const actualDeckLength =
-    currentRound === 0
-      ? roundDeck.length +
-        roundQuestions.filter(({ points }) => points === 1).length
-      : deck.length;
-
-  const currentDeckLength =
-    currentRound != 0 ? roundDeck.length : roundDeck.length;
-
-  const discardDeckLength =
-    currentRound != 0
-      ? discardDeck.length +
-        roundQuestions.filter(({ points }) => points === 0).length
-      : discardDeck.length;
-
-  const currentRoundQuestionScores = sum(
-    roundQuestions.map(({ points }) => points!!)
-  );
-
   const onTimerEnded = useCallback(() => {
     setIsOpen(true);
     setRoundState("end");
-    addPointsToTeam(0, true);
+    const updatedRoundQuestions = [
+      ...roundQuestions,
+      {
+        category: currentQuestion?.category || "",
+        word: currentQuestion?.word || "",
+        points: 0,
+      },
+    ];
+    setRoundQuestions(updatedRoundQuestions);
     playTimesUpSound();
-  }, [setIsOpen, setRoundState, addPointsToTeam, playTimesUpSound]);
+  }, [
+    setIsOpen,
+    setRoundState,
+    setRoundQuestions,
+    roundQuestions,
+    currentQuestion,
+    playTimesUpSound,
+  ]);
 
   const onRoundEndNext = useCallback(() => {
     setIsOpen(false);
@@ -360,7 +373,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     } else {
       const totalDiscardDeck = [...discardDeck, ...wrongRoundQuestions];
       setDiscardDeck(totalDiscardDeck);
-      if (roundDeck.length === 0 && discardDeckLength === 0) {
+      if (roundDeck.length === 0 && totalDiscardDeck.length === 0) {
         if (currentRound === 2) {
           setGameState("end");
         } else {
@@ -433,10 +446,15 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <Modal
           title={`Round ${currentRound + 1}`}
-          visible={modalIsOpen || roundState === "end"}
+          visible={modalIsOpen || (gameState !== "new" && roundState === "end")}
           onClose={onRoundEndNext}
           confirmButtonText={
-            currentRound >= 2 && noMoreCards ? "Final Result" : "Next"
+            roundQuestions.filter(({ points }) => !points).length === 0 &&
+            roundDeck.length === 0 &&
+            discardDeckLength === 0 &&
+            currentRound >= 2
+              ? "Final Result"
+              : "Next"
           }
           onConfirm={onRoundEndNext}
         >
@@ -533,11 +551,11 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
               </div>
               <div className="flex">
                 <div className={`gap-1 text-center p-2 rounded-xl`}>
-                  <span>Target Deck</span>
+                  <span>Total Deck</span>
                   <h2 className="text-3xl font-bold">{firstRoundWordCount}</h2>
                 </div>
                 <div className={`gap-1 text-center p-2 rounded-xl`}>
-                  <span>Total Deck</span>
+                  <span>Current Deck</span>
                   <h2 className="text-3xl font-bold">{actualDeckLength}</h2>
                 </div>
                 <div className={`gap-1 text-center p-2 rounded-xl`}>
@@ -567,24 +585,27 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
         {gameState === "playing" && (
           <>
             <div className="fixed top-20 w-full grid grid-cols-3 gap-4 p-4">
-              <div className="w-full flex flex-col text-center justify-center items-center">
-                <h3>Round {currentRound + 1}</h3>
-                <div className="flex items-end">
-                  {currentRound === 0 && (
+              <div className="w-full flex  text-center justify-center items-center">
+                {currentRound === 0 && (
+                  <div className="flex flex-col item-centers justify-center">
+                    <h3>Total / Current</h3>
                     <div className="text-2xl font-bold mt-0">
                       {firstRoundWordCount} /{" "}
-                      {sum(teams[currentTeamIndex].roundScores[currentRound]) +
+                      {deck.length +
                         roundQuestions.filter(
                           (question) => question.points!! > 0
                         ).length}
                     </div>
-                  )}
-                  {currentRound != 0 && (
+                  </div>
+                )}
+                {currentRound != 0 && (
+                  <div className="flex flex-col item-centers justify-center">
+                    <h3>Current / Discarded</h3>
                     <div className="text-2xl font-bold mt-0">
                       {roundDeck.length} / {discardDeckLength}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
               <CircularTimer
                 ref={timerRef}
@@ -601,7 +622,9 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                         teams[currentTeamIndex].roundScores.map((rs) => sum(rs))
                       )}
                     </div>
-                    <div className="text-2xl font-bold w-10">{currentRoundQuestionScores}</div>
+                    <div className="text-2xl font-bold w-10">
+                      {currentRoundQuestionScores}
+                    </div>
                   </div>
                 </div>
               )}
@@ -610,11 +633,14 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             {roundState === "playing" && currentQuestion != null && (
               <div>
                 <h3 className="text-2xl text-center mb-4">
-                  {roundName(currentRound)}
+                  Round {currentRound + 1} - {roundName(currentRound)}
                 </h3>
-                <div className="flip-card partikers text-center w-80">
+                <div className="flip-card partikers text-center w-160">
                   <div className="flip-card-front flex">
-                    <h1 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white">
+                    <h3 className="flex-2 flex flex-col rounded m-4 justify-center text-white">
+                      {currentQuestion.category}
+                    </h3>
+                    <h1 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white select-none">
                       {currentQuestion.word}
                     </h1>
                   </div>
@@ -624,31 +650,27 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
             {roundState === "ready" && (
               <div className="flex flex-col gap-4 items-center">
-                <h1>Ready?</h1>
+                <h1>Team {currentTeamIndex + 1}</h1>
                 <h3>Round {currentRound + 1}</h3>
-                <h1 className="text-7xl italic uppercase">{roundName(currentRound)}</h1>
+                <h1 className="text-7xl text-center italic uppercase">
+                  {roundName(currentRound)}
+                </h1>
               </div>
             )}
 
             <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-              <div className="fixed flex h-24 bottom-0 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
+              <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
                 {roundState === "ready" && (
-                  <ActionButton onClick={onRoundStart}>Start</ActionButton>
+                  <ActionButton onClick={onRoundStart}>GO</ActionButton>
                 )}
                 {roundState === "playing" && (
                   <>
-                    <BigButton
-                      className="text-xl !text-red-300"
-                      onClick={() => addPointsToTeam(0)}
-                    >
+                    <BigButton onClick={() => addPointsToTeam(0)}>
                       Skip
                     </BigButton>
 
-                    <BigButton
-                      className="text-3xl  !text-yellow-300"
-                      onClick={() => addPointsToTeam(1)}
-                    >
-                      +1
+                    <BigButton onClick={() => addPointsToTeam(1)}>
+                      Correct
                     </BigButton>
                   </>
                 )}
@@ -667,7 +689,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                 return (
                   <div
                     key={index}
-                    className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${totalTeamScores === highestScore ? "border-2" : ""} border-pink-500`}
+                    className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${totalTeamScores === highestScore ? "border-2" : ""} border-pink-500 dark:bg-gray-900 dark:bg-opacity-80`}
                   >
                     {totalTeamScores === highestScore ? (
                       <Image
@@ -692,13 +714,8 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                 );
               })}
             </div>
-            <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-              <div className="fixed grid grid-cols-3 gap-4  h-24 bottom-0 pb-4 mb-4 left-0 right-0 p-4 items-end justify-center">
-                <div className="col-span-3">
-                  {" "}
-                  <NextButton onClick={reset}>New Game</NextButton>
-                </div>
-              </div>
+            <div className="z-10 flex w-full items-center justify-center bottom-8 fixed">
+              <ActionButton onClick={reset}>NEW GAME</ActionButton>
             </div>
           </>
         )}

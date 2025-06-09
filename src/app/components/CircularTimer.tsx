@@ -8,6 +8,7 @@ import {
   useImperativeHandle,
 } from "react";
 import tickingSoundFile from "@/assets/ticking.mp3";
+import useSound from "use-sound";
 
 interface CircularTimerProps {
   duration: number;
@@ -18,11 +19,12 @@ export interface CircularTimerRefProps {
   reset: () => void;
   go: () => void;
   end: () => void;
+  pause: () => void;
 }
 
 const CircularTimer = forwardRef(
   ({ duration, onEnded }: CircularTimerProps, ref) => {
-    const tickingSound = useRef(new Audio(tickingSoundFile));
+    const [tickingSound] = useSound(tickingSoundFile);
     const [paused, setPaused] = useState(false);
     const [running, setRunning] = useState(false);
     const [timeLeft, setTimeLeft] = useState(duration);
@@ -45,6 +47,11 @@ const CircularTimer = forwardRef(
           onEnded();
         }
       },
+
+      pause() {
+        setRunning(false);
+        setPaused(true);
+      }
     }));
 
     useEffect(() => {
@@ -55,7 +62,7 @@ const CircularTimer = forwardRef(
         if (!paused && running) {
           setTimeLeft(timeLeft - 1);
           if (timeLeft <= 10) {
-            tickingSound.current?.play();
+            tickingSound();
           }
         }
       }, 1000);
