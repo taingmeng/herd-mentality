@@ -24,7 +24,7 @@ const NAV_MENU = [
   {
     name: "Rules",
     icon: "/book.svg",
-    href: "/herd-mentality/rules",
+    href: "/herd-party/rules",
   },
 ];
 
@@ -37,7 +37,7 @@ export default async function Home() {
   return (
     <>
       <Navbar title="Herd Party" menus={NAV_MENU} />
-      <main className="flex flex-col min-h-[75vh] items-center justify-center">
+      <main className="flex flex-col pt-32 min-h-[75vh] items-center justify-center">
         <div className="relative flex flex-col place-items-center mb-24">
           {currentQuestion && (
             <h3 className="mb-3 text-2l font-semibold relative">

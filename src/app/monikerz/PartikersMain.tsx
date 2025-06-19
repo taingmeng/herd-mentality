@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useSound from "use-sound";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
@@ -57,8 +56,6 @@ const roundName = (currentRound: number): string => {
 };
 
 export default function PoetryMain({ questions }: PoetryMainProps) {
-  const router = useRouter();
-
   const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
     useLocalStorage<PartikersQuestion[]>("partikers.questions", questions);
 
@@ -631,7 +628,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             </div>
 
             {roundState === "playing" && currentQuestion != null && (
-              <div>
+              <div className="pt-32">
                 <h3 className="text-2xl text-center mb-4">
                   Round {currentRound + 1} - {roundName(currentRound)}
                 </h3>
@@ -649,7 +646,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             )}
 
             {roundState === "ready" && (
-              <div className="flex flex-col gap-4 items-center">
+              <div className="pt-32 flex flex-col gap-4 items-center">
                 <h1>Team {currentTeamIndex + 1}</h1>
                 <h3>Round {currentRound + 1}</h3>
                 <h1 className="text-7xl text-center italic uppercase">

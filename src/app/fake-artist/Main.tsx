@@ -6,9 +6,9 @@ import Image from "next/image";
 import NextButton from "@/app/components/NextButton";
 import PrevButton from "@/app/components/PrevButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import Modal from "../../components/Modal";
+import Modal from "../components/Modal";
 
-interface FakeArtistLocalMainProps {
+interface MainProps {
   question: Question;
 }
 
@@ -31,9 +31,9 @@ const shuffle = (array: any[]) => {
     .map(({ value }) => value);
 };
 
-export default function FakeArtistLocalMain({
+export default function Main({
   question,
-}: FakeArtistLocalMainProps) {
+}: MainProps) {
   const router = useRouter();
 
   const [currentQuestion, setCurrentQuestion] = useState(question);

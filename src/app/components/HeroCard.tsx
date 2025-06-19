@@ -27,11 +27,11 @@ export default async function HeroCard({
       <Image width={horizontal ? 300 : 160} height={200} src={imagePath || ""} alt={title || ""} className="m-4 rounded-2xl " />
       <div className={`${horizontal ? "col-span-1" : "col-span-2"} row-start-2 lg:row-auto`}>
         <h1
-          className="mb-2 max-w-sm text-xl font-bold !leading-snug lg:mb-3 lg:text-3xl"
+          className="mb-2 max-w-sm text-2xl font-bold !leading-snug lg:mb-3 lg:text-3xl"
         >
           {title || "???"}
         </h1>
-        <div className="flex flex-row gap-4 text-gray-500 mt-4">
+        <div className="flex flex-row gap-4 text-gray-500 mt-4 mb-2">
           <div className="flex flex-row">
             <Image
               src="/users.svg"

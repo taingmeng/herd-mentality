@@ -42,9 +42,10 @@ export interface NavMenu {
 interface NavbarProps {
   title?: string;
   menus?: NavMenu[];
+  iconFilePath?: string;
 }
 
-export function Navbar({ title, menus = [] }: NavbarProps) {
+export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
 
   function handleOpen() {
@@ -61,10 +62,10 @@ export function Navbar({ title, menus = [] }: NavbarProps) {
   const menuHeight = `h-${menus.length * 14}`;
 
   return (
-    <div className="px-4 border-0 z-40 sticky top-0 m-0 bg-neutral-100 dark:bg-neutral-800">
+    <div className="fixed w-screen px-4 border-0 z-40 top-0 bg-neutral-100 dark:bg-neutral-800">
       <div className="mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image src="/party.svg" width="36" height="36" alt="Just Words" className="fill-cyan-500" />
+          <Image src={iconFilePath || "/party.svg"} width="36" height="36" alt="Just Words" className="fill-cyan-500" />
           <h2 className="text-lg font-bold my-4">
             {title || "Partyz"}
           </h2>
