@@ -1,6 +1,5 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Hero from "./components/Hero";
 import HeroCard from "./components/HeroCard";
 
 export default async function Home() {
@@ -38,7 +37,7 @@ export default async function Home() {
           playerCount="5–10 Players"
           duration="20 Min"
           age="Age: 8+"
-          playPath="/fake-artist/local"
+          playPath="/fake-artist"
           imagePath="/fake-artist/fake-artist-outlined.png"
           paragraphs={[
             "While the other players are given a category and its associated secret word, one player will have only a category and ??? written on their card. That person is the fake artist",

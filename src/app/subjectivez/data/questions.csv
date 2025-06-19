@@ -1,7 +1,4 @@
 category,word
-Brands and Companies,Airbnb
-Brands and Companies,Amazon
-Brands and Companies,BMW
 Brands and Companies,Chanel
 Brands and Companies,Coca-Cola
 Brands and Companies,Dell
@@ -46,103 +43,7 @@ Brands and Companies,Uniqlo
 Brands and Companies,Visa
 Brands and Companies,Xiaomi
 Brands and Companies,Zara
-Brands and Companies,ZoomAnimals and Nature,Canyon
-Animals and Nature,Cave
-Animals and Nature,Chameleon
-Animals and Nature,Cliff
-Animals and Nature,Crocodile
-Animals and Nature,Deer
-Animals and Nature,Desert
-Animals and Nature,Dolphin
-Animals and Nature,Eagle
-Animals and Nature,Elephant
-Animals and Nature,Flower
-Animals and Nature,Forest
-Animals and Nature,Fox
-Animals and Nature,Frog
-Animals and Nature,Giraffe
-Animals and Nature,Glacier
-Animals and Nature,Island
-Animals and Nature,Kangaroo
-Animals and Nature,Koala
-Animals and Nature,Lake
-Animals and Nature,Lightning
-Animals and Nature,Meadow
-Animals and Nature,Mountain
-Animals and Nature,Ocean
-Animals and Nature,Owl
-Animals and Nature,Panda
-Animals and Nature,Peacock
-Animals and Nature,Penguin
-Animals and Nature,Rabbit
-Animals and Nature,Rain
-Animals and Nature,Rainbow
-Animals and Nature,River
-Animals and Nature,Shark
-Animals and Nature,Snake
-Animals and Nature,Snow
-Animals and Nature,Sunrise
-Animals and Nature,Sunset
-Animals and Nature,Thunder
-Animals and Nature,Tiger
-Animals and Nature,Tree
-Animals and Nature,Turtle
-Animals and Nature,Valley
-Animals and Nature,Volcano
-Animals and Nature,Waterfall
-Animals and Nature,Whale
-Animals and Nature,Wind
-Animals and Nature,Wolf
-Animals and Nature,ZebraCareers,Actor
-Careers,Architect
-Careers,Astronomer
-Careers,Biologist
-Careers,Carpenter
-Careers,Chef
-Careers,Chemist
-Careers,Civil Engineer
-Careers,Construction Worker
-Careers,Data Scientist
-Careers,Dentist
-Careers,Electrical Engineer
-Careers,Electrician
-Careers,Entrepreneur
-Careers,Event Planner
-Careers,Fashion Designer
-Careers,Financial Analyst
-Careers,Firefighter
-Careers,Flight Attendant
-Careers,Game Developer
-Careers,Geologist
-Careers,Graphic Designer
-Careers,Historian
-Careers,Interpreter
-Careers,Journalist
-Careers,Lawyer
-Careers,Librarian
-Careers,Marketing Manager
-Careers,Mechanical Engineer
-Careers,Musician
-Careers,Nurse
-Careers,Paramedic
-Careers,Pharmacist
-Careers,Photographer
-Careers,Pilot
-Careers,Plumber
-Careers,Police Officer
-Careers,Project Manager
-Careers,Psychologist
-Careers,Real Estate Agent
-Careers,Research Scientist
-Careers,Social Worker
-Careers,Software Developer
-Careers,Teacher
-Careers,UI/UX Designer
-Careers,Veterinarian
-Careers,Video Editor
-Careers,Web DeveloperFictional Characters,Batman
-Fictional Characters,Buzz Lightyear
-Fictional Characters,Captain America
+Brands and Companies,Zoom
 Fictional Characters,Darth Vader
 Fictional Characters,Deadpool
 Fictional Characters,Donkey Kong
@@ -187,56 +88,7 @@ Fictional Characters,Wolverine
 Fictional Characters,Wonder Woman
 Fictional Characters,Woody (Toy Story)
 Fictional Characters,Yoda
-Fictional Characters,ZeldaHistorical Figures,Adolf Hitler
-Historical Figures,Akbar the Great
-Historical Figures,Albert Einstein
-Historical Figures,Alexander the Great
-Historical Figures,Aristotle
-Historical Figures,Ataturk (Mustafa Kemal)
-Historical Figures,Benito Mussolini
-Historical Figures,Catherine the Great
-Historical Figures,Charles Darwin
-Historical Figures,Che Guevara
-Historical Figures,Cleopatra
-Historical Figures,Confucius
-Historical Figures,Fidel Castro
-Historical Figures,Florence Nightingale
-Historical Figures,Franklin D. Roosevelt
-Historical Figures,Galileo Galilei
-Historical Figures,Genghis Khan
-Historical Figures,George Washington
-Historical Figures,Hernán Cortés
-Historical Figures,Ho Chi Minh
-Historical Figures,Isaac Newton
-Historical Figures,Joan of Arc
-Historical Figures,John F. Kennedy
-Historical Figures,Joseph Stalin
-Historical Figures,Karl Marx
-Historical Figures,Leonardo da Vinci
-Historical Figures,Mahatma Gandhi
-Historical Figures,Malcolm X
-Historical Figures,Marco Polo
-Historical Figures,Marie Curie
-Historical Figures,Martin Luther King Jr.
-Historical Figures,Michelangelo
-Historical Figures,Napoleon Bonaparte
-Historical Figures,Nelson Mandela
-Historical Figures,Nikola Tesla
-Historical Figures,Plato
-Historical Figures,Queen Elizabeth I
-Historical Figures,Queen Victoria
-Historical Figures,Ronald Reagan
-Historical Figures,Saladin
-Historical Figures,Sigmund Freud
-Historical Figures,Simon Bolivar
-Historical Figures,Socrates
-Historical Figures,Sun Tzu
-Historical Figures,Theodore Roosevelt
-Historical Figures,Thomas Edison
-Historical Figures,Tsar Nicholas II
-Historical Figures,Winston ChurchillFood and Drink,Beer
-Food and Drink,Burger
-Food and Drink,Burrito
+Fictional Characters,Zelda
 Food and Drink,Cappuccino
 Food and Drink,Chicken wings
 Food and Drink,Coconut water
@@ -281,55 +133,262 @@ Food and Drink,Tacos
 Food and Drink,Tea
 Food and Drink,Waffles
 Food and Drink,Whiskey
-Food and Drink,WineItems and Objects,Batteries
-Items and Objects,Belt
-Items and Objects,Blanket
-Items and Objects,Camera
-Items and Objects,Candle
-Items and Objects,Chair
-Items and Objects,Charger
-Items and Objects,Clock
-Items and Objects,Coffee mug
-Items and Objects,Fan
-Items and Objects,Flashlight
-Items and Objects,Fridge
-Items and Objects,Gloves
-Items and Objects,Hammer
-Items and Objects,Hand sanitizer
-Items and Objects,Headphones
-Items and Objects,Helmet
-Items and Objects,Iron
-Items and Objects,Jacket
-Items and Objects,Keychain
-Items and Objects,Laptop
-Items and Objects,Microwave
-Items and Objects,Mirror
-Items and Objects,Nail clipper
-Items and Objects,Notebook
-Items and Objects,Pen
-Items and Objects,Pillow
-Items and Objects,Razor
-Items and Objects,Remote control
-Items and Objects,Ruler
-Items and Objects,Scissors
-Items and Objects,Screwdriver
-Items and Objects,Shampoo
-Items and Objects,Shoes
-Items and Objects,Smartphone
-Items and Objects,Soap
-Items and Objects,Stapler
-Items and Objects,Sunglasses
-Items and Objects,Table
-Items and Objects,Tape
-Items and Objects,Television
-Items and Objects,Toothbrush
-Items and Objects,Towel
-Items and Objects,Trash can
-Items and Objects,Umbrella
-Items and Objects,Wallet
-Items and Objects,Water bottleMovies,Aladdin (1992)
-Movies,Aladdin (2019)
-Movies,Aquaman
+Food and Drink,Wine
+Famous People,Beyoncé
+Famous People,Bill Gates
+Famous People,Billie Eilish
+Famous People,Blake Lively
+Famous People,Chris Hemsworth
+Famous People,Cristiano Ronaldo
+Famous People,Donald Trump
+Famous People,Drake
+Famous People,Dua Lipa
+Famous People,Dwayne “The Rock” Johnson
+Famous People,Ed Sheeran
+Famous People,Emma Stone
+Famous People,Emma Watson
+Famous People,Gordon Ramsay
+Famous People,Greta Thunberg
+Famous People,Harry Styles
+Famous People,Jeff Bezos
+Famous People,Jennifer Lopez
+Famous People,Johnny Depp
+Famous People,Justin Bieber
+Famous People,Keanu Reeves
+Famous People,Kim Kardashian
+Famous People,Kylie Jenner
+Famous People,Lady Gaga
+Famous People,LeBron James
+Famous People,Leonardo DiCaprio
+Famous People,Lionel Messi
+Famous People,Malala Yousafzai
+Famous People,Mark Zuckerberg
+Famous People,Novak Djokovic
+Famous People,Oprah Winfrey
+Famous People,PewDiePie
+Famous People,Rihanna
+Famous People,Robert Downey Jr.
+Famous People,Ryan Reynolds
+Famous People,Selena Gomez
+Famous People,Serena Williams
+Famous People,Shakira
+Famous People,Simone Biles
+Famous People,Stephen Curry
+Famous People,Taylor Swift
+Famous People,Tim Cook
+Famous People,Tom Cruise
+Famous People,Virat Kohli
+Famous People,Zendaya
+Careers,Biologist
+Careers,Carpenter
+Careers,Chef
+Careers,Chemist
+Careers,Civil Engineer
+Careers,Construction Worker
+Careers,Data Scientist
+Careers,Dentist
+Careers,Electrical Engineer
+Careers,Electrician
+Careers,Entrepreneur
+Careers,Event Planner
+Careers,Fashion Designer
+Careers,Financial Analyst
+Careers,Firefighter
+Careers,Flight Attendant
+Careers,Game Developer
+Careers,Geologist
+Careers,Graphic Designer
+Careers,Historian
+Careers,Interpreter
+Careers,Journalist
+Careers,Lawyer
+Careers,Librarian
+Careers,Marketing Manager
+Careers,Mechanical Engineer
+Careers,Musician
+Careers,Nurse
+Careers,Paramedic
+Careers,Pharmacist
+Careers,Photographer
+Careers,Pilot
+Careers,Plumber
+Careers,Police Officer
+Careers,Project Manager
+Careers,Psychologist
+Careers,Real Estate Agent
+Careers,Research Scientist
+Careers,Social Worker
+Careers,Software Developer
+Careers,Teacher
+Careers,UI/UX Designer
+Careers,Veterinarian
+Careers,Video Editor
+Careers,Web Developer
+Animals and Nature,Alligator
+Animals and Nature,Animal Tracks
+Animals and Nature,Antelope
+Animals and Nature,Bark
+Animals and Nature,Bear
+Animals and Nature,Beehives
+Animals and Nature,Bison
+Animals and Nature,Cat
+Animals and Nature,Caves
+Animals and Nature,Chameleon
+Animals and Nature,Cheetah
+Animals and Nature,Chimpanzee
+Animals and Nature,Cliff
+Animals and Nature,Cliffs
+Animals and Nature,Clouds
+Animals and Nature,Coral Reefs
+Animals and Nature,Cow
+Animals and Nature,Crab
+Animals and Nature,Crocodile
+Animals and Nature,Deer
+Animals and Nature,Desert
+Animals and Nature,Deserts
+Animals and Nature,Dew
+Animals and Nature,Dog
+Animals and Nature,Dolphin
+Animals and Nature,Donkey
+Animals and Nature,Dunes
+Animals and Nature,Eagle
+Animals and Nature,Earthquakes
+Animals and Nature,Elephant
+Animals and Nature,Flamingo
+Animals and Nature,Flower
+Animals and Nature,Flowers
+Animals and Nature,Fog
+Animals and Nature,Forest
+Animals and Nature,Forests
+Animals and Nature,Fox
+Animals and Nature,Frog
+Animals and Nature,Giraffe
+Animals and Nature,Glacier
+Animals and Nature,Glaciers
+Animals and Nature,Gorilla
+Animals and Nature,Grass
+Animals and Nature,Hawk
+Animals and Nature,Hills
+Animals and Nature,Hippopotamus
+Animals and Nature,Horse
+Animals and Nature,Hurricanes
+Animals and Nature,Icebergs
+Animals and Nature,Island
+Animals and Nature,Jellyfish
+Animals and Nature,Kangaroo
+Animals and Nature,Koala
+Animals and Nature,Lake
+Animals and Nature,Lakes
+Animals and Nature,Leaves
+Animals and Nature,Leopard
+Animals and Nature,Lightning
+Animals and Nature,Lion
+Animals and Nature,Lizard
+Animals and Nature,Lobster
+Animals and Nature,Marshes
+Animals and Nature,Meadow
+Animals and Nature,Meadows
+Animals and Nature,Moon
+Animals and Nature,Moose
+Animals and Nature,Mountain
+Animals and Nature,Mountains
+Animals and Nature,Mushrooms
+Animals and Nature,Natural Springs
+Animals and Nature,Ocean
+Animals and Nature,Oceans
+Animals and Nature,Octopus
+Animals and Nature,Owl
+Animals and Nature,Panda
+Animals and Nature,Parrot
+Animals and Nature,Peacock
+Animals and Nature,Penguin
+Animals and Nature,Pig
+Animals and Nature,Plains
+Animals and Nature,Rabbit
+Animals and Nature,Rain
+Animals and Nature,Rainbow
+Animals and Nature,Rainbows
+Animals and Nature,Rhinoceros
+Animals and Nature,River
+Animals and Nature,Rivers
+Animals and Nature,Rocks
+Animals and Nature,Roots
+Animals and Nature,Sand
+Animals and Nature,Seeds
+Animals and Nature,Shark
+Animals and Nature,Sheep
+Animals and Nature,Snake
+Animals and Nature,Snow
+Animals and Nature,Soil
+Animals and Nature,Starfish
+Animals and Nature,Stars
+Animals and Nature,Sun
+Animals and Nature,Sunrise
+Animals and Nature,Sunset
+Animals and Nature,Swamps
+Animals and Nature,Thunder
+Animals and Nature,Tiger
+Animals and Nature,Toad
+Animals and Nature,Tornadoes
+Animals and Nature,Tree
+Animals and Nature,Trees
+Animals and Nature,Tundra
+Animals and Nature,Turtle
+Animals and Nature,Valley
+Animals and Nature,Valleys
+Animals and Nature,Volcano
+Animals and Nature,Volcanoes
+Animals and Nature,Waterfall
+Animals and Nature,Waterfalls
+Animals and Nature,Whale
+Animals and Nature,Wind
+Animals and Nature,Wolf
+Animals and Nature,Zebra
+Historical Figures,Alexander the Great
+Historical Figures,Aristotle
+Historical Figures,Ataturk (Mustafa Kemal)
+Historical Figures,Benito Mussolini
+Historical Figures,Catherine the Great
+Historical Figures,Charles Darwin
+Historical Figures,Che Guevara
+Historical Figures,Cleopatra
+Historical Figures,Confucius
+Historical Figures,Fidel Castro
+Historical Figures,Florence Nightingale
+Historical Figures,Franklin D. Roosevelt
+Historical Figures,Galileo Galilei
+Historical Figures,Genghis Khan
+Historical Figures,George Washington
+Historical Figures,Hernán Cortés
+Historical Figures,Ho Chi Minh
+Historical Figures,Isaac Newton
+Historical Figures,Joan of Arc
+Historical Figures,John F. Kennedy
+Historical Figures,Joseph Stalin
+Historical Figures,Karl Marx
+Historical Figures,Leonardo da Vinci
+Historical Figures,Mahatma Gandhi
+Historical Figures,Malcolm X
+Historical Figures,Marco Polo
+Historical Figures,Marie Curie
+Historical Figures,Martin Luther King Jr.
+Historical Figures,Michelangelo
+Historical Figures,Napoleon Bonaparte
+Historical Figures,Nelson Mandela
+Historical Figures,Nikola Tesla
+Historical Figures,Plato
+Historical Figures,Queen Elizabeth I
+Historical Figures,Queen Victoria
+Historical Figures,Ronald Reagan
+Historical Figures,Saladin
+Historical Figures,Sigmund Freud
+Historical Figures,Simon Bolivar
+Historical Figures,Socrates
+Historical Figures,Sun Tzu
+Historical Figures,Theodore Roosevelt
+Historical Figures,Thomas Edison
+Historical Figures,Tsar Nicholas II
+Historical Figures,Winston Churchill
 Movies,Arrival
 Movies,Avatar
 Movies,Avatar: The Way of Water
@@ -462,9 +521,7 @@ Movies,Twilight
 Movies,Up
 Movies,Wonder
 Movies,Wonder Woman
-Movies,ZootopiaLiterature and Theatre,A Doll’s House
-Literature and Theatre,A Streetcar Named Desire
-Literature and Theatre,Act
+Movies,Zootopia
 Literature and Theatre,Alliteration
 Literature and Theatre,Antagonist
 Literature and Theatre,Anton Chekhov
@@ -510,9 +567,51 @@ Literature and Theatre,Stage Directions
 Literature and Theatre,Symbolism
 Literature and Theatre,Tennessee Williams
 Literature and Theatre,The Cherry Orchard
-Literature and Theatre,TragedyPlaces and Locations,Alcatraz Island
-Places and Locations,Amazon Rainforest
-Places and Locations,Amsterdam
+Literature and Theatre,Tragedy
+Items and Objects,Camera
+Items and Objects,Candle
+Items and Objects,Chair
+Items and Objects,Charger
+Items and Objects,Clock
+Items and Objects,Coffee mug
+Items and Objects,Fan
+Items and Objects,Flashlight
+Items and Objects,Fridge
+Items and Objects,Gloves
+Items and Objects,Hammer
+Items and Objects,Hand sanitizer
+Items and Objects,Headphones
+Items and Objects,Helmet
+Items and Objects,Iron
+Items and Objects,Jacket
+Items and Objects,Keychain
+Items and Objects,Laptop
+Items and Objects,Microwave
+Items and Objects,Mirror
+Items and Objects,Nail clipper
+Items and Objects,Notebook
+Items and Objects,Pen
+Items and Objects,Pillow
+Items and Objects,Razor
+Items and Objects,Remote control
+Items and Objects,Ruler
+Items and Objects,Scissors
+Items and Objects,Screwdriver
+Items and Objects,Shampoo
+Items and Objects,Shoes
+Items and Objects,Smartphone
+Items and Objects,Soap
+Items and Objects,Stapler
+Items and Objects,Sunglasses
+Items and Objects,Table
+Items and Objects,Tape
+Items and Objects,Television
+Items and Objects,Toothbrush
+Items and Objects,Towel
+Items and Objects,Trash can
+Items and Objects,Umbrella
+Items and Objects,Wallet
+Items and Objects,Water bottle
 Places and Locations,Angkor Wat
 Places and Locations,Athens
 Places and Locations,Auckland
@@ -606,9 +705,7 @@ Places and Locations,Venice
 Places and Locations,Victoria Falls
 Places and Locations,Vienna
 Places and Locations,Yellowstone National Park
-Places and Locations,ZurichSongs,24K Magic - Bruno Mars
-Songs,A Thousand Miles – Vanessa Carlton
-Songs,A Whole New World – Aladdin Soundtrack
+Places and Locations,Zurich
 Songs,Africa – Toto
 Songs,Ain’t No Mountain High Enough – Marvin Gaye & Tammi Terrell
 Songs,All About That Bass – Meghan Trainor
@@ -743,56 +840,7 @@ Songs,Wrecking Ball – Miley Cyrus
 Songs,You Belong With Me – Taylor Swift
 Songs,You Belong with Me - Taylor Swift
 Songs,You’re the One That I Want – Grease
-Songs,Zombie – The CranberriesFamous People,Ariana Grande
-Famous People,BTS (as a group)
-Famous People,Barack Obama
-Famous People,Beyoncé
-Famous People,Bill Gates
-Famous People,Billie Eilish
-Famous People,Blake Lively
-Famous People,Chris Hemsworth
-Famous People,Cristiano Ronaldo
-Famous People,Donald Trump
-Famous People,Drake
-Famous People,Dua Lipa
-Famous People,Dwayne “The Rock” Johnson
-Famous People,Ed Sheeran
-Famous People,Emma Stone
-Famous People,Emma Watson
-Famous People,Gordon Ramsay
-Famous People,Greta Thunberg
-Famous People,Harry Styles
-Famous People,Jeff Bezos
-Famous People,Jennifer Lopez
-Famous People,Johnny Depp
-Famous People,Justin Bieber
-Famous People,Keanu Reeves
-Famous People,Kim Kardashian
-Famous People,Kylie Jenner
-Famous People,Lady Gaga
-Famous People,LeBron James
-Famous People,Leonardo DiCaprio
-Famous People,Lionel Messi
-Famous People,Malala Yousafzai
-Famous People,Mark Zuckerberg
-Famous People,Novak Djokovic
-Famous People,Oprah Winfrey
-Famous People,PewDiePie
-Famous People,Rihanna
-Famous People,Robert Downey Jr.
-Famous People,Ryan Reynolds
-Famous People,Selena Gomez
-Famous People,Serena Williams
-Famous People,Shakira
-Famous People,Simone Biles
-Famous People,Stephen Curry
-Famous People,Taylor Swift
-Famous People,Tim Cook
-Famous People,Tom Cruise
-Famous People,Virat Kohli
-Famous People,ZendayaRecreation,Aerobics
-Recreation,Airsoft
-Recreation,American Football
+Songs,Zombie – The Cranberries
 Recreation,Archery
 Recreation,Badminton
 Recreation,Base Jumping
@@ -887,9 +935,7 @@ Recreation,Windsurfing
 Recreation,Wrestling
 Recreation,Yoga
 Recreation,Zumba
-Recreation,eSports (competitive video gaming)Tech and Inventions,3D printed organs
-Tech and Inventions,Abacus
-Tech and Inventions,Air conditioner
+Recreation,eSports (competitive video gaming)
 Tech and Inventions,Airplane
 Tech and Inventions,Antibiotics
 Tech and Inventions,Aqueduct
@@ -985,9 +1031,7 @@ Tech and Inventions,Wi-Fi
 Tech and Inventions,Wind turbine
 Tech and Inventions,Word processor
 Tech and Inventions,World Wide Web
-Tech and Inventions,X-raysTelevision,Arcane
-Television,Arrested Development
-Television,Beef
+Tech and Inventions,X-rays
 Television,Better Call Saul
 Television,Black Mirror
 Television,BoJack Horseman

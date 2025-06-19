@@ -24,7 +24,7 @@ const NAV_MENU = [
   {
     name: "Rules",
     icon: "/book.svg",
-    href: "/just-one/rules",
+    href: "/just-word/rules",
   },
 ];
 

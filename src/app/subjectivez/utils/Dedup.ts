@@ -16,6 +16,7 @@ fs.writeFile(absolutePath, "category,word\n", (error) => {
 
 fs.readdir(path.join(process.cwd(), dataPath), (err, files) => {
   files.forEach(file => {
+    console.log("Processing file:", file);
     if (file === "questions.csv" || file === "questions_test.csv") {
       return;
     }
@@ -42,7 +43,7 @@ fs.readdir(path.join(process.cwd(), dataPath), (err, files) => {
       fs.writeFile(absoluteFilePath, newLines.join("\n"), (error) => {
         console.log(error || fileName + " " + (newLines.length));
       });
-      fs.writeFile(absolutePath, newLines.map(line => `${fileName},${line}`).join("\n"), { flag: 'a' }, (error) => {
+      fs.writeFile(absolutePath, newLines.map(line => `${fileName},${line}`).join("\n") + "\n", { flag: 'a' }, (error) => {
         if (error) {
           console.error("Error appending to file:", error);
           return;
