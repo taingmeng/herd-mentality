@@ -215,19 +215,24 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
   const NAV_MENU: NavMenu[] = [
     {
+      name: "Home",
+      icon: "/icons/home.svg",
+      href: "/"
+    },
+    {
       name: "New Game",
-      icon: "/book.svg",
+      icon: "/icons/new.svg",
       onClick: reset,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
-      href: "/poetry/poetry-rules.pdf",
+      icon: "/icons/rules.svg",
+      href: "/monikerz/rules",
       target: "_blank",
     },
     {
       name: "Clear cache",
-      icon: "/book.svg",
+      icon: "/icons/clear.svg",
       onClick: clearCache,
     },
   ];

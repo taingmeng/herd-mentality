@@ -18,6 +18,7 @@ export interface Question {
 }
 
 export default function Main({ questions }: MainProps) {
+  
   const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
     useLocalStorage<Question[]>("sujectivez.questions", questions);
 
@@ -63,7 +64,6 @@ export default function Main({ questions }: MainProps) {
     {
       name: "Rules",
       icon: "/book.svg",
-      href: "/poetry/poetry-rules.pdf",
       onClick: setShowRules.bind(null, true),
     },
     {
