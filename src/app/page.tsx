@@ -1,84 +1,25 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HeroCard from "./components/HeroCard";
+import { games } from "./global/Data";
 
 export default async function Home() {
   return (
     <>
       <Navbar title="Partyz" />
-      <div className="pt-16 px-8 container mx-auto grid w-full grid-cols-1 place-items-center gap-4 xl:grid-cols-2">
-        <HeroCard
-          title="Herd Party"
-          playerCount="4-20 Players"
-          duration="20–30 Min"
-          age="Age: 10+"
-          playPath="/herd-party"
-          imagePath="/herd-party/herd-mentality-outlined.png"
-          paragraphs={[
-            "This is a party game for families, friends and cow rustlers. The aim of the game is simple: think like the herd and write down the same answers as your friends.",
-            "If your answer is part of the majority, you all win cows. Yeehaw! If everyone else writes an answer that is matched by at least one other person, but yours is the odd one out, then you land the angry Pink Cow, and your herd of cows is worthless until you can offload it onto someone else.",
-            "The first player to collect eight cows wins.",
-          ]}
-        />
-        <HeroCard
-          title="Just Word"
-          playerCount="3–7 Players"
-          duration="20–60 Min"
-          age="Age: 8+"
-          playPath="/just-word"
-          imagePath="/just-word/just-onez-outlined.png"
-          paragraphs={[
-            "Just Word is a cooperative party game in which you play together to discover as many mystery words as possible. Find the best clue to help your teammate. Be unique, as all identical clues will be cancelled!",
-            "You have the choice – make the difference!",
-          ]}
-        />
-        <HeroCard
-          title="A Fake Artist Goes to Party"
-          playerCount="5–10 Players"
-          duration="20 Min"
-          age="Age: 8+"
-          playPath="/fake-artist"
-          imagePath="/fake-artist/fake-artist-outlined.png"
-          paragraphs={[
-            "While the other players are given a category and its associated secret word, one player will have only a category and ??? written on their card. That person is the fake artist",
-            "Each player take turn to draw only 2 strokes. The fake artist tries to blend in and guess the secret word.",
-          ]}
-        />
-        <HeroCard
-          title="Party for Neanderthals"
-          playerCount="2-12 Players"
-          duration="15 Min"
-          age="Age: 8+"
-          playPath="/poetry"
-          imagePath="/poetry/neanderthal-outlined.png"
-          paragraphs={[
-            "Party for Neanderthals is a competitive word-guessing game where you can only give clues by speaking in single syllables.",
-            "So, instead of saying broccoli, you'd say something like green thing you eat for live long and have good health.",
-          ]}
-        />
-        <HeroCard
-          title="Monikerz"
-          playerCount="4-16 Players"
-          duration="30-60 Min"
-          age="Age: 17+"
-          playPath="/monikerz"
-          imagePath="/monikerz/monikerz-outlined.png"
-          paragraphs={[
-            "Charade! With a twist.",
-            "Round 1, say anything. Round 2, use the same cards, say one word only. Round 3, use the same cards again, act it out.",
-          ]}
-        />
-        <HeroCard
-          title="Subjectivez"
-          playerCount="3-6 Players"
-          duration="45 Min"
-          age="Age: 10+"
-          playPath="/subjectivez"
-          imagePath="/subjectivez/subjectivez-outlined.png"
-          paragraphs={[
-            "Start with a category and a secret word. Players then grab a different category and write down a clue. Choose a category to reveal and score points if you get it right. Finally, collect more points by guessing the rest of the player's clues!",
-          ]}
-        />
+      <div className="pt-32 px-8 container mx-auto grid w-full grid-cols-1 place-items-center gap-4 xl:grid-cols-2">
+        {games.map((game) => (
+          <HeroCard
+            key={game.title}
+            title={game.title}
+            playerCount={game.playerCount}
+            duration={game.duration}
+            age={game.age}
+            playPath={game.playPath}
+            imagePath={game.imagePath}
+            paragraphs={game.paragraphs}
+          />
+        ))}
       </div>
       <Footer />
     </>

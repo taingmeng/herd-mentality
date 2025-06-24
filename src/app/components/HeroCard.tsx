@@ -38,7 +38,7 @@ export default async function HeroCard({
               width="24"
               height="24"
               alt="Player count"
-              className="tint-grey"
+              className="tint-grey mr-1"
             />
             <span>{playerCount}</span>
           </div>
@@ -48,7 +48,7 @@ export default async function HeroCard({
               width="24"
               height="24"
               alt="Player count"
-              className="tint-grey"
+              className="tint-grey mr-1"
             />
             <span>{duration}</span>
           </div>
@@ -58,7 +58,7 @@ export default async function HeroCard({
               width="24"
               height="24"
               alt="Player count"
-              className="tint-grey"
+              className="tint-grey mr-1"
             />
             <span>{age}</span>
           </div>

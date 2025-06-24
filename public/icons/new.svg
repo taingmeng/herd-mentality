@@ -1,6 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2.84952C17.0536 2.84952 21.1504 6.94633 21.1504 12C21.1504 17.0537 17.0536 21.1505 12 21.1505C6.9463 21.1505 2.84949 17.0537 2.84949 12C2.84949 6.94633 6.9463 2.84952 12 2.84952Z" stroke="#1C1C1C" stroke-width="1.69904"/>
-<path d="M9.39941 12L14.5902 12" stroke="#1C1C1C" stroke-width="1.69904" stroke-linecap="round"/>
-<path d="M11.9949 9.4046L11.9949 14.5954" stroke="#1C1C1C" stroke-width="1.69904" stroke-linecap="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg fill="#000000" width="800px" height="800px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g>
+    <path d="M26,26H6V6H16V4H6A2.002,2.002,0,0,0,4,6V26a2.002,2.002,0,0,0,2,2H26a2.002,2.002,0,0,0,2-2V16H26Z"/>
+    <path d="M26,26H6V6H16V4H6A2.002,2.002,0,0,0,4,6V26a2.002,2.002,0,0,0,2,2H26a2.002,2.002,0,0,0,2-2V16H26Z"/>
+  </g>
+  <polygon points="26 6 26 2 24 2 24 6 20 6 20 8 24 8 24 12 26 12 26 8 30 8 30 6 26 6"/>
+  <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/>
 </svg>

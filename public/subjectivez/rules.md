@@ -1,4 +1,4 @@
-# Setup
+## Setup
 
 - A phone, tablet or laptop to run the game.
 - A number of erasable markers equal to the number of players.

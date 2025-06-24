@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Analytics />
-      <body className={`${inter.className} button dark`}>{children}</body>
+      <body className={`${inter.className} button`}>
+        {children}
+      </body>
     </html>
   );
 }

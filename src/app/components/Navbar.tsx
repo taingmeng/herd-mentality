@@ -62,7 +62,7 @@ export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
   const menuHeight = `h-${menus.length * 14}`;
 
   return (
-    <div className="fixed w-screen px-4 border-0 z-40 top-0 bg-neutral-100 dark:bg-neutral-800">
+    <div className="fixed w-screen px-4 border-0 z-40 top-0 bg-neutral-800 bg-opacity-75">
       <div className="mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image src={iconFilePath || "/party.svg"} width="36" height="36" alt="Just Words" className="fill-cyan-500" />

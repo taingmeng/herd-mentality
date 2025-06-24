@@ -5,17 +5,9 @@ import Navbar, { NavMenu } from "@/app/components/Navbar";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import BigButton from "../components/BigButton";
 import Rules from "./Rules";
+import { MainProps, Question } from "../global/Types";
 
 export const dynamic = "force-dynamic";
-
-interface MainProps {
-  questions: Question[];
-}
-
-export interface Question {
-  category: string;
-  word: string;
-}
 
 export default function Main({ questions }: MainProps) {
   
