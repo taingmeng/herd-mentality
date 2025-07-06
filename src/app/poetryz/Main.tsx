@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import NextButton from "@/app/components/NextButton";
@@ -19,6 +18,8 @@ import rightSoundFile from "@/assets/right.mp3";
 import bonusSoundFile from "@/assets/bonus.mp3";
 import timesUpSoundFile from "@/assets/times-up.mp3";
 import newInfoSoundFile from "@/assets/new-info.mp3";
+import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
+import Rules from "../components/Rules";
 
 export const dynamic = "force-dynamic";
 
@@ -48,8 +49,8 @@ const popRandomItem = (items: PoetryQuestion[]): PoetryQuestion => {
 
 const sum = (nums: number[]): number => (nums || []).reduce((a, b) => a + b, 0);
 
-export default function PoetryMain({ questions }: PoetryMainProps) {
-  const router = useRouter();
+export default function Main({ questions }: PoetryMainProps) {
+  const [showRules, setShowRules] = useState(false);
 
   const [sessionQuestions, setSessionQuestions] = useLocalStorage<
     PoetryQuestion[]
@@ -128,8 +129,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     {
       name: "Rules",
       icon: "/book.svg",
-      href: "/poetry/poetry-rules.pdf",
-      target: "_blank",
+      onClick: setShowRules.bind(null, true),
     },
   ];
 
@@ -313,7 +313,17 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
   return (
     <>
-      <Navbar title="Party for Neanderthals" menus={NAV_MENU} />
+      <Navbar
+        title={GAME_NAME}
+        iconFilePath={GAME_ICON_PATH}
+        menus={NAV_MENU}
+      />
+      <Rules
+        gamePath={GAME_PATH}
+        gameName={GAME_NAME}
+        visible={showRules}
+        onClose={() => setShowRules(false)}
+      />
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <Modal
           title={`Round ${currentRound} of ${rounds}`}
@@ -403,60 +413,72 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           <>
             <h1>New Game</h1>
             <div className="flex flex-col gap-4 mt-20">
-              <div className="flex flex-row gap-4 items-center">
+              <div className="flex gap-4 items-center">
                 <h2 className="w-20">Teams</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setNumberOfTeams(-1)}
-                >
-                  -
-                </Button>
-                <h2 className="w-12 text-center">{teamCount}</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setNumberOfTeams(1)}
-                >
-                  +
-                </Button>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setNumberOfTeams(-1)}
+                  >
+                    -
+                  </BigButton>
+                </div>
+                <h2 className="w-20 text-center">{teamCount}</h2>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setNumberOfTeams(1)}
+                  >
+                    +
+                  </BigButton>
+                </div>
               </div>
-              <div className="flex flex-row gap-4  items-center">
+              <div className="flex gap-4 items-center">
                 <h2 className="w-20">Time</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setRoundDuration(-30)}
-                >
-                  -
-                </Button>
-                <h2 className="w-12 text-left">{duration}s</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setRoundDuration(30)}
-                >
-                  +
-                </Button>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setRoundDuration(-30)}
+                  >
+                    -
+                  </BigButton>
+                </div>
+                <h2 className="w-20 text-center">{duration}s</h2>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setRoundDuration(30)}
+                  >
+                    +
+                  </BigButton>
+                </div>
               </div>
-              <div className="flex flex-row gap-4  items-center">
+              <div className="flex gap-4  items-center">
                 <h2 className="w-20">Rounds</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setGameRounds(-1)}
-                >
-                  -
-                </Button>
-                <h2 className="w-12 text-center">{rounds}</h2>
-                <Button
-                  className="w-20 text-5xl"
-                  onClick={() => setGameRounds(1)}
-                >
-                  +
-                </Button>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setGameRounds(-1)}
+                  >
+                    -
+                  </BigButton>
+                </div>
+                <h2 className="w-20 text-center">{rounds}</h2>
+                <div className="w-20">
+                  <BigButton
+                    className="text-5xl"
+                    onClick={() => setGameRounds(1)}
+                  >
+                    +
+                  </BigButton>
+                </div>
               </div>
             </div>
-            <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-              <div className="grid grid-cols-3 gap-4 fixed h-24 bottom-0 left-0 right-0 p-4 items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-                <NextButton className="col-span-3" onClick={startGame}>
+            <div className="z-10 w-full max-w-5xl items-center justify-between">
+              <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
+                <BigButton className="col-span-3" onClick={startGame}>
                   Start
-                </NextButton>
+                </BigButton>
               </div>
             </div>
           </>
@@ -484,10 +506,14 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
                   <div className="flex items-end">
                     <div className="w-10"></div>
                     <div className="text-5xl font-bold mt-0">
-                      {teams[currentTeamIndex].roundScores[currentRound-1]}
+                      {teams[currentTeamIndex].roundScores[currentRound - 1]}
                     </div>
                     <div className="w-10">
-                      {sum(teams[currentTeamIndex].roundScores.filter((s, index) => index !== currentRound - 1))}
+                      {sum(
+                        teams[currentTeamIndex].roundScores.filter(
+                          (s, index) => index !== currentRound - 1
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
@@ -509,12 +535,11 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
 
             {roundState === "ready" && <h1>Ready?</h1>}
 
-            <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
+            <div className="z-10 w-full max-w-5xl items-center justify-between text-sm">
               <div className="fixed grid grid-cols-3 gap-4  h-24 bottom-0 pb-4 mb-4 left-0 right-0 p-4 items-end justify-center">
                 {roundState === "ready" && (
                   <div className="col-span-3">
-                    {" "}
-                    <NextButton onClick={onRoundStart}>Start</NextButton>
+                    <BigButton onClick={onRoundStart}>Start</BigButton>
                   </div>
                 )}
                 {roundState === "playing" && (
@@ -547,42 +572,38 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           <>
             <h2 className="mb-4">Final Result</h2>
             <div className="flex flex-col gap-2">
-              {teams
-                .map((team, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${sum(team.roundScores) === highestScore ? "border-2" : ""} border-pink-500`}
-                    >
-                      {sum(team.roundScores) === highestScore ? (
-                        <Image
+              {teams.map((team, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`flex justify-center items-center gap-8 text-center p-2 rounded-xl ${sum(team.roundScores) === highestScore ? "border-2" : ""} border-pink-500`}
+                  >
+                    {sum(team.roundScores) === highestScore ? (
+                      <Image
                         className="w-24"
-                          src="/crown.svg"
-                          width="48"
-                          height="48"
-                          alt="Winner"
-                        />
-                      ) : (
-                        <Image
+                        src="/crown.svg"
+                        width="48"
+                        height="48"
+                        alt="Winner"
+                      />
+                    ) : (
+                      <Image
                         className="w-24"
-                          src="/pile-of-poo.svg"
-                          width="48"
-                          height="48"
-                          alt="Loser"
-                        />
-                      )}
-                      <h1 className="w-64 text-center">Team {index + 1}</h1>
-                      <h2 className="w-24">{sum(team.roundScores)} pts</h2>
-                    </div>
-                  );
-                })}
+                        src="/pile-of-poo.svg"
+                        width="48"
+                        height="48"
+                        alt="Loser"
+                      />
+                    )}
+                    <h1 className="w-64 text-center">Team {index + 1}</h1>
+                    <h2 className="w-24">{sum(team.roundScores)} pts</h2>
+                  </div>
+                );
+              })}
             </div>
             <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-              <div className="fixed grid grid-cols-3 gap-4  h-24 bottom-0 pb-4 mb-4 left-0 right-0 p-4 items-end justify-center">
-                <div className="col-span-3">
-                  {" "}
-                  <NextButton onClick={reset}>New Game</NextButton>
-                </div>
+              <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
+                <BigButton onClick={reset}>New Game</BigButton>
               </div>
             </div>
           </>

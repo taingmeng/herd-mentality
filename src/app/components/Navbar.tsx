@@ -10,19 +10,23 @@ interface NavItemProps {
   href?: string;
   target?: string;
   onClick?: () => void;
-  onLinkClick?: () => void;
+  afterClick?: () => void;
 }
 
-function NavItem({ children, href, target, onClick }: NavItemProps) {
+function NavItem({ children, href, target, onClick, afterClick }: NavItemProps) {
   return (
     <li>
-      {onClick ? <div className="flex items-center gap-2 font-medium h-8 cursor-pointer" onClick={onClick}>
+      {onClick ? <div className="flex items-center gap-2 font-medium h-8 cursor-pointer" onClick={() => {
+        onClick();
+        afterClick && afterClick();
+      }}>
         {children}
         </div> :
       <Link
         href={href || "#"}
         target={target || "_self"}
         className="flex items-center gap-2 font-medium h-8"
+        onClick={afterClick}
       >
         {children}
       </Link>
@@ -98,13 +102,7 @@ export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
         <div className="container mx-auto my-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
             {menus.map(({ name, icon, href, target, onClick }) => (
-              <NavItem key={name} href={href} target={target} onClick={() => {
-                handleOpen();
-                if (onClick) {
-                  onClick();
-                }
-                }}
-                onLinkClick={handleOpen}>
+              <NavItem key={name} href={href} target={target} onClick={onClick} afterClick={handleOpen}>
                 <Image src={icon} width="24" height="24" alt={name} className="tint" />
                 <span>{name}</span>
               </NavItem>

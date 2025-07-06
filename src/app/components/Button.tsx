@@ -11,10 +11,9 @@ export function Button({ onClick, children, className, disabled }: ButtonProps) 
       text-center text-white
     prevent-select
     flex justify-center items-center
-    bg-pink-700 border-transparent
-    active:border-pink-500 active:bg-pink-500
-    dark:bg-neutral-800 dark:border-pink-200
-    active:dark:border-pink-400 active:dark:bg-pink-800/30
+    border-transparent
+    border-pink-200
+    active:border-pink-400 active:bg-pink-800/30
     ${disabled ? 
       "pointer-events-none !bg-gray-300" :
       "pointer-events-auto"}`}

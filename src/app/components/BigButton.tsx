@@ -20,10 +20,9 @@ export default function BigButton({
          text-white text-3xl
          outline-none
          select-none
-    bg-pink-700 border-transparent
-    dark:bg-neutral-800 dark:border-pink-200
-    active:border-pink-500 active:bg-pink-500
-    active:dark:border-pink-400 active:dark:bg-pink-800/30
+    border-transparent
+    bg-neutral-800 border-pink-200
+    active:border-pink-400 active:bg-pink-800/30
     ${disabled ? "pointer-events-none !bg-gray-300" : "pointer-events-auto"}`}
       onClick={() => {
         window.document.body.focus();

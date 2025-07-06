@@ -40,7 +40,7 @@ export default function Rules({
   }, []);
   return (
     <Modal
-      title={gameName + " Rules"}
+      title="Rules"
       visible={visible}
       onClose={onClose}
       confirmButtonText="Got it"

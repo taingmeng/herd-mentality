@@ -13,7 +13,7 @@ import confetti from "canvas-confetti";
 
 export const dynamic = "force-dynamic";
 
-export default function Main({ questions }: MainProps) {
+export default function New({ questions }: MainProps) {
   const WIDTH = 40;
   const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
     useLocalStorage<Question[]>(`${GAME_PATH}.questions`, questions);
@@ -110,12 +110,6 @@ export default function Main({ questions }: MainProps) {
   }, [setSessionScore, setRoundState, popRandomItem, setCurrentRound]);
 
   const NAV_MENU: NavMenu[] = [
-    {
-      name: "Home",
-      icon: "/icons/home.svg",
-      href: "/",
-      target: "_self",
-    },
     {
       name: "New game",
       icon: "/icons/new.svg",

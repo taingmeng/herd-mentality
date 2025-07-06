@@ -6,6 +6,7 @@ import useLocalStorage from "@/app/hooks/useLocalStorage";
 import BigButton from "../components/BigButton";
 import Rules from "./Rules";
 import { MainProps, Question } from "../global/Types";
+import { GAME_ICON_PATH, GAME_NAME } from "./Constants";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +68,7 @@ export default function Main({ questions }: MainProps) {
 
   return (
     <>
-      <Navbar title="Subjectivez" menus={NAV_MENU} iconFilePath="/subjectivez/subjectivez-outlined.png" />
+      <Navbar title={GAME_NAME} menus={NAV_MENU} iconFilePath={GAME_ICON_PATH} />
       <Rules visible={showRules} onClose={() => setShowRules(false)} />
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <div className="flip-card partikers text-center w-160">

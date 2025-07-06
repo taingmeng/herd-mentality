@@ -1,6 +1,6 @@
 # OBJECT OF THE GAME
 
-**Just Word** is a cooperative party game.
+**{{ GAME_NAME }}** is a cooperative party game.
 You all play together to get the best score!
 
 Together, make one of the players – the active player– guess a Mystery word by secretly writing a clue on your paper.

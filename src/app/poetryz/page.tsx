@@ -1,6 +1,6 @@
 import path from "path";
 import csv from "csvtojson";
-import PoetryMain, { PoetryQuestion } from "./PoetryMain";
+import Main, { PoetryQuestion } from "./Main";
 
 export const dynamic = "force-dynamic";
 
@@ -28,5 +28,5 @@ export default async function Poetry() {
     long: capitalize(question.long),
   }));
 
-  return <PoetryMain questions={questions} />;
+  return <Main questions={questions} />;
 }

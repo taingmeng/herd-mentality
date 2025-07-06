@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
+import { Question } from "../global/Types";
 
-interface JustOneQuestionProps {
-  question: string;
-}
 
-export default function JustOneQuestion({ question }: JustOneQuestionProps) {
+export default function JustOneQuestion({ question }: { question: Question }) {
   const [visible, setVisible] = useState(true);
   const buttonTitle = visible ? "Hide" : "Show";
   useEffect(() => {
@@ -18,7 +16,7 @@ export default function JustOneQuestion({ question }: JustOneQuestionProps) {
       <div className="relative flex flex-col place-items-center mb-24">
         {visible && question && (
           <h2 className="mb-3 text-5xl font-semibold text-center">
-            {question}
+            {question.word}
           </h2>
         )}
 
