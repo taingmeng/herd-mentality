@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import BigButton from "../components/BigButton";
-import useLocalStorage from "../hooks/useLocalStorage";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import { Question } from "../global/Types";
 import { usePopRandomQuestion } from "../global/Utils";

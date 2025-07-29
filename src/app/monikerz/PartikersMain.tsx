@@ -5,7 +5,6 @@ import Image from "next/image";
 import useSound from "use-sound";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import ActionButton from "./ActionButton";
-import NextButton from "@/app/components/NextButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 // import useSound from "@/app/hooks/useSound";
 import Modal from "../components/Modal";
@@ -337,14 +336,12 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       },
     ];
     setRoundQuestions(updatedRoundQuestions);
-    playTimesUpSound();
   }, [
     setIsOpen,
     setRoundState,
     setRoundQuestions,
     roundQuestions,
     currentQuestion,
-    playTimesUpSound,
   ]);
 
   const onRoundEndNext = useCallback(() => {

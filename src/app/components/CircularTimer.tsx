@@ -3,16 +3,17 @@
 import {
   useEffect,
   useState,
-  useRef,
   forwardRef,
   useImperativeHandle,
 } from "react";
 import tickingSoundFile from "@/assets/ticking.mp3";
+import timesUpSoundFile from "@/assets/times-up.mp3";
 import useSound from "use-sound";
 
 interface CircularTimerProps {
   duration: number;
   onEnded?: () => void;
+  tickSoundStartAt?: number;
 }
 
 export interface CircularTimerRefProps {
@@ -23,16 +24,18 @@ export interface CircularTimerRefProps {
 }
 
 const CircularTimer = forwardRef(
-  ({ duration, onEnded }: CircularTimerProps, ref) => {
+  ({ duration, onEnded, tickSoundStartAt = 10 }: CircularTimerProps, ref) => {
     const [tickingSound] = useSound(tickingSoundFile);
     const [paused, setPaused] = useState(false);
     const [running, setRunning] = useState(false);
     const [timeLeft, setTimeLeft] = useState(duration);
+    const [playTimesUpSound] = useSound(timesUpSoundFile);
 
     useImperativeHandle(ref, () => ({
       reset() {
         setTimeLeft(duration);
         setRunning(false);
+        setPaused(false);
       },
 
       go() {
@@ -61,7 +64,7 @@ const CircularTimer = forwardRef(
       const id = setInterval(() => {
         if (!paused && running) {
           setTimeLeft(timeLeft - 1);
-          if (timeLeft <= 10) {
+          if (timeLeft <= tickSoundStartAt && timeLeft > 0) {
             tickingSound();
           }
         }
@@ -70,6 +73,7 @@ const CircularTimer = forwardRef(
       if (timeLeft < 0) {
         clearInterval(id);
         setTimeLeft(0)
+        playTimesUpSound();
       }
       return () => clearInterval(id);
     }, [

@@ -1,5 +1,17 @@
 export const games = [
   {
+    title: "Tapplez",
+    playerCount: "2-10 Players",
+    duration: "30 Min",
+    age: "Age: 8+",
+    playPath: "/tapplez",
+    imagePath: "/tapplez/icon.png",
+    paragraphs: [
+      "Each round in Tapplez, a category is randomly generated, and the timer starts.",
+      "Within the ten seconds, each player must give a single word answer that fits within the category."
+    ],
+  },
+  {
     title: "Wavelengthz",
     playerCount: "2-12 Players",
     duration: "30–45 Min",

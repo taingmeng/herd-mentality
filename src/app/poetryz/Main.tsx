@@ -3,10 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
-import NextButton from "@/app/components/NextButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import useSound from "@/app/hooks/useSound";
-import Button from "../components/Button";
 import Modal from "../components/Modal";
 import BigButton from "../components/BigButton";
 import CircularTimer, {
@@ -249,8 +247,7 @@ export default function Main({ questions }: PoetryMainProps) {
     setIsOpen(true);
     setRoundState("end");
     addPointsToTeam(0, true);
-    playTimesUpSound();
-  }, [setIsOpen, setRoundState, addPointsToTeam, playTimesUpSound]);
+  }, [setIsOpen, setRoundState, addPointsToTeam]);
 
   function onRoundEndNext() {
     setIsOpen(false);
