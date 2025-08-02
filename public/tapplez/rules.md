@@ -1,6 +1,6 @@
 ## Setup
 
-- A phone, tablet or laptop to run the game.
+- A phone, tablet or laptop to run the game. A touchable device is preferred.
 - Everyone sits around the table and make sure the device is within reach for everyone.
 
 ## Generate a category

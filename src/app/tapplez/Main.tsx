@@ -47,7 +47,7 @@ export default function Main({ questions }: MainProps) {
   const [playTimesUpSound] = useSound(timesUpSoundFile);
 
   function clearCache() {
-    clearSessionQuestions;
+    clearSessionQuestions();
   }
   const timerRef = useRef<CircularTimerRefProps>(null);
 
@@ -80,7 +80,9 @@ export default function Main({ questions }: MainProps) {
 
   const alphabetClicked = useCallback(
     (letter: string) => {
-      console.log("gameState", gameState);
+      if (gameState.usedAlphabets.includes(letter)) {
+        return;
+      }
 
       if (gameState.correctCount + 1 >= gameState.currentRound) {
         setGameState((prevState) => ({
@@ -186,18 +188,18 @@ export default function Main({ questions }: MainProps) {
           </div>
           <div className="flip-card text-center w-40 h-40">
             <div className="flip-card-front flex">
-              <h3 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white select-none">
+              <h3 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white text-2xl select-none">
                 {currentQuestion && currentQuestion.word}
               </h3>
             </div>
           </div>
           <Round round={gameState.currentRound} />
         </div>
-        <div className="w-full max-w-4xl grid grid-cols-4 gap-4 justify-center items-center mt-4 px-8">
+        <div className="w-full grid grid-cols-4 md:grid-cols-5 gap-4 justify-center items-center mt-4 px-8">
           {ALPHABETS.split("").map((letter, index) => (
             <div
               key={index}
-              className="w-full h-20 bg-pink-700 rounded-lg text-white flex items-center justify-center text-2xl font-bold"
+              className="w-full h-[10vh] bg-pink-700 rounded-lg text-white flex items-center justify-center text-5xl font-bold  select-none"
               onClick={() => alphabetClicked(letter)}
               style={{
                 color: gameState.usedAlphabets.includes(letter)
