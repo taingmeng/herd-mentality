@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState, ChangeEvent, useEffect } from "react";
 import useSound from "use-sound";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import BigButton from "../components/BigButton";
 import { MainProps, Question } from "../global/Types";
@@ -17,7 +18,6 @@ import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
 import timesUpSoundFile from "@/assets/times-up.mp3";
 import Button from "../components/Button";
 import IncrementalInput from "../components/IncrementalInput";
-import { set } from "firebase/database";
 
 interface Player {
   name: string;
@@ -60,9 +60,8 @@ export default function Main({ questions }: MainProps) {
   );
 
   const [showRules, setShowRules] = useState(false);
-  const [playRightSound] = useSound(rightSoundFile);
-  const [playBubblePopSound] = useSound(bubblePopSoundFile);
   const [playTimesUpSound] = useSound(timesUpSoundFile);
+  const fullScreenHandle = useFullScreenHandle();
 
   function clearCache() {
     clearSessionQuestions();
@@ -78,13 +77,18 @@ export default function Main({ questions }: MainProps) {
 
   const NAV_MENU: NavMenu[] = [
     {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
+    {
       name: "Rules",
       icon: "/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/book.svg",
+      icon: "/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -322,292 +326,298 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
-      <main className="mt-12 flex flex-col min-h-[80vh] items-center">
-        <div className="max-h-[80vh] flex flex-col items-center w-full max-w-5xl items-center justify-center overflow-y-auto p-4">
-          {gameState.gameState === "new" && (
-            <div className="w-full mx-auto">
-              <h3 className="mb-3 font-semibold text-center">
-                Enter player names:
-              </h3>
-              <textarea
-                className="w-full p-4 text-center border rounded-lg font-bold text-3xl bg-transparent border-pink-600 placeholder-grey-400 placeholder-opacity-10 text-white"
-                placeholder="Example: Alice, Bob, Charlie"
-                onChange={handleChange}
-                value={gameState.playerNames}
-              />
-              <label className="block mt-2">
-                Player count: {playerCount} (minimum 4)
-              </label>
-              <div className="flex justify-center items-center mt-4">
-                <IncrementalInput
-                  title="Time"
-                  value={`${gameState.gameDuration}s`}
-                  onIncrement={() => onTimeIncrement()}
-                  onDecrement={() => onTimeDecrement()}
+      <FullScreen handle={fullScreenHandle}>
+        <main className="mt-12 flex flex-col min-h-[80vh] items-center">
+          <div className="max-h-[80vh] flex flex-col items-center w-full max-w-5xl items-center justify-center overflow-y-auto p-4">
+            {gameState.gameState === "new" && (
+              <div className="w-full mx-auto">
+                <h3 className="mb-3 font-semibold text-center">
+                  Enter player names:
+                </h3>
+                <textarea
+                  className="w-full p-4 text-center border rounded-lg font-bold text-3xl bg-transparent border-pink-600 placeholder-grey-400 placeholder-opacity-10 text-white"
+                  placeholder="Example: Alice, Bob, Charlie"
+                  onChange={handleChange}
+                  value={gameState.playerNames}
                 />
+                <label className="block mt-2">
+                  Player count: {playerCount} (minimum 4)
+                </label>
+                <div className="flex justify-center items-center mt-4">
+                  <IncrementalInput
+                    title="Time"
+                    value={`${gameState.gameDuration}s`}
+                    onIncrement={() => onTimeIncrement()}
+                    onDecrement={() => onTimeDecrement()}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-          {gameState.gameState === "roles" && (
-            <>
-              <h3 className="flex flex-row flex-wrap gap-4">
-                {gameState.players.map((player, index) => {
-                  const nextArrow =
-                    index === gameState.players.length - 1 ? "" : " -> ";
-                  if (index === gameState.passIndex) {
+            )}
+            {gameState.gameState === "roles" && (
+              <>
+                <h3 className="flex flex-row flex-wrap gap-4">
+                  {gameState.players.map((player, index) => {
+                    const nextArrow =
+                      index === gameState.players.length - 1 ? "" : " -> ";
+                    if (index === gameState.passIndex) {
+                      return (
+                        <span className={`font-bold`} key={index}>
+                          {player.name} {nextArrow}
+                        </span>
+                      );
+                    }
                     return (
-                      <span className={`font-bold`} key={index}>
+                      <span className={`text-gray-500`} key={index}>
                         {player.name} {nextArrow}
                       </span>
                     );
-                  }
-                  return (
-                    <span className={`text-gray-500`} key={index}>
-                      {player.name} {nextArrow}
-                    </span>
-                  );
-                })}
-              </h3>
-              <div
-                className={`flip-card cursor-pointer select-none mt-4 ${
-                  gameState.players[gameState.passIndex].flipped
-                    ? "flipped"
-                    : ""
-                }`}
-                onClick={() =>
-                  onFlipped(gameState.players[gameState.passIndex].name)
-                }
-              >
+                  })}
+                </h3>
                 <div
-                  className={`flip-card-inner ${
+                  className={`flip-card cursor-pointer select-none mt-4 ${
                     gameState.players[gameState.passIndex].flipped
                       ? "flipped"
                       : ""
                   }`}
+                  onClick={() =>
+                    onFlipped(gameState.players[gameState.passIndex].name)
+                  }
                 >
-                  <div className="flip-card-front">
-                    {gameState.players[gameState.passIndex].role ===
-                      "Master" && <span className="text-white">Master</span>}
-                    <h2 className="text-white">
-                      {gameState.players[gameState.passIndex].name}
-                    </h2>
-                    <label className="text-white">(Tap to reveal)</label>
-                  </div>
-                  <div className="flip-card-back">
-                    <h2 className="text-white">
-                      {gameState.players[gameState.passIndex].role}
-                    </h2>
+                  <div
+                    className={`flip-card-inner ${
+                      gameState.players[gameState.passIndex].flipped
+                        ? "flipped"
+                        : ""
+                    }`}
+                  >
+                    <div className="flip-card-front">
+                      {gameState.players[gameState.passIndex].role ===
+                        "Master" && <span className="text-white">Master</span>}
+                      <h2 className="text-white">
+                        {gameState.players[gameState.passIndex].name}
+                      </h2>
+                      <label className="text-white">(Tap to reveal)</label>
+                    </div>
+                    <div className="flip-card-back">
+                      <h2 className="text-white">
+                        {gameState.players[gameState.passIndex].role}
+                      </h2>
 
-                    {(gameState.players[gameState.passIndex].role ===
-                      "Insider" ||
-                      gameState.players[gameState.passIndex].role ===
-                        "Master") && (
-                      <h3 className="text-white">
-                        {currentQuestion && currentQuestion.word}
-                      </h3>
-                    )}
+                      {(gameState.players[gameState.passIndex].role ===
+                        "Insider" ||
+                        gameState.players[gameState.passIndex].role ===
+                          "Master") && (
+                        <h3 className="text-white">
+                          {currentQuestion && currentQuestion.word}
+                        </h3>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              {gameState.players[gameState.passIndex].role === "Master" &&
-                gameState.players[gameState.passIndex].flipped && (
-                  <>
-                    {(!gameState.moreSecretWords ||
-                      !gameState.moreSecretWords.length) && (
-                      <Button className="mt-4" onClick={onMoreSecretWords}>
-                        Change Secret Word
-                      </Button>
-                    )}
-                    {gameState.moreSecretWords &&
-                      gameState.moreSecretWords.length > 0 && (
-                        <div className="mt-4">
-                          <div className="flex flex-wrap gap-2">
-                            {gameState.moreSecretWords.map(
-                              (question, index) => (
-                                <Button
-                                  key={index}
-                                  className="text-pink-300 px-2 py-1 rounded-full border border-pink-300 cursor-pointer"
-                                  onClick={() => onChangeSecretWord(question)}
-                                >
-                                  {question.word}
-                                </Button>
-                              )
-                            )}
-                          </div>
-                        </div>
+                {gameState.players[gameState.passIndex].role === "Master" &&
+                  gameState.players[gameState.passIndex].flipped && (
+                    <>
+                      {(!gameState.moreSecretWords ||
+                        !gameState.moreSecretWords.length) && (
+                        <Button className="mt-4" onClick={onMoreSecretWords}>
+                          Change Secret Word
+                        </Button>
                       )}
-                  </>
-                )}
-            </>
-          )}
-          {(gameState.gameState === "playing" ||
-            gameState.gameState === "ended") && (
-            <>
-              <div className="p-8 flex justify-between items-center w-full max-w-5xl">
-                <div>
-                  <CircularTimer
-                    ref={timerRef}
-                    duration={gameState.gameDuration}
-                    onEnded={onTimerEnded}
-                    tickSoundStartAt={10}
-                    textSize="text-3xl"
-                  />
+                      {gameState.moreSecretWords &&
+                        gameState.moreSecretWords.length > 0 && (
+                          <div className="mt-4">
+                            <div className="flex flex-wrap gap-2">
+                              {gameState.moreSecretWords.map(
+                                (question, index) => (
+                                  <Button
+                                    key={index}
+                                    className="text-pink-300 px-2 py-1 rounded-full border border-pink-300 cursor-pointer"
+                                    onClick={() => onChangeSecretWord(question)}
+                                  >
+                                    {question.word}
+                                  </Button>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                    </>
+                  )}
+              </>
+            )}
+            {(gameState.gameState === "playing" ||
+              gameState.gameState === "ended") && (
+              <>
+                <div className="p-8 flex justify-between items-center w-full max-w-5xl">
+                  <div>
+                    <CircularTimer
+                      ref={timerRef}
+                      duration={gameState.gameDuration}
+                      onEnded={onTimerEnded}
+                      tickSoundStartAt={10}
+                      textSize="text-3xl"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-center">Master</h3>
+                    <h1 className="font-bold text-center">
+                      {gameState.players.find(
+                        (player) => player.role === "Master"
+                      )?.name || "No Master"}
+                    </h1>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-center">Master</h3>
-                  <h1 className="font-bold text-center">
-                    {gameState.players.find(
-                      (player) => player.role === "Master"
-                    )?.name || "No Master"}
-                  </h1>
-                </div>
-              </div>
-              <div className="flex gap-2 w-full flex-wrap justify-center">
-                {gameState.players
-                  .filter((player) => player.role !== "Master")
-                  .map((player, index) => (
-                    <div
-                      className={`flip-card fake-artist cursor-pointer select-none mt-4 ${
-                        player.flipped ? "flipped" : ""
-                      }`}
-                      key={player.name + index}
-                      onClick={
-                        gameState.gameState === "ended"
-                          ? () => onFlipped(player.name)
-                          : undefined
-                      }
-                    >
+                <div className="flex gap-2 w-full flex-wrap justify-center">
+                  {gameState.players
+                    .filter((player) => player.role !== "Master")
+                    .map((player, index) => (
                       <div
-                        className={`flip-card-inner ${
+                        className={`flip-card fake-artist cursor-pointer select-none mt-4 ${
                           player.flipped ? "flipped" : ""
                         }`}
+                        key={player.name + index}
+                        onClick={
+                          gameState.gameState === "ended"
+                            ? () => onFlipped(player.name)
+                            : undefined
+                        }
                       >
-                        <div className="flip-card-front">
-                          <h2 className="text-white">{player.name}</h2>
-                          {gameState.gameState === "ended" && (
-                            <label className="text-white">
-                              (Tap to reveal)
-                            </label>
-                          )}
-                        </div>
-                        <div className="flip-card-back">
-                          <h2 className="text-white">{player.role}</h2>
+                        <div
+                          className={`flip-card-inner ${
+                            player.flipped ? "flipped" : ""
+                          }`}
+                        >
+                          <div className="flip-card-front">
+                            <h2 className="text-white">{player.name}</h2>
+                            {gameState.gameState === "ended" && (
+                              <label className="text-white">
+                                (Tap to reveal)
+                              </label>
+                            )}
+                          </div>
+                          <div className="flip-card-back">
+                            <h2 className="text-white">{player.role}</h2>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-            </>
-          )}
-          {gameState.gameState === "ended" && (
-            <div className="flex flex-col gap-2 w-full mt-8">
-              <div>
-                <span>Secret word</span>
-                <div className="flex flex-row justify-start items-start">
-                  <div className="flex gap-2 items-center">
-                    <Button onClick={() => onAnswerFlip()}>
-                      {gameState.answerFlipped ? "Hide" : "Reveal"}
-                    </Button>
-                    {gameState.answerFlipped && (
-                      <h3>{currentQuestion?.word || ""}</h3>
-                    )}
-                  </div>
+                    ))}
                 </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span>Did anyone guess the secret word?</span>
-                <div className="flex gap-2 items-center">
-                  <Button onClick={() => onGuess(false)}>No</Button>
-                  <Button onClick={() => onGuess(true)}>Yes</Button>
-                  {gameState.guessResult !== null && (
-                    <h3>{gameState.guessResult ? "Yes" : "No"}</h3>
-                  )}
-                </div>
-                {gameState.guessResult === false && (
-                  <span>Too bad. Everyone loses!</span>
-                )}
-                {gameState.guessResult === true && (
-                  <div>
-                    <span>
-                      Discuss openly for 1 minute. Everyone except the guesser
-                      votes for whether the guesser is the insider.
-                    </span>
-                    <h3>
-                      Tap the name of the player who asked the correct question.
-                    </h3>
-                  </div>
-                )}
-                {gameState.guessResult === true &&
-                  gameState.players.filter(
-                    (player) => player.flipped && player.role === "Common"
-                  ).length > 0 && (
-                    <div>
-                      <span>
-                        The guesser is a common. Now everyone including the
-                        guesser votes for the insider.
-                      </span>
-                      <h3>
-                        Tap the name of the player who got the majority vote.
-                      </h3>
-                    </div>
-                  )}
-                {gameState.guessResult === true &&
-                  gameState.players.filter(
-                    (player) => player.flipped && player.role === "Insider"
-                  ).length > 0 && (
-                    <div>
-                      <span>
-                        Congrats to the master and the commons. You have found
-                        the insider!
-                      </span>
-                    </div>
-                  )}
-                {gameState.guessResult === true &&
-                  gameState.players.filter(
-                    (player) => player.flipped && player.role === "Common"
-                  ).length >= 2 && (
-                    <div>
-                      <span>
-                        Congrats to the insider! You have guided everyone to the
-                        correct answer without being detected!
-                      </span>
-                    </div>
-                  )}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-          <div className="fixed flex h-24 bottom-4 pb-4 gap-4 mb-4 left-0 right-0 p-4 justify-center">
-            {gameState.gameState === "new" && (
-              <>
-                <BigButton disabled={playerCount < 4} onClick={() => onStart()}>
-                  Start
-                </BigButton>
-              </>
-            )}
-            {gameState.gameState === "roles" && (
-              <>
-                <BigButton onClick={() => onBack()}>Back</BigButton>
-                <BigButton onClick={() => onNext()}>Next</BigButton>
-              </>
-            )}
-            {gameState.gameState === "playing" && (
-              <>
-                <BigButton onClick={() => onBackToRoles()}>Back</BigButton>
-                <BigButton onClick={() => onEnd()}>End</BigButton>
               </>
             )}
             {gameState.gameState === "ended" && (
-              <>
-                <BigButton onClick={() => onNew()}>New Game</BigButton>
-                <BigButton onClick={() => onRestart()}>Restart</BigButton>
-              </>
+              <div className="flex flex-col gap-2 w-full mt-8">
+                <div>
+                  <span>Secret word</span>
+                  <div className="flex flex-row justify-start items-start">
+                    <div className="flex gap-2 items-center">
+                      <Button onClick={() => onAnswerFlip()}>
+                        {gameState.answerFlipped ? "Hide" : "Reveal"}
+                      </Button>
+                      {gameState.answerFlipped && (
+                        <h3>{currentQuestion?.word || ""}</h3>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span>Did anyone guess the secret word?</span>
+                  <div className="flex gap-2 items-center">
+                    <Button onClick={() => onGuess(false)}>No</Button>
+                    <Button onClick={() => onGuess(true)}>Yes</Button>
+                    {gameState.guessResult !== null && (
+                      <h3>{gameState.guessResult ? "Yes" : "No"}</h3>
+                    )}
+                  </div>
+                  {gameState.guessResult === false && (
+                    <span>Too bad. Everyone loses!</span>
+                  )}
+                  {gameState.guessResult === true && (
+                    <div>
+                      <span>
+                        Discuss openly for 1 minute. Everyone except the guesser
+                        votes for whether the guesser is the insider.
+                      </span>
+                      <h3>
+                        Tap the name of the player who asked the correct
+                        question.
+                      </h3>
+                    </div>
+                  )}
+                  {gameState.guessResult === true &&
+                    gameState.players.filter(
+                      (player) => player.flipped && player.role === "Common"
+                    ).length > 0 && (
+                      <div>
+                        <span>
+                          The guesser is a common. Now everyone including the
+                          guesser votes for the insider.
+                        </span>
+                        <h3>
+                          Tap the name of the player who got the majority vote.
+                        </h3>
+                      </div>
+                    )}
+                  {gameState.guessResult === true &&
+                    gameState.players.filter(
+                      (player) => player.flipped && player.role === "Insider"
+                    ).length > 0 && (
+                      <div>
+                        <span>
+                          Congrats to the master and the commons. You have found
+                          the insider!
+                        </span>
+                      </div>
+                    )}
+                  {gameState.guessResult === true &&
+                    gameState.players.filter(
+                      (player) => player.flipped && player.role === "Common"
+                    ).length >= 2 && (
+                      <div>
+                        <span>
+                          Congrats to the insider! You have guided everyone to
+                          the correct answer without being detected!
+                        </span>
+                      </div>
+                    )}
+                </div>
+              </div>
             )}
           </div>
-        </div>
-      </main>
+
+          <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
+            <div className="fixed flex h-24 bottom-4 pb-4 gap-4 mb-4 left-0 right-0 p-4 justify-center">
+              {gameState.gameState === "new" && (
+                <>
+                  <BigButton
+                    disabled={playerCount < 4}
+                    onClick={() => onStart()}
+                  >
+                    Start
+                  </BigButton>
+                </>
+              )}
+              {gameState.gameState === "roles" && (
+                <>
+                  <BigButton onClick={() => onBack()}>Back</BigButton>
+                  <BigButton onClick={() => onNext()}>Next</BigButton>
+                </>
+              )}
+              {gameState.gameState === "playing" && (
+                <>
+                  <BigButton onClick={() => onBackToRoles()}>Back</BigButton>
+                  <BigButton onClick={() => onEnd()}>End</BigButton>
+                </>
+              )}
+              {gameState.gameState === "ended" && (
+                <>
+                  <BigButton onClick={() => onNew()}>New Game</BigButton>
+                  <BigButton onClick={() => onRestart()}>Restart</BigButton>
+                </>
+              )}
+            </div>
+          </div>
+        </main>
+      </FullScreen>
     </>
   );
 }

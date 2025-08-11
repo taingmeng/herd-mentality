@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import BigButton from "../components/BigButton";
 import { MainProps } from "../global/Types";
@@ -45,6 +46,7 @@ export default function Main({ questions }: MainProps) {
   const [playRightSound] = useSound(rightSoundFile);
   const [playBubblePopSound] = useSound(bubblePopSoundFile);
   const [playTimesUpSound] = useSound(timesUpSoundFile);
+  const fullScreenHandle = useFullScreenHandle();
 
   function clearCache() {
     clearSessionQuestions();
@@ -53,13 +55,18 @@ export default function Main({ questions }: MainProps) {
 
   const NAV_MENU: NavMenu[] = [
     {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
+    {
       name: "Rules",
       icon: "/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/book.svg",
+      icon: "/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -176,84 +183,86 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
-      <main className="mt-20 flex flex-col min-h-[80vh] items-center">
-        <div className="flex items-between w-full max-w-4xl items-center justify-between px-16">
-          <div className="px-8">
-            <CircularTimer
-              ref={timerRef}
-              duration={10}
-              onEnded={onTimerEnded}
-              tickSoundStartAt={5}
-            />
-          </div>
-          <div className="flip-card text-center w-40 h-40">
-            <div className="flip-card-front flex">
-              <h3 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white text-2xl select-none">
-                {currentQuestion && currentQuestion.word}
-              </h3>
+      <FullScreen handle={fullScreenHandle}>
+        <main className="mt-20 flex flex-col min-h-[80vh] items-center">
+          <div className="flex items-between w-full max-w-4xl items-center justify-between px-16">
+            <div className="px-8">
+              <CircularTimer
+                ref={timerRef}
+                duration={10}
+                onEnded={onTimerEnded}
+                tickSoundStartAt={5}
+              />
             </div>
-          </div>
-          <Round round={gameState.currentRound} />
-        </div>
-        <div className="w-full grid grid-cols-4 md:grid-cols-5 gap-4 justify-center items-center mt-4 px-8">
-          {ALPHABETS.split("").map((letter, index) => (
-            <div
-              key={index}
-              className="w-full h-[10vh] bg-pink-700 rounded-lg text-white flex items-center justify-center text-5xl font-bold  select-none"
-              onClick={() => alphabetClicked(letter)}
-              style={{
-                color: gameState.usedAlphabets.includes(letter)
-                  ? "#a30049"
-                  : "#fff",
-                backgroundColor: gameState.usedAlphabets.includes(letter)
-                  ? gameState.gameState == "playing"
-                    ? "#400020"
-                    : "#240213"
-                  : gameState.gameState == "playing"
-                    ? "#7d0147"
-                    : "#420528",
-                cursor: gameState.usedAlphabets.includes(letter)
-                  ? "not-allowed"
-                  : "pointer",
-                pointerEvents:
-                  gameState.gameState === "playing" ? "auto" : "none",
-              }}
-            >
-              {letter}
+            <div className="flip-card text-center w-40 h-40">
+              <div className="flip-card-front flex">
+                <h3 className="flex-1 flex rounded rounded-2xl bg-pink-950 m-4 items-center justify-center text-white text-2xl select-none">
+                  {currentQuestion && currentQuestion.word}
+                </h3>
+              </div>
             </div>
-          ))}
-        </div>
+            <Round round={gameState.currentRound} />
+          </div>
+          <div className="w-full grid grid-cols-4 md:grid-cols-5 gap-4 justify-center items-center mt-4 px-8">
+            {ALPHABETS.split("").map((letter, index) => (
+              <div
+                key={index}
+                className="w-full h-[10vh] bg-pink-700 rounded-lg text-white flex items-center justify-center text-5xl font-bold  select-none"
+                onClick={() => alphabetClicked(letter)}
+                style={{
+                  color: gameState.usedAlphabets.includes(letter)
+                    ? "#a30049"
+                    : "#fff",
+                  backgroundColor: gameState.usedAlphabets.includes(letter)
+                    ? gameState.gameState == "playing"
+                      ? "#400020"
+                      : "#240213"
+                    : gameState.gameState == "playing"
+                      ? "#7d0147"
+                      : "#420528",
+                  cursor: gameState.usedAlphabets.includes(letter)
+                    ? "not-allowed"
+                    : "pointer",
+                  pointerEvents:
+                    gameState.gameState === "playing" ? "auto" : "none",
+                }}
+              >
+                {letter}
+              </div>
+            ))}
+          </div>
 
-        <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
-          <div className="fixed flex h-24 bottom-4 pb-4 gap-4 mb-4 left-0 right-0 p-4 justify-center">
-            {gameState.gameState === "new" && (
-              <>
-                <BigButton onClick={() => onStart()}>Start</BigButton>
-                <BigButton onClick={() => onNext()}>New</BigButton>
-              </>
-            )}
-            {gameState.gameState === "playing" && (
-              <BigButton onClick={() => onPause()}>Pause</BigButton>
-            )}
-            {gameState.gameState === "paused" && (
-              <>
-                <div className="flex-1">
-                  <BigButton onClick={() => onUndo()}>Undo</BigButton>
-                </div>
-                <div className="flex-auto">
-                  <BigButton onClick={() => onResume()}>Resume</BigButton>
-                </div>
-                <div className="flex-1">
+          <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
+            <div className="fixed flex h-24 bottom-4 pb-4 gap-4 mb-4 left-0 right-0 p-4 justify-center">
+              {gameState.gameState === "new" && (
+                <>
+                  <BigButton onClick={() => onStart()}>Start</BigButton>
                   <BigButton onClick={() => onNext()}>New</BigButton>
-                </div>
-              </>
-            )}
-            {gameState.gameState === "end" && (
-              <BigButton onClick={() => onNext()}>Next</BigButton>
-            )}
+                </>
+              )}
+              {gameState.gameState === "playing" && (
+                <BigButton onClick={() => onPause()}>Pause</BigButton>
+              )}
+              {gameState.gameState === "paused" && (
+                <>
+                  <div className="flex-1">
+                    <BigButton onClick={() => onUndo()}>Undo</BigButton>
+                  </div>
+                  <div className="flex-auto">
+                    <BigButton onClick={() => onResume()}>Resume</BigButton>
+                  </div>
+                  <div className="flex-1">
+                    <BigButton onClick={() => onNext()}>New</BigButton>
+                  </div>
+                </>
+              )}
+              {gameState.gameState === "end" && (
+                <BigButton onClick={() => onNext()}>Next</BigButton>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </FullScreen>
     </>
   );
 }
