@@ -24,7 +24,6 @@ export const usePopRandomQuestion = (
       item = sessionQuestions[randomIndex]; // Get the item at that index
       sessionQuestions.splice(randomIndex, 1); // Remove the item from the array
     }
-    console.log("Popped Question:", item);
     setSessionQuestions([...sessionQuestions]); // Update the session questions in local storage
 
     if (sessionQuestions.length === 0) {
@@ -48,5 +47,12 @@ export const usePopRandomQuestion = (
     }
   }, [popRandomQuestion]);
 
-  return { currentQuestion, popRandomQuestion, clearSessionQuestions };
+  return { currentQuestion, popRandomQuestion, clearSessionQuestions, setCurrentQuestion };
+};
+
+export const shuffle = (array: any[]) => {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
 };

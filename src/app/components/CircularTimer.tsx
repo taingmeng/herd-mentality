@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import tickingSoundFile from "@/assets/ticking.mp3";
 import timesUpSoundFile from "@/assets/times-up.mp3";
 import useSound from "use-sound";
@@ -14,6 +9,7 @@ interface CircularTimerProps {
   duration: number;
   onEnded?: () => void;
   tickSoundStartAt?: number;
+  textSize?: string;
 }
 
 export interface CircularTimerRefProps {
@@ -24,7 +20,15 @@ export interface CircularTimerRefProps {
 }
 
 const CircularTimer = forwardRef(
-  ({ duration, onEnded, tickSoundStartAt = 10 }: CircularTimerProps, ref) => {
+  (
+    {
+      duration,
+      onEnded,
+      tickSoundStartAt = 10,
+      textSize = "text-5xl",
+    }: CircularTimerProps,
+    ref
+  ) => {
     const [tickingSound] = useSound(tickingSoundFile);
     const [paused, setPaused] = useState(false);
     const [running, setRunning] = useState(false);
@@ -54,7 +58,7 @@ const CircularTimer = forwardRef(
       pause() {
         setRunning(false);
         setPaused(true);
-      }
+      },
     }));
 
     useEffect(() => {
@@ -72,18 +76,11 @@ const CircularTimer = forwardRef(
 
       if (timeLeft < 0) {
         clearInterval(id);
-        setTimeLeft(0)
+        setTimeLeft(0);
         playTimesUpSound();
       }
       return () => clearInterval(id);
-    }, [
-      timeLeft,
-      duration,
-      setTimeLeft,
-      paused,
-      running,
-      tickingSound,
-    ]);
+    }, [timeLeft, duration, setTimeLeft, paused, running, tickingSound]);
 
     useEffect(() => {
       if (timeLeft < 0 && running) {
@@ -104,8 +101,11 @@ const CircularTimer = forwardRef(
 
     return (
       <div
-        className="relative my-4 select-none cursor-pointer"
-        onClick={() => setPaused(!paused)}
+        className="relative p-10 select-none cursor-pointer"
+        onClick={() => {
+          setPaused(!paused);
+          setRunning(!running);
+        }}
       >
         <svg
           width={circleWidth}
@@ -144,7 +144,9 @@ const CircularTimer = forwardRef(
         </svg>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
           <span>{paused ? "| |" : "Time"}</span>
-          <h2 className="w-20 m-0 text-center text-5xl">{timeLeft >= 0 ? timeLeft : 0}</h2>
+          <h2 className={`w-20 m-0 text-center ${textSize}`}>
+            {timeLeft >= 0 ? timeLeft : 0}
+          </h2>
         </div>
       </div>
     );

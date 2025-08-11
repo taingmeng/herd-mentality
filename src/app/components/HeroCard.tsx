@@ -10,6 +10,7 @@ interface HeroCardProps {
   playPath?: string;
   imagePath?: string;
   horizontal?: boolean;
+  tags?: string[];
 }
 
 export default async function HeroCard({
@@ -21,6 +22,7 @@ export default async function HeroCard({
   playPath,
   imagePath,
   horizontal,
+  tags = [],
 }: HeroCardProps) {
   return (
     <div className={`container flex flex-col md:flex-row mx-auto min-h-[40vh] w-full  place-items-center`}>
@@ -62,6 +64,20 @@ export default async function HeroCard({
             />
             <span>{age}</span>
           </div>
+        </div>
+        <div>
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-2">
+              {tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="text-pink-300 px-2 py-1 rounded-full text-xs border border-pink-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         {paragraphs?.map((p, index) => (
           <p key={index} className="mb-2 font-normal">{p}</p>

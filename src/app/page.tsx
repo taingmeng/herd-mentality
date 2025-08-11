@@ -18,6 +18,7 @@ export default async function Home() {
             playPath={game.playPath}
             imagePath={game.imagePath}
             paragraphs={game.paragraphs}
+            tags={game.tags}
           />
         ))}
       </div>

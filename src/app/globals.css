@@ -137,10 +137,10 @@ h3 {
 .flip-card-back {
   background: linear-gradient(
     120deg,
-    rgb(245, 166, 208) 30%,
-    rgb(196, 79, 141) 88%,
+    rgb(93, 69, 188) 30%,
+    rgb(93, 15, 139) 88%,
     rgb(245, 166, 208) 40%,
-    rgb(255, 173, 229, 0.603) 78%
+    rgba(151, 91, 225, 0.603) 78%
   );
   transform: rotateY(180deg);
 }

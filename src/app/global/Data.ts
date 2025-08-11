@@ -1,5 +1,19 @@
 export const games = [
   {
+    title: "Insiderz",
+    playerCount: "4-8 Players",
+    duration: "15 Min",
+    age: "Age: 9+",
+    playPath: "/insiderz",
+    imagePath: "/insiderz/icon.png",
+    paragraphs: [
+      `One player is the "master", and they secretly select a word from a set given in a deck of cards.`,
+      `The "insider" player, whose role is not known to the other players, will then secretly view the word.`,
+      `The rest of the players are known as "commons". The commons ask the master "yes" or "no"-type questions so that they can deduce the secret word`
+    ],
+    tags: ["no setup", "deduction"],
+  },
+  {
     title: "Tapplez",
     playerCount: "2-10 Players",
     duration: "30 Min",
@@ -10,6 +24,7 @@ export const games = [
       "Each round in Tapplez, a category is randomly generated, and the timer starts.",
       "Within the ten seconds, each player must give a single word answer that fits within the category."
     ],
+    tags: ["no setup", "fast-paced"],
   },
   {
     title: "Wavelengthz",
@@ -21,6 +36,7 @@ export const games = [
     paragraphs: [
       "After the Psychic gives their clue, their team discusses where they think the bullseye is located and turns the dial to that location on that spectrum. The closer to the center of the bullseye the team guess, the more points they score!",
     ],
+    tags: ["no setup", "co-op", "deduction"],
   },
   {
     title: "Herd Mentalityz",
@@ -34,6 +50,7 @@ export const games = [
       "If your answer is part of the majority, you all win cows. Yeehaw! If everyone else writes an answer that is matched by at least one other person, but yours is the odd one out, then you land the angry Pink Cow, and your herd of cows is worthless until you can offload it onto someone else.",
       "The first player to collect eight cows wins.",
     ],
+    tags: ["markers", "boards", "ice breaker"],
   },
   {
     title: "Just Onez",
@@ -46,6 +63,7 @@ export const games = [
       "Just Onez is a cooperative party game in which you play together to discover as many mystery words as possible. Find the best clue to help your teammate. Be unique, as all identical clues will be cancelled!",
       "You have the choice – make the difference!",
     ],
+    tags: ["markers", "boards", "co-op", "word association"],
   },
   {
     title: "Fake Artistz",
@@ -58,6 +76,7 @@ export const games = [
       "While the other players are given a category and its associated secret word, one player will have only a category and ??? written on their card. That person is the fake artist.",
       "Each player take turn to draw only 2 strokes. The fake artist tries to blend in and guess the secret word.",
     ],
+    tags: ["markers", "papers", "co-op", "deduction"],
   },
   {
     title: "Poetryz",
@@ -70,6 +89,7 @@ export const games = [
       "Poetryz is a competitive word-guessing game where you can only give clues by speaking in single syllables.",
       "So, instead of saying broccoli, you'd say something like green thing you eat for live long and have good health.",
     ],
+    tags: ["no setup", "co-op", "teams", "charade"],
   },
   {
     title: "Monikerz",
@@ -82,6 +102,7 @@ export const games = [
       "Charade! With a twist.",
       "Round 1, say anything. Round 2, use the same cards, say one word only. Round 3, use the same cards again, act it out.",
     ],
+    tags: ["no setup", "co-op", "teams", "charade"],
   },
   {
     title: "Subjectivez",
@@ -93,5 +114,6 @@ export const games = [
     paragraphs: [
       "Start with a category and a secret word. Players then grab a different category and write down a clue. Choose a category to reveal and score points if you get it right. Finally, collect more points by guessing the rest of the player's clues!",
     ],
+    tags: ["markers", "boards", "co-op", "word association"],
   },  
 ];

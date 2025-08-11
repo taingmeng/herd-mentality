@@ -141,14 +141,6 @@ export default function WavelengthSlider({
                         )
                     : width;
               const display = flex <= 0 ? "none" : "block";
-              console.log(
-                "Hidden Value:",
-                hiddenValue,
-                "Flex:",
-                flex,
-                "Display:",
-                display
-              );
               return (
                 <div
                   key={index}

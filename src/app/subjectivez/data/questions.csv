@@ -1,10 +1,11 @@
 category,word
-Brands and Companies,Chanel
+Brands and Companies,ByteDance
 Brands and Companies,Coca-Cola
 Brands and Companies,Dell
 Brands and Companies,Disney
 Brands and Companies,Facebook (Meta)
 Brands and Companies,Google
+Brands and Companies,Grab
 Brands and Companies,H&M
 Brands and Companies,HP
 Brands and Companies,Honda
@@ -14,6 +15,7 @@ Brands and Companies,IKEA
 Brands and Companies,Intel
 Brands and Companies,L'Oréal
 Brands and Companies,LG
+Brands and Companies,LUX
 Brands and Companies,Mastercard
 Brands and Companies,McDonald’s
 Brands and Companies,Mercedes-Benz
@@ -36,7 +38,7 @@ Brands and Companies,Sony
 Brands and Companies,Spotify
 Brands and Companies,Starbucks
 Brands and Companies,Tesla
-Brands and Companies,TikTok (ByteDance)
+Brands and Companies,TikTok
 Brands and Companies,Toyota
 Brands and Companies,Uber
 Brands and Companies,Uniqlo
@@ -44,188 +46,6 @@ Brands and Companies,Visa
 Brands and Companies,Xiaomi
 Brands and Companies,Zara
 Brands and Companies,Zoom
-Fictional Characters,Darth Vader
-Fictional Characters,Deadpool
-Fictional Characters,Donkey Kong
-Fictional Characters,Dracula
-Fictional Characters,Draculaura (Monster High)
-Fictional Characters,Elsa (Frozen)
-Fictional Characters,Frodo Baggins
-Fictional Characters,Gandalf
-Fictional Characters,Goku
-Fictional Characters,Harry Potter
-Fictional Characters,Hermione Granger
-Fictional Characters,Homer Simpson
-Fictional Characters,Iron Man
-Fictional Characters,James Bond
-Fictional Characters,Joker
-Fictional Characters,Katniss Everdeen
-Fictional Characters,Kratos (God of War)
-Fictional Characters,Lara Croft
-Fictional Characters,Link (Legend of Zelda)
-Fictional Characters,Luffy (One Piece)
-Fictional Characters,Luke Skywalker
-Fictional Characters,Mario
-Fictional Characters,Master Chief (Halo)
-Fictional Characters,Megatron
-Fictional Characters,Morty (Rick and Morty)
-Fictional Characters,Naruto Uzumaki
-Fictional Characters,Optimus Prime
-Fictional Characters,Pikachu
-Fictional Characters,Rick (Rick and Morty)
-Fictional Characters,Scooby-Doo
-Fictional Characters,Sherlock Holmes
-Fictional Characters,Shrek
-Fictional Characters,Simba (The Lion King)
-Fictional Characters,Sonic the Hedgehog
-Fictional Characters,Spider-Man
-Fictional Characters,Spongebob Squarepants
-Fictional Characters,Superman
-Fictional Characters,Vegeta
-Fictional Characters,Voldemort
-Fictional Characters,Winnie the Pooh
-Fictional Characters,Wolverine
-Fictional Characters,Wonder Woman
-Fictional Characters,Woody (Toy Story)
-Fictional Characters,Yoda
-Fictional Characters,Zelda
-Food and Drink,Cappuccino
-Food and Drink,Chicken wings
-Food and Drink,Coconut water
-Food and Drink,Coffee
-Food and Drink,Cola
-Food and Drink,Curry
-Food and Drink,Dumplings
-Food and Drink,Energy drink
-Food and Drink,Espresso
-Food and Drink,Falafel
-Food and Drink,Fish and chips
-Food and Drink,Fried rice
-Food and Drink,Green tea
-Food and Drink,Grilled cheese
-Food and Drink,Hot chocolate
-Food and Drink,Hot dog
-Food and Drink,Iced tea
-Food and Drink,Kombucha
-Food and Drink,Lasagna
-Food and Drink,Latte
-Food and Drink,Lemonade
-Food and Drink,Mac and cheese
-Food and Drink,Margarita
-Food and Drink,Milk
-Food and Drink,Milkshake
-Food and Drink,Mojito
-Food and Drink,Nachos
-Food and Drink,Orange juice
-Food and Drink,Pancakes
-Food and Drink,Pho
-Food and Drink,Ramen
-Food and Drink,Roast chicken
-Food and Drink,Salad
-Food and Drink,Sandwich
-Food and Drink,Smoothie
-Food and Drink,Soy milk
-Food and Drink,Spaghetti
-Food and Drink,Sparkling water
-Food and Drink,Steak
-Food and Drink,Sushi
-Food and Drink,Tacos
-Food and Drink,Tea
-Food and Drink,Waffles
-Food and Drink,Whiskey
-Food and Drink,Wine
-Famous People,Beyoncé
-Famous People,Bill Gates
-Famous People,Billie Eilish
-Famous People,Blake Lively
-Famous People,Chris Hemsworth
-Famous People,Cristiano Ronaldo
-Famous People,Donald Trump
-Famous People,Drake
-Famous People,Dua Lipa
-Famous People,Dwayne “The Rock” Johnson
-Famous People,Ed Sheeran
-Famous People,Emma Stone
-Famous People,Emma Watson
-Famous People,Gordon Ramsay
-Famous People,Greta Thunberg
-Famous People,Harry Styles
-Famous People,Jeff Bezos
-Famous People,Jennifer Lopez
-Famous People,Johnny Depp
-Famous People,Justin Bieber
-Famous People,Keanu Reeves
-Famous People,Kim Kardashian
-Famous People,Kylie Jenner
-Famous People,Lady Gaga
-Famous People,LeBron James
-Famous People,Leonardo DiCaprio
-Famous People,Lionel Messi
-Famous People,Malala Yousafzai
-Famous People,Mark Zuckerberg
-Famous People,Novak Djokovic
-Famous People,Oprah Winfrey
-Famous People,PewDiePie
-Famous People,Rihanna
-Famous People,Robert Downey Jr.
-Famous People,Ryan Reynolds
-Famous People,Selena Gomez
-Famous People,Serena Williams
-Famous People,Shakira
-Famous People,Simone Biles
-Famous People,Stephen Curry
-Famous People,Taylor Swift
-Famous People,Tim Cook
-Famous People,Tom Cruise
-Famous People,Virat Kohli
-Famous People,Zendaya
-Careers,Biologist
-Careers,Carpenter
-Careers,Chef
-Careers,Chemist
-Careers,Civil Engineer
-Careers,Construction Worker
-Careers,Data Scientist
-Careers,Dentist
-Careers,Electrical Engineer
-Careers,Electrician
-Careers,Entrepreneur
-Careers,Event Planner
-Careers,Fashion Designer
-Careers,Financial Analyst
-Careers,Firefighter
-Careers,Flight Attendant
-Careers,Game Developer
-Careers,Geologist
-Careers,Graphic Designer
-Careers,Historian
-Careers,Interpreter
-Careers,Journalist
-Careers,Lawyer
-Careers,Librarian
-Careers,Marketing Manager
-Careers,Mechanical Engineer
-Careers,Musician
-Careers,Nurse
-Careers,Paramedic
-Careers,Pharmacist
-Careers,Photographer
-Careers,Pilot
-Careers,Plumber
-Careers,Police Officer
-Careers,Project Manager
-Careers,Psychologist
-Careers,Real Estate Agent
-Careers,Research Scientist
-Careers,Social Worker
-Careers,Software Developer
-Careers,Teacher
-Careers,UI/UX Designer
-Careers,Veterinarian
-Careers,Video Editor
-Careers,Web Developer
-Animals and Nature,Alligator
-Animals and Nature,Animal Tracks
 Animals and Nature,Antelope
 Animals and Nature,Bark
 Animals and Nature,Bear
@@ -344,7 +164,94 @@ Animals and Nature,Whale
 Animals and Nature,Wind
 Animals and Nature,Wolf
 Animals and Nature,Zebra
-Historical Figures,Alexander the Great
+Careers,Carpenter
+Careers,Chef
+Careers,Chemist
+Careers,Civil Engineer
+Careers,Construction Worker
+Careers,Data Scientist
+Careers,Dentist
+Careers,Electrical Engineer
+Careers,Electrician
+Careers,Entrepreneur
+Careers,Event Planner
+Careers,Fashion Designer
+Careers,Financial Analyst
+Careers,Firefighter
+Careers,Flight Attendant
+Careers,Game Developer
+Careers,Geologist
+Careers,Graphic Designer
+Careers,Historian
+Careers,Interpreter
+Careers,Journalist
+Careers,Lawyer
+Careers,Librarian
+Careers,Marketing Manager
+Careers,Mechanical Engineer
+Careers,Musician
+Careers,Nurse
+Careers,Paramedic
+Careers,Pharmacist
+Careers,Photographer
+Careers,Pilot
+Careers,Plumber
+Careers,Police Officer
+Careers,Project Manager
+Careers,Psychologist
+Careers,Real Estate Agent
+Careers,Research Scientist
+Careers,Social Worker
+Careers,Software Developer
+Careers,Teacher
+Careers,UI/UX Designer
+Careers,Veterinarian
+Careers,Video Editor
+Careers,Web Developer
+Famous People,Bill Gates
+Famous People,Billie Eilish
+Famous People,Blake Lively
+Famous People,Chris Hemsworth
+Famous People,Cristiano Ronaldo
+Famous People,Donald Trump
+Famous People,Drake
+Famous People,Dua Lipa
+Famous People,Dwayne “The Rock” Johnson
+Famous People,Ed Sheeran
+Famous People,Emma Stone
+Famous People,Emma Watson
+Famous People,Gordon Ramsay
+Famous People,Greta Thunberg
+Famous People,Harry Styles
+Famous People,Jeff Bezos
+Famous People,Jennifer Lopez
+Famous People,Johnny Depp
+Famous People,Justin Bieber
+Famous People,Keanu Reeves
+Famous People,Kim Kardashian
+Famous People,Kylie Jenner
+Famous People,Lady Gaga
+Famous People,LeBron James
+Famous People,Leonardo DiCaprio
+Famous People,Lionel Messi
+Famous People,Malala Yousafzai
+Famous People,Mark Zuckerberg
+Famous People,Novak Djokovic
+Famous People,Oprah Winfrey
+Famous People,PewDiePie
+Famous People,Rihanna
+Famous People,Robert Downey Jr.
+Famous People,Ryan Reynolds
+Famous People,Selena Gomez
+Famous People,Serena Williams
+Famous People,Shakira
+Famous People,Simone Biles
+Famous People,Stephen Curry
+Famous People,Taylor Swift
+Famous People,Tim Cook
+Famous People,Tom Cruise
+Famous People,Virat Kohli
+Famous People,Zendaya
 Historical Figures,Aristotle
 Historical Figures,Ataturk (Mustafa Kemal)
 Historical Figures,Benito Mussolini
@@ -389,140 +296,137 @@ Historical Figures,Theodore Roosevelt
 Historical Figures,Thomas Edison
 Historical Figures,Tsar Nicholas II
 Historical Figures,Winston Churchill
-Movies,Arrival
-Movies,Avatar
-Movies,Avatar: The Way of Water
-Movies,Batman Begins
-Movies,Beauty and the Beast (1991)
-Movies,Beauty and the Beast (2017)
-Movies,Big Hero 6
-Movies,Black Panther
-Movies,Black Swan
-Movies,Braveheart
-Movies,Captain America: The Winter Soldier
-Movies,Captain Marvel
-Movies,Cars
-Movies,Casino Royale
-Movies,Coco
-Movies,Deadpool
-Movies,Deadpool 2
-Movies,Despicable Me
-Movies,Django Unchained
-Movies,Doctor Strange
-Movies,Dunkirk
-Movies,Edge of Tomorrow
-Movies,Finding Dory
-Movies,Finding Nemo
-Movies,Forrest Gump
-Movies,Frozen
-Movies,Frozen II
-Movies,Furious 7
-Movies,Gladiator
-Movies,Gravity
-Movies,Guardians of the Galaxy
-Movies,Guardians of the Galaxy Vol. 2
-Movies,Harry Potter and the Prisoner of Azkaban
-Movies,Harry Potter and the Sorcerer's Stone
-Movies,How to Train Your Dragon
-Movies,Inception
-Movies,Incredibles 2
-Movies,Inside Out
-Movies,Interstellar
-Movies,Iron Man
-Movies,John Wick
-Movies,John Wick: Chapter 2
-Movies,Joker
-Movies,Jumanji (1995)
-Movies,Jumanji: Welcome to the Jungle
-Movies,Jurassic Park
-Movies,Jurassic World
-Movies,Kung Fu Panda
-Movies,La La Land
-Movies,Life of Pi
-Movies,Logan
-Movies,Mad Max: Fury Road
-Movies,Minions
-Movies,Mission: Impossible
-Movies,Mission: Impossible – Fallout
-Movies,Mission: Impossible – Ghost Protocol
-Movies,Moana
-Movies,Monsters, Inc.
-Movies,Pacific Rim
-Movies,Paddington
-Movies,Pirates of the Caribbean: At World's End
-Movies,Pirates of the Caribbean: Dead Men Tell No Tales
-Movies,Pirates of the Caribbean: The Curse of the Black Pearl
-Movies,Quantum of Solace
-Movies,Ratatouille
-Movies,Ready Player One
-Movies,Rogue One: A Star Wars Story
-Movies,Saving Private Ryan
-Movies,Schindler’s List
-Movies,Shrek
-Movies,Sing
-Movies,Skyfall
-Movies,Slumdog Millionaire
-Movies,Spectre
-Movies,Spider-Man (2002)
-Movies,Spider-Man: Homecoming
-Movies,Spider-Man: Into the Spider-Verse
-Movies,Star Trek (2009)
-Movies,Star Wars: A New Hope
-Movies,Star Wars: Return of the Jedi
-Movies,Star Wars: Rogue One
-Movies,Star Wars: The Empire Strikes Back
-Movies,Star Wars: The Force Awakens
-Movies,Tangled
-Movies,The Avengers
-Movies,The Bourne Identity
-Movies,The Bourne Supremacy
-Movies,The Bourne Ultimatum
-Movies,The Dark Knight
-Movies,The Dark Knight Rises
-Movies,The Fault in Our Stars
-Movies,The Godfather
-Movies,The Godfather Part II
-Movies,The Good Dinosaur
-Movies,The Grand Budapest Hotel
-Movies,The Greatest Showman
-Movies,The Help
-Movies,The Hobbit: An Unexpected Journey
-Movies,The Hunger Games
-Movies,The Hunger Games: Catching Fire
-Movies,The Incredibles
-Movies,The Jungle Book (1967)
-Movies,The Jungle Book (2016)
-Movies,The King's Speech
-Movies,The Lego Batman Movie
-Movies,The Lego Movie
-Movies,The Lion King
-Movies,The Lion King (1994)
-Movies,The Lion King (2019)
-Movies,The Lord of the Rings: The Fellowship of the Ring
-Movies,The Lord of the Rings: The Return of the King
-Movies,The Lord of the Rings: The Two Towers
-Movies,The Martian
-Movies,The Matrix
-Movies,The Maze Runner
-Movies,The Revenant
-Movies,The Secret Life of Pets
-Movies,The Shawshank Redemption
-Movies,The Silence of the Lambs
-Movies,The Social Network
-Movies,The Twilight Saga: Breaking Dawn – Part 1
-Movies,The Twilight Saga: Eclipse
-Movies,The Twilight Saga: New Moon
-Movies,Thor
-Movies,Thor: Ragnarok
-Movies,Titanic
-Movies,Toy Story
-Movies,Trolls
-Movies,Twilight
-Movies,Up
-Movies,Wonder
-Movies,Wonder Woman
-Movies,Zootopia
-Literature and Theatre,Alliteration
+Fictional Characters,Deadpool
+Fictional Characters,Donkey Kong
+Fictional Characters,Dracula
+Fictional Characters,Draculaura (Monster High)
+Fictional Characters,Elsa (Frozen)
+Fictional Characters,Frodo Baggins
+Fictional Characters,Gandalf
+Fictional Characters,Goku
+Fictional Characters,Harry Potter
+Fictional Characters,Hermione Granger
+Fictional Characters,Homer Simpson
+Fictional Characters,Iron Man
+Fictional Characters,James Bond
+Fictional Characters,Joker
+Fictional Characters,Katniss Everdeen
+Fictional Characters,Kratos (God of War)
+Fictional Characters,Lara Croft
+Fictional Characters,Link (Legend of Zelda)
+Fictional Characters,Luffy (One Piece)
+Fictional Characters,Luke Skywalker
+Fictional Characters,Mario
+Fictional Characters,Master Chief (Halo)
+Fictional Characters,Megatron
+Fictional Characters,Morty (Rick and Morty)
+Fictional Characters,Naruto Uzumaki
+Fictional Characters,Optimus Prime
+Fictional Characters,Pikachu
+Fictional Characters,Rick (Rick and Morty)
+Fictional Characters,Scooby-Doo
+Fictional Characters,Sherlock Holmes
+Fictional Characters,Shrek
+Fictional Characters,Simba (The Lion King)
+Fictional Characters,Sonic the Hedgehog
+Fictional Characters,Spider-Man
+Fictional Characters,Spongebob Squarepants
+Fictional Characters,Superman
+Fictional Characters,Vegeta
+Fictional Characters,Voldemort
+Fictional Characters,Winnie the Pooh
+Fictional Characters,Wolverine
+Fictional Characters,Wonder Woman
+Fictional Characters,Woody (Toy Story)
+Fictional Characters,Yoda
+Fictional Characters,Zelda
+Food and Drink,Chicken wings
+Food and Drink,Coconut water
+Food and Drink,Coffee
+Food and Drink,Cola
+Food and Drink,Curry
+Food and Drink,Dumplings
+Food and Drink,Energy drink
+Food and Drink,Espresso
+Food and Drink,Falafel
+Food and Drink,Fish and chips
+Food and Drink,Fried rice
+Food and Drink,Green tea
+Food and Drink,Grilled cheese
+Food and Drink,Hot chocolate
+Food and Drink,Hot dog
+Food and Drink,Iced tea
+Food and Drink,Kombucha
+Food and Drink,Lasagna
+Food and Drink,Latte
+Food and Drink,Lemonade
+Food and Drink,Mac and cheese
+Food and Drink,Margarita
+Food and Drink,Milk
+Food and Drink,Milkshake
+Food and Drink,Mojito
+Food and Drink,Nachos
+Food and Drink,Orange juice
+Food and Drink,Pancakes
+Food and Drink,Pho
+Food and Drink,Ramen
+Food and Drink,Roast chicken
+Food and Drink,Salad
+Food and Drink,Sandwich
+Food and Drink,Smoothie
+Food and Drink,Soy milk
+Food and Drink,Spaghetti
+Food and Drink,Sparkling water
+Food and Drink,Steak
+Food and Drink,Sushi
+Food and Drink,Tacos
+Food and Drink,Tea
+Food and Drink,Waffles
+Food and Drink,Whiskey
+Food and Drink,Wine
+Items and Objects,Candle
+Items and Objects,Chair
+Items and Objects,Charger
+Items and Objects,Clock
+Items and Objects,Coffee mug
+Items and Objects,Fan
+Items and Objects,Flashlight
+Items and Objects,Fridge
+Items and Objects,Gloves
+Items and Objects,Hammer
+Items and Objects,Hand sanitizer
+Items and Objects,Headphones
+Items and Objects,Helmet
+Items and Objects,Iron
+Items and Objects,Jacket
+Items and Objects,Keychain
+Items and Objects,Laptop
+Items and Objects,Microwave
+Items and Objects,Mirror
+Items and Objects,Nail clipper
+Items and Objects,Notebook
+Items and Objects,Pen
+Items and Objects,Pillow
+Items and Objects,Razor
+Items and Objects,Remote control
+Items and Objects,Ruler
+Items and Objects,Scissors
+Items and Objects,Screwdriver
+Items and Objects,Shampoo
+Items and Objects,Shoes
+Items and Objects,Smartphone
+Items and Objects,Soap
+Items and Objects,Stapler
+Items and Objects,Sunglasses
+Items and Objects,Table
+Items and Objects,Tape
+Items and Objects,Television
+Items and Objects,Toothbrush
+Items and Objects,Towel
+Items and Objects,Trash can
+Items and Objects,Umbrella
+Items and Objects,Wallet
+Items and Objects,Water bottle
 Literature and Theatre,Antagonist
 Literature and Theatre,Anton Chekhov
 Literature and Theatre,Arthur Miller
@@ -568,51 +472,6 @@ Literature and Theatre,Symbolism
 Literature and Theatre,Tennessee Williams
 Literature and Theatre,The Cherry Orchard
 Literature and Theatre,Tragedy
-Items and Objects,Camera
-Items and Objects,Candle
-Items and Objects,Chair
-Items and Objects,Charger
-Items and Objects,Clock
-Items and Objects,Coffee mug
-Items and Objects,Fan
-Items and Objects,Flashlight
-Items and Objects,Fridge
-Items and Objects,Gloves
-Items and Objects,Hammer
-Items and Objects,Hand sanitizer
-Items and Objects,Headphones
-Items and Objects,Helmet
-Items and Objects,Iron
-Items and Objects,Jacket
-Items and Objects,Keychain
-Items and Objects,Laptop
-Items and Objects,Microwave
-Items and Objects,Mirror
-Items and Objects,Nail clipper
-Items and Objects,Notebook
-Items and Objects,Pen
-Items and Objects,Pillow
-Items and Objects,Razor
-Items and Objects,Remote control
-Items and Objects,Ruler
-Items and Objects,Scissors
-Items and Objects,Screwdriver
-Items and Objects,Shampoo
-Items and Objects,Shoes
-Items and Objects,Smartphone
-Items and Objects,Soap
-Items and Objects,Stapler
-Items and Objects,Sunglasses
-Items and Objects,Table
-Items and Objects,Tape
-Items and Objects,Television
-Items and Objects,Toothbrush
-Items and Objects,Towel
-Items and Objects,Trash can
-Items and Objects,Umbrella
-Items and Objects,Wallet
-Items and Objects,Water bottle
-Places and Locations,Angkor Wat
 Places and Locations,Athens
 Places and Locations,Auckland
 Places and Locations,Bali
@@ -706,7 +565,100 @@ Places and Locations,Victoria Falls
 Places and Locations,Vienna
 Places and Locations,Yellowstone National Park
 Places and Locations,Zurich
-Songs,Africa – Toto
+Recreation,Badminton
+Recreation,Base Jumping
+Recreation,Baseball
+Recreation,Basketball
+Recreation,Biathlon
+Recreation,Bird Watching
+Recreation,Bobsledding
+Recreation,Bocce
+Recreation,Bodyboarding
+Recreation,Bowling
+Recreation,Boxing
+Recreation,Bungee Jumping
+Recreation,Camping
+Recreation,Canoeing
+Recreation,Capoeira
+Recreation,Cheerleading
+Recreation,Chess
+Recreation,Cricket
+Recreation,CrossFit
+Recreation,Curling
+Recreation,Cycling
+Recreation,Dance (Ballet, Hip-Hop, Salsa, etc.)
+Recreation,Darts
+Recreation,Dodgeball
+Recreation,Drone Racing
+Recreation,Fencing
+Recreation,Field Hockey
+Recreation,Fishing
+Recreation,Frisbee Golf
+Recreation,Gardening
+Recreation,Geocaching
+Recreation,Go-Karting
+Recreation,Golf
+Recreation,Gymkhana
+Recreation,Gymnastics
+Recreation,Handball
+Recreation,Hang Gliding
+Recreation,Hiking
+Recreation,Horseback Riding
+Recreation,Ice Hockey
+Recreation,Ice Skating
+Recreation,Indoor Rock Climbing
+Recreation,Inline Skating
+Recreation,Kayaking
+Recreation,Kitesurfing
+Recreation,Laser Tag
+Recreation,Lawn Bowling
+Recreation,Luge
+Recreation,Marathon Running
+Recreation,Martial Arts (Karate, Taekwondo, Judo, etc.)
+Recreation,Meditation (as recreational activity)
+Recreation,Mixed Martial Arts (MMA)
+Recreation,Motor Racing (Formula 1, NASCAR)
+Recreation,Mountain Biking
+Recreation,Orienteering
+Recreation,Paddleboarding
+Recreation,Paintball
+Recreation,Paragliding
+Recreation,Parkour
+Recreation,Pentathlon
+Recreation,Pickleball
+Recreation,Pilates
+Recreation,Polo
+Recreation,Rock Climbing
+Recreation,Rowing
+Recreation,Rugby
+Recreation,Sailing
+Recreation,Scuba Diving
+Recreation,Sepak Takraw
+Recreation,Skate Skiing
+Recreation,Skateboarding
+Recreation,Skiing
+Recreation,Skydiving
+Recreation,Slacklining
+Recreation,Snooker/Pool
+Recreation,Snorkeling
+Recreation,Snowboarding
+Recreation,Surfing
+Recreation,Swimming
+Recreation,Table Tennis
+Recreation,Tabletop Roleplaying Games
+Recreation,Tai Chi
+Recreation,Tennis
+Recreation,Track and Field
+Recreation,Trail Running
+Recreation,Triathlon
+Recreation,Ultimate Frisbee
+Recreation,Volleyball
+Recreation,Weightlifting
+Recreation,Windsurfing
+Recreation,Wrestling
+Recreation,Yoga
+Recreation,Zumba
+Recreation,eSports (competitive video gaming)
 Songs,Ain’t No Mountain High Enough – Marvin Gaye & Tammi Terrell
 Songs,All About That Bass – Meghan Trainor
 Songs,All Star – Smash Mouth
@@ -841,102 +793,6 @@ Songs,You Belong With Me – Taylor Swift
 Songs,You Belong with Me - Taylor Swift
 Songs,You’re the One That I Want – Grease
 Songs,Zombie – The Cranberries
-Recreation,Archery
-Recreation,Badminton
-Recreation,Base Jumping
-Recreation,Baseball
-Recreation,Basketball
-Recreation,Biathlon
-Recreation,Bird Watching
-Recreation,Bobsledding
-Recreation,Bocce
-Recreation,Bodyboarding
-Recreation,Bowling
-Recreation,Boxing
-Recreation,Bungee Jumping
-Recreation,Camping
-Recreation,Canoeing
-Recreation,Capoeira
-Recreation,Cheerleading
-Recreation,Chess
-Recreation,Cricket
-Recreation,CrossFit
-Recreation,Curling
-Recreation,Cycling
-Recreation,Dance (Ballet, Hip-Hop, Salsa, etc.)
-Recreation,Darts
-Recreation,Dodgeball
-Recreation,Drone Racing
-Recreation,Fencing
-Recreation,Field Hockey
-Recreation,Fishing
-Recreation,Frisbee Golf
-Recreation,Gardening
-Recreation,Geocaching
-Recreation,Go-Karting
-Recreation,Golf
-Recreation,Gymkhana
-Recreation,Gymnastics
-Recreation,Handball
-Recreation,Hang Gliding
-Recreation,Hiking
-Recreation,Horseback Riding
-Recreation,Ice Hockey
-Recreation,Ice Skating
-Recreation,Indoor Rock Climbing
-Recreation,Inline Skating
-Recreation,Kayaking
-Recreation,Kitesurfing
-Recreation,Laser Tag
-Recreation,Lawn Bowling
-Recreation,Luge
-Recreation,Marathon Running
-Recreation,Martial Arts (Karate, Taekwondo, Judo, etc.)
-Recreation,Meditation (as recreational activity)
-Recreation,Mixed Martial Arts (MMA)
-Recreation,Motor Racing (Formula 1, NASCAR)
-Recreation,Mountain Biking
-Recreation,Orienteering
-Recreation,Paddleboarding
-Recreation,Paintball
-Recreation,Paragliding
-Recreation,Parkour
-Recreation,Pentathlon
-Recreation,Pickleball
-Recreation,Pilates
-Recreation,Polo
-Recreation,Rock Climbing
-Recreation,Rowing
-Recreation,Rugby
-Recreation,Sailing
-Recreation,Scuba Diving
-Recreation,Sepak Takraw
-Recreation,Skate Skiing
-Recreation,Skateboarding
-Recreation,Skiing
-Recreation,Skydiving
-Recreation,Slacklining
-Recreation,Snooker/Pool
-Recreation,Snorkeling
-Recreation,Snowboarding
-Recreation,Surfing
-Recreation,Swimming
-Recreation,Table Tennis
-Recreation,Tabletop Roleplaying Games
-Recreation,Tai Chi
-Recreation,Tennis
-Recreation,Track and Field
-Recreation,Trail Running
-Recreation,Triathlon
-Recreation,Ultimate Frisbee
-Recreation,Volleyball
-Recreation,Weightlifting
-Recreation,Windsurfing
-Recreation,Wrestling
-Recreation,Yoga
-Recreation,Zumba
-Recreation,eSports (competitive video gaming)
-Tech and Inventions,Airplane
 Tech and Inventions,Antibiotics
 Tech and Inventions,Aqueduct
 Tech and Inventions,Arch
@@ -1032,7 +888,136 @@ Tech and Inventions,Wind turbine
 Tech and Inventions,Word processor
 Tech and Inventions,World Wide Web
 Tech and Inventions,X-rays
-Television,Better Call Saul
+Movies,Avatar
+Movies,Avatar: The Way of Water
+Movies,Batman Begins
+Movies,Beauty and the Beast (1991)
+Movies,Beauty and the Beast (2017)
+Movies,Big Hero 6
+Movies,Black Panther
+Movies,Black Swan
+Movies,Braveheart
+Movies,Captain America: The Winter Soldier
+Movies,Captain Marvel
+Movies,Cars
+Movies,Casino Royale
+Movies,Coco
+Movies,Deadpool
+Movies,Despicable Me
+Movies,Django Unchained
+Movies,Doctor Strange
+Movies,Dunkirk
+Movies,Edge of Tomorrow
+Movies,Finding Dory
+Movies,Finding Nemo
+Movies,Forrest Gump
+Movies,Frozen
+Movies,Frozen II
+Movies,Furious 7
+Movies,Gladiator
+Movies,Gravity
+Movies,Guardians of the Galaxy
+Movies,Harry Potter and the Prisoner of Azkaban
+Movies,Harry Potter and the Sorcerer's Stone
+Movies,How to Train Your Dragon
+Movies,Inception
+Movies,Incredibles
+Movies,Inside Out
+Movies,Interstellar
+Movies,Iron Man
+Movies,John Wick
+Movies,John Wick: Chapter 2
+Movies,Joker
+Movies,Jumanji (1995)
+Movies,Jumanji: Welcome to the Jungle
+Movies,Jurassic Park
+Movies,Jurassic World
+Movies,Kung Fu Panda
+Movies,La La Land
+Movies,Life of Pi
+Movies,Logan
+Movies,Mad Max: Fury Road
+Movies,Minions
+Movies,Mission: Impossible
+Movies,Mission: Impossible – Fallout
+Movies,Mission: Impossible – Ghost Protocol
+Movies,Moana
+Movies,Monsters, Inc.
+Movies,Pacific Rim
+Movies,Paddington
+Movies,Pirates of the Caribbean: At World's End
+Movies,Pirates of the Caribbean: Dead Men Tell No Tales
+Movies,Pirates of the Caribbean: The Curse of the Black Pearl
+Movies,Quantum of Solace
+Movies,Ratatouille
+Movies,Ready Player One
+Movies,Rogue One: A Star Wars Story
+Movies,Saving Private Ryan
+Movies,Schindler’s List
+Movies,Shrek
+Movies,Sing
+Movies,Skyfall
+Movies,Slumdog Millionaire
+Movies,Spectre
+Movies,Spider-Man (2002)
+Movies,Spider-Man: Homecoming
+Movies,Spider-Man: Into the Spider-Verse
+Movies,Star Trek (2009)
+Movies,Star Wars: A New Hope
+Movies,Star Wars: Return of the Jedi
+Movies,Star Wars: Rogue One
+Movies,Star Wars: The Empire Strikes Back
+Movies,Star Wars: The Force Awakens
+Movies,Tangled
+Movies,The Avengers
+Movies,The Bourne Identity
+Movies,The Bourne Supremacy
+Movies,The Bourne Ultimatum
+Movies,The Dark Knight
+Movies,The Dark Knight Rises
+Movies,The Fault in Our Stars
+Movies,The Godfather
+Movies,The Godfather Part II
+Movies,The Good Dinosaur
+Movies,The Grand Budapest Hotel
+Movies,The Greatest Showman
+Movies,The Help
+Movies,The Hobbit: An Unexpected Journey
+Movies,The Hunger Games
+Movies,The Hunger Games: Catching Fire
+Movies,The Incredibles
+Movies,The Jungle Book (1967)
+Movies,The Jungle Book (2016)
+Movies,The King's Speech
+Movies,The Lego Batman Movie
+Movies,The Lego Movie
+Movies,The Lion King
+Movies,The Lion King (1994)
+Movies,The Lion King (2019)
+Movies,The Lord of the Rings: The Fellowship of the Ring
+Movies,The Lord of the Rings: The Return of the King
+Movies,The Lord of the Rings: The Two Towers
+Movies,The Martian
+Movies,The Matrix
+Movies,The Maze Runner
+Movies,The Revenant
+Movies,The Secret Life of Pets
+Movies,The Shawshank Redemption
+Movies,The Silence of the Lambs
+Movies,The Social Network
+Movies,The Twilight Saga: Breaking Dawn – Part 1
+Movies,The Twilight Saga: Eclipse
+Movies,The Twilight Saga: New Moon
+Movies,Thor
+Movies,Thor: Ragnarok
+Movies,Titanic
+Movies,Toy Story
+Movies,Trolls
+Movies,Twilight
+Movies,Up
+Movies,Wonder
+Movies,Wonder Woman
+Movies,Zootopia
 Television,Black Mirror
 Television,BoJack Horseman
 Television,Breaking Bad

@@ -1,14 +1,12 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import PrevButton from "@/app/components/PrevButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import Modal from "../components/Modal";
 import { MainProps } from "../global/Types";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
-import { usePopRandomQuestion } from "../global/Utils";
+import { shuffle, usePopRandomQuestion } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
@@ -20,17 +18,10 @@ interface Player {
   flipped?: boolean;
 }
 
-const shuffle = (array: any[]) => {
-  return array
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
-};
-
 export default function Main({ questions }: MainProps) {
   const [showRules, setShowRules] = useState(false);
 
-  const { currentQuestion, popRandomQuestion } = usePopRandomQuestion(
+  const { popRandomQuestion } = usePopRandomQuestion(
     GAME_PATH,
     questions
   );
