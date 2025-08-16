@@ -40,7 +40,7 @@ interface GameState {
 
 const defaultGameState = {
   gameState: "playing",
-  grid: Array.from({ length: 7 }, () => Array(7).fill(0)),
+  grid: generateRandom7x7Grid(),
   moves: 0,
   uniqueShapes: 0,
   score: 0,
