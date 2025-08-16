@@ -39,8 +39,8 @@ interface GameState {
 }
 
 const defaultGameState = {
-  gameState: "playing",
-  grid: generateRandom7x7Grid(),
+  gameState: "new",
+  grid: Array.from({ length: 7 }, () => Array(7).fill(0)),
   moves: 0,
   uniqueShapes: 0,
   score: 0,
@@ -69,7 +69,7 @@ const colors = [
 ];
 
 const MAX_MOVES = 50;
-export default function Main({ questions }: MainProps) {
+export default function Main() {
   const [gameState, setGameState] = useLocalStorage<GameState>(
     `${GAME_PATH}.gameState`,
     defaultGameState
@@ -347,7 +347,8 @@ export default function Main({ questions }: MainProps) {
                   Continue Playing
                 </Button>
               )}
-              {(gameState.gameState === "ended" ||
+              {(gameState.gameState === "new" ||
+                gameState.gameState === "ended" ||
                 gameState.gameState === "failed") && (
                 <Button onClick={() => newGame()}>New Game</Button>
               )}
