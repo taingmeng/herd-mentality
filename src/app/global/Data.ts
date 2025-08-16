@@ -1,5 +1,19 @@
 export const games = [
   {
+    title: "Mandaminaz",
+    playerCount: "4-8 Players",
+    duration: "15 Min",
+    age: "Age: 9+",
+    playPath: "/mandaminaz",
+    imagePath: "/mandaminaz/icon.png",
+    paragraphs: [
+      `One player is the "master", and they secretly select a word from a set given in a deck of cards.`,
+      `The "insider" player, whose role is not known to the other players, will then secretly view the word.`,
+      `The rest of the players are known as "commons". The commons ask the master "yes" or "no"-type questions so that they can deduce the secret word`
+    ],
+    tags: ["no setup", "deduction"],
+  },
+  {
     title: "Insiderz",
     playerCount: "4-8 Players",
     duration: "15 Min",

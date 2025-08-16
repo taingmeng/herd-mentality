@@ -13,8 +13,6 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import CircularTimer, {
   CircularTimerRefProps,
 } from "../components/CircularTimer";
-import rightSoundFile from "@/assets/right.mp3";
-import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
 import timesUpSoundFile from "@/assets/times-up.mp3";
 import Button from "../components/Button";
 import IncrementalInput from "../components/IncrementalInput";
