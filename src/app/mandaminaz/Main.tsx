@@ -304,6 +304,7 @@ export default function Main() {
                   <h3>Moves: {gameState.moves}</h3>
                   <h3>=</h3>
                   <h3>Score: {gameState.score}</h3>
+                  <h3>{gameState.score > 0 ? "You win!" : "You lose!"}</h3>
                 </>
               )}
             </div>

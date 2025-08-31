@@ -25,7 +25,7 @@ If no one asked the correct question, everyone loses. Otherwise, proceed to the 
 
 If a player asked the question correctly, start a one minute timer on your device.
 
-Everyone, including the master, can openly discuss who is the insider by reviewing the questions that were asked in the previous phase.
+Everyone, including the master, can openly discuss who is the insider by reviewing the questions that were asked in the previous phase. You may end the discussion sooner or later than one time, but try not drag it for too long.
 
 ## First round of voting: is the guesser the insider?
 

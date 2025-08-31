@@ -3,44 +3,40 @@
 - A phone, tablet or laptop to run the game.
 - Everyone sits around the table.
 
-## Master, Insider and Commons
+## Game Play
 
-Once you enter everyone's name and proceed, the game randomly assigns everyone a role. There will be 1 master, 1 insider, and multiple commons. Pass the device around so that everyone can see their role secretly.
+Take turns to move marbles on the game board one at a time to organize the marbles by color.
 
-The player whose role is master must declare themselves as the master. The game also reveal the first player after the randomization is the master.
+The marbles are clustered when all marbles of a color are orthogonally adjacent to each other.
 
-The player whose role is insider do not reveal anything, i.e. pretend to be one of the commons.
+The placement of each color cluster is free – as long as all marbles of a certain color are adjacent to each other.
 
-## 5 minutes to ask questions
+Do bear in mind that you are not allowed to communicate your plans or to indicate unambiguously what you want someone else to do. In effect, you may not speak at all during the game.
 
-The commons and the insider then have approximately five minutes in which to ask the master "yes" or "no"-type questions so that they can deduce the secret word. The master can only answer "Yes", "No" or "I don't know". There is no turn order in asking questions. Some players may ask more questions than the others. 
+The player who last remained silent while listening to someone else may start.
 
-The insider attempts to secretly lead the commons towards the correct word, without asking too obvious questions.
+## Turn Sequence & Game End
 
-The phase ends when a player asks the correct question Is it X thing? Remember who asked the final question. The insider may also attempt the ask the correct question.
+On your turn, pick any marble on the board and put it on the empty spot (there is always one empty spot on the board).
 
-If no one asked the correct question, everyone loses. Otherwise, proceed to the end game discussion and voting.
+The next player clockwise takes their turn and moves any marble to the empty spot. The scorekeeper records another turn on the pad. The scorekeeper must remember to record all turns played.
 
-## Discuss
+You are allowed to move any marble until the end of the game.
 
-If a player asked the question correctly, start a one minute timer on your device.
+The game ends immediately when all marbles are organized in clusters by color.
 
-Everyone, including the master, can openly discuss who is the insider by reviewing the questions that were asked in the previous phase.
+## Scoring Rules
 
-## First round of voting: is the guesser the insider?
+Scoring is based on the shapes of the color clusters on the board, the position of the empty spot, and the number of turns played.
 
-To vote, everyone except the guess put their fist on the table. On the count of 3, everyone shows a thumb up if they think the guesser is a the insider. You can also choose whatever voting method you prefer. The guesser reveal their identity.
+The players are allowed to talk when scoring, but with hushed tones.
 
-- If there is no majority or the majority are wrong, the insider wins.
-- If the guesser is the insider, and the majority vote for the insider, the master and the commons win.
-- If the guesser is a common, and the majority vote for the common, proceed to the next voting.
+Each different shape of the color clusters:
+5 points each.
 
+The middle spot is empty:
+5 points.
 
-## Second round of voting: who is to the insider?
+The total score is the number of turns played subtracted from the sum of the cluster shape points and the middle spot points.
 
-To vote, on the count of 3, all players, including the guesser, point at the same time to who they think is the insider.
-
-If there is a tie between two or more players, the guesser's vote is counted as 2.
-
-If the majority votes for the insider, the master and the common wins. Otherwise, the insider wins.
-
+If the final score is one or more, congratulations are in order: you have won!
