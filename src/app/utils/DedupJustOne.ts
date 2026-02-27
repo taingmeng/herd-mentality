@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const filePath = "src/data/just-one/questions.csv";
+const filePath = "src/app/just-onez/data/questions.csv";
 const absolutePath = path.join(process.cwd(), filePath);
 
 fs.readFile(absolutePath, "utf8", (error, data) => {
