@@ -1,0 +1,1140 @@
+category,word
+Camping,Axe
+Camping,Backpack
+Camping,Bear Spray
+Camping,Binoculars
+Camping,Campfire
+Camping,Canteen
+Camping,Compass
+Camping,Cooler
+Camping,Firewood
+Camping,First Aid Kit
+Camping,Flashlight
+Camping,Hammock
+Camping,Hiking Boots
+Camping,Insect Repellent
+Camping,Lantern
+Camping,Map
+Camping,Marshmallow
+Camping,Matches
+Camping,Sleeping Bag
+Camping,Sunscreen
+Camping,Swiss Army Knife
+Camping,Tent
+Camping,Thermos
+Camping,Trail Mix
+Camping,Walking Stick
+Camping,Water Bottle
+Animals,Alligator
+Animals,Bear
+Animals,Camel
+Animals,Chameleon
+Animals,Cheetah
+Animals,Crab
+Animals,Deer
+Animals,Dolphin
+Animals,Eagle
+Animals,Elephant
+Animals,Flamingo
+Animals,Fox
+Animals,Frog
+Animals,Giraffe
+Animals,Gorilla
+Animals,Hamster
+Animals,Hedgehog
+Animals,Hippo
+Animals,Horse
+Animals,Kangaroo
+Animals,Koala
+Animals,Lion
+Animals,Monkey
+Animals,Octopus
+Animals,Owl
+Animals,Panda
+Animals,Parrot
+Animals,Penguin
+Animals,Rabbit
+Animals,Shark
+Animals,Snake
+Animals,Tiger
+Animals,Turtle
+Animals,Whale
+Animals,Wolf
+Animals,Zebra
+Beach,Bikini
+Beach,Boardwalk
+Beach,Boogie Board
+Beach,Bucket and Spade
+Beach,Coconut
+Beach,Cooler
+Beach,Coral
+Beach,Crab
+Beach,Flip Flops
+Beach,Frisbee
+Beach,Hammock
+Beach,Jellyfish
+Beach,Kayak
+Beach,Lifeguard
+Beach,Lighthouse
+Beach,Palm Tree
+Beach,Pelican
+Beach,Pier
+Beach,Sand Dune
+Beach,Sandcastle
+Beach,Seagull
+Beach,Seashell
+Beach,Snorkel
+Beach,Starfish
+Beach,Sunburn
+Beach,Sunglasses
+Beach,Sunscreen
+Beach,Surfboard
+Beach,Tide Pool
+Beach,Towel
+Beach,Umbrella
+Beach,Volleyball
+Clothing,Blazer
+Clothing,Boots
+Clothing,Cap
+Clothing,Cardigan
+Clothing,Dress
+Clothing,Gloves
+Clothing,Hoodie
+Clothing,Jacket
+Clothing,Jeans
+Clothing,Jumpsuit
+Clothing,Overalls
+Clothing,Pajamas
+Clothing,Raincoat
+Clothing,Sandals
+Clothing,Scarf
+Clothing,Shorts
+Clothing,Skirt
+Clothing,Sneakers
+Clothing,Socks
+Clothing,Suit
+Clothing,Sunhat
+Clothing,Sweater
+Clothing,T-Shirt
+Clothing,Tank Top
+Clothing,Tie
+Clothing,Trench Coat
+Clothing,Vest
+Clothing,Windbreaker
+Board Games,Azul
+Board Games,Battleship
+Board Games,Boggle
+Board Games,Candy Land
+Board Games,Catan
+Board Games,Checkers
+Board Games,Chess
+Board Games,Clue
+Board Games,Codenames
+Board Games,Connect Four
+Board Games,Cranium
+Board Games,Dominoes
+Board Games,Guess Who
+Board Games,Jenga
+Board Games,Life
+Board Games,Mancala
+Board Games,Monopoly
+Board Games,Operation
+Board Games,Othello
+Board Games,Pandemic
+Board Games,Pictionary
+Board Games,Risk
+Board Games,Scattergories
+Board Games,Scrabble
+Board Games,Sorry
+Board Games,Taboo
+Board Games,Trivial Pursuit
+Board Games,Twister
+Board Games,Uno
+Board Games,Yahtzee
+Design Patterns,Abstract Factory
+Design Patterns,Adapter
+Design Patterns,Bridge
+Design Patterns,Builder
+Design Patterns,Chain of Responsibility
+Design Patterns,Command
+Design Patterns,Composite
+Design Patterns,Decorator
+Design Patterns,Facade
+Design Patterns,Factory Method
+Design Patterns,Flyweight
+Design Patterns,Iterator
+Design Patterns,MVC
+Design Patterns,Mediator
+Design Patterns,Memento
+Design Patterns,Observer
+Design Patterns,Prototype
+Design Patterns,Proxy
+Design Patterns,Singleton
+Design Patterns,State
+Design Patterns,Strategy
+Design Patterns,Template Method
+Design Patterns,Visitor
+Countries,Argentina
+Countries,Australia
+Countries,Brazil
+Countries,Cambodia
+Countries,Canada
+Countries,China
+Countries,Colombia
+Countries,Egypt
+Countries,England
+Countries,France
+Countries,Germany
+Countries,Greece
+Countries,India
+Countries,Indonesia
+Countries,Ireland
+Countries,Italy
+Countries,Japan
+Countries,Kenya
+Countries,Mexico
+Countries,Netherlands
+Countries,New Zealand
+Countries,Nigeria
+Countries,Norway
+Countries,Peru
+Countries,Philippines
+Countries,Portugal
+Countries,Russia
+Countries,South Africa
+Countries,South Korea
+Countries,Spain
+Countries,Sweden
+Countries,Switzerland
+Countries,Thailand
+Countries,Turkey
+Countries,United States
+Countries,Vietnam
+Colors,Aqua
+Colors,Beige
+Colors,Black
+Colors,Bronze
+Colors,Brown
+Colors,Burgundy
+Colors,Coral
+Colors,Crimson
+Colors,Cyan
+Colors,Gold
+Colors,Green
+Colors,Indigo
+Colors,Ivory
+Colors,Lavender
+Colors,Magenta
+Colors,Maroon
+Colors,Mint
+Colors,Navy
+Colors,Olive
+Colors,Orange
+Colors,Peach
+Colors,Pink
+Colors,Purple
+Colors,Red
+Colors,Rose
+Colors,Salmon
+Colors,Silver
+Colors,Teal
+Colors,Turquoise
+Colors,Violet
+Colors,White
+Colors,Yellow
+Disney Characters,Aladdin
+Disney Characters,Ariel
+Disney Characters,Bambi
+Disney Characters,Belle
+Disney Characters,Buzz Lightyear
+Disney Characters,Cinderella
+Disney Characters,Donald Duck
+Disney Characters,Dumbo
+Disney Characters,Elsa
+Disney Characters,Genie
+Disney Characters,Goofy
+Disney Characters,Maleficent
+Disney Characters,Mickey Mouse
+Disney Characters,Minnie Mouse
+Disney Characters,Moana
+Disney Characters,Mulan
+Disney Characters,Nemo
+Disney Characters,Olaf
+Disney Characters,Peter Pan
+Disney Characters,Pinocchio
+Disney Characters,Pluto
+Disney Characters,Pocahontas
+Disney Characters,Rapunzel
+Disney Characters,Simba
+Disney Characters,Snow White
+Disney Characters,Stitch
+Disney Characters,Tarzan
+Disney Characters,Winnie the Pooh
+Disney Characters,Woody
+Dinosaurs,Allosaurus
+Dinosaurs,Ankylosaurus
+Dinosaurs,Apatosaurus
+Dinosaurs,Brachiosaurus
+Dinosaurs,Carnotaurus
+Dinosaurs,Dilophosaurus
+Dinosaurs,Diplodocus
+Dinosaurs,Gallimimus
+Dinosaurs,Iguanodon
+Dinosaurs,Megalosaurus
+Dinosaurs,Mosasaurus
+Dinosaurs,Pachycephalosaurus
+Dinosaurs,Parasaurolophus
+Dinosaurs,Protoceratops
+Dinosaurs,Pteranodon
+Dinosaurs,Raptor
+Dinosaurs,Spinosaurus
+Dinosaurs,Stegosaurus
+Dinosaurs,Therizinosaurus
+Dinosaurs,Triceratops
+Dinosaurs,Tyrannosaurus Rex
+Dinosaurs,Velociraptor
+Breakfast,Avocado Toast
+Breakfast,Bacon
+Breakfast,Bagel
+Breakfast,Cereal
+Breakfast,Croissant
+Breakfast,Eggs Benedict
+Breakfast,English Muffin
+Breakfast,French Toast
+Breakfast,Granola
+Breakfast,Hash Browns
+Breakfast,Jam
+Breakfast,Muffin
+Breakfast,Oatmeal
+Breakfast,Omelette
+Breakfast,Orange Juice
+Breakfast,Pancakes
+Breakfast,Porridge
+Breakfast,Sausage
+Breakfast,Scrambled Eggs
+Breakfast,Smoothie
+Breakfast,Toast
+Breakfast,Waffle
+Breakfast,Yogurt
+Emotions,Amazement
+Emotions,Anger
+Emotions,Anxiety
+Emotions,Boredom
+Emotions,Confusion
+Emotions,Contentment
+Emotions,Curiosity
+Emotions,Despair
+Emotions,Disgust
+Emotions,Embarrassment
+Emotions,Envy
+Emotions,Excitement
+Emotions,Fear
+Emotions,Gratitude
+Emotions,Guilt
+Emotions,Happiness
+Emotions,Hope
+Emotions,Jealousy
+Emotions,Joy
+Emotions,Loneliness
+Emotions,Love
+Emotions,Nostalgia
+Emotions,Pride
+Emotions,Sadness
+Emotions,Shame
+Emotions,Surprise
+Emotions,Sympathy
+Emotions,Wonder
+Desserts,Apple Pie
+Desserts,Baklava
+Desserts,Brownie
+Desserts,Cannoli
+Desserts,Cheesecake
+Desserts,Chocolate Cake
+Desserts,Chocolate Mousse
+Desserts,Churro
+Desserts,Cinnamon Roll
+Desserts,Cookie
+Desserts,Creme Brulee
+Desserts,Crepe
+Desserts,Cupcake
+Desserts,Donut
+Desserts,Eclair
+Desserts,Flan
+Desserts,Gelato
+Desserts,Ice Cream
+Desserts,Macaron
+Desserts,Mochi
+Desserts,Pancake
+Desserts,Panna Cotta
+Desserts,Pie
+Desserts,Profiterole
+Desserts,Pudding
+Desserts,Sorbet
+Desserts,Souffle
+Desserts,Strudel
+Desserts,Tiramisu
+Desserts,Waffle
+Drinks,Apple Juice
+Drinks,Bubble Tea
+Drinks,Cappuccino
+Drinks,Chai
+Drinks,Chocolate Milk
+Drinks,Coconut Water
+Drinks,Coffee
+Drinks,Cola
+Drinks,Espresso
+Drinks,Ginger Ale
+Drinks,Green Tea
+Drinks,Hot Chocolate
+Drinks,Iced Tea
+Drinks,Latte
+Drinks,Lemonade
+Drinks,Matcha
+Drinks,Milkshake
+Drinks,Mocha
+Drinks,Orange Juice
+Drinks,Root Beer
+Drinks,Smoothie
+Drinks,Sparkling Water
+Drinks,Tea
+Drinks,Water
+Fast Food,Burrito
+Fast Food,Cheeseburger
+Fast Food,Chicken Nuggets
+Fast Food,Chicken Wings
+Fast Food,Churro
+Fast Food,Corn Dog
+Fast Food,Fish and Chips
+Fast Food,French Fries
+Fast Food,Fried Chicken
+Fast Food,Fried Rice
+Fast Food,Gyro
+Fast Food,Hamburger
+Fast Food,Hot Dog
+Fast Food,Kebab
+Fast Food,Milkshake
+Fast Food,Nachos
+Fast Food,Onion Rings
+Fast Food,Pizza
+Fast Food,Popcorn
+Fast Food,Pretzel
+Fast Food,Ramen
+Fast Food,Soft Serve
+Fast Food,Submarine Sandwich
+Fast Food,Taco
+Fast Food,Waffle Fries
+Fairy Tales,Aladdin
+Fairy Tales,Beauty and the Beast
+Fairy Tales,Cinderella
+Fairy Tales,Goldilocks
+Fairy Tales,Hansel and Gretel
+Fairy Tales,Jack and the Beanstalk
+Fairy Tales,Little Mermaid
+Fairy Tales,Little Red Riding Hood
+Fairy Tales,Peter Pan
+Fairy Tales,Pinocchio
+Fairy Tales,Puss in Boots
+Fairy Tales,Rapunzel
+Fairy Tales,Rumpelstiltskin
+Fairy Tales,Sleeping Beauty
+Fairy Tales,Snow White
+Fairy Tales,The Emperor's New Clothes
+Fairy Tales,The Frog Prince
+Fairy Tales,The Gingerbread Man
+Fairy Tales,The Pied Piper
+Fairy Tales,The Three Bears
+Fairy Tales,The Three Little Pigs
+Fairy Tales,The Ugly Duckling
+Fairy Tales,Thumbelina
+Fairy Tales,Tom Thumb
+Fruits,Apple
+Fruits,Apricot
+Fruits,Avocado
+Fruits,Banana
+Fruits,Blackberry
+Fruits,Blueberry
+Fruits,Cantaloupe
+Fruits,Cherry
+Fruits,Coconut
+Fruits,Cranberry
+Fruits,Dragon Fruit
+Fruits,Fig
+Fruits,Grapefruit
+Fruits,Grapes
+Fruits,Guava
+Fruits,Kiwi
+Fruits,Lemon
+Fruits,Lime
+Fruits,Lychee
+Fruits,Mango
+Fruits,Nectarine
+Fruits,Orange
+Fruits,Papaya
+Fruits,Passion Fruit
+Fruits,Peach
+Fruits,Pear
+Fruits,Pineapple
+Fruits,Plum
+Fruits,Pomegranate
+Fruits,Raspberry
+Fruits,Strawberry
+Fruits,Watermelon
+Flowers,Bluebell
+Flowers,Carnation
+Flowers,Cherry Blossom
+Flowers,Chrysanthemum
+Flowers,Daffodil
+Flowers,Dahlia
+Flowers,Daisy
+Flowers,Dandelion
+Flowers,Hibiscus
+Flowers,Hydrangea
+Flowers,Iris
+Flowers,Jasmine
+Flowers,Lavender
+Flowers,Lily
+Flowers,Lotus
+Flowers,Magnolia
+Flowers,Marigold
+Flowers,Orchid
+Flowers,Peony
+Flowers,Poppy
+Flowers,Rose
+Flowers,Sunflower
+Flowers,Tulip
+Flowers,Violet
+Kitchen,Blender
+Kitchen,Bowl
+Kitchen,Can Opener
+Kitchen,Chopping Board
+Kitchen,Colander
+Kitchen,Cup
+Kitchen,Dishwasher
+Kitchen,Fork
+Kitchen,Frying Pan
+Kitchen,Grater
+Kitchen,Kettle
+Kitchen,Knife
+Kitchen,Ladle
+Kitchen,Microwave
+Kitchen,Mixing Bowl
+Kitchen,Oven
+Kitchen,Plate
+Kitchen,Pot
+Kitchen,Rolling Pin
+Kitchen,Spatula
+Kitchen,Spoon
+Kitchen,Toaster
+Kitchen,Tongs
+Kitchen,Whisk
+Kitchen,Wok
+Gadgets,Action Camera
+Gadgets,Bluetooth Speaker
+Gadgets,Calculator
+Gadgets,Dash Cam
+Gadgets,Digital Camera
+Gadgets,Drone
+Gadgets,E-Reader
+Gadgets,Electric Scooter
+Gadgets,Fitness Tracker
+Gadgets,Game Console
+Gadgets,Graphics Card
+Gadgets,Hard Drive
+Gadgets,Headphones
+Gadgets,Keyboard
+Gadgets,Laptop
+Gadgets,Microphone
+Gadgets,Monitor
+Gadgets,Mouse
+Gadgets,Power Bank
+Gadgets,Printer
+Gadgets,Projector
+Gadgets,Robot Vacuum
+Gadgets,Router
+Gadgets,Smart TV
+Gadgets,Smart Watch
+Gadgets,Smartphone
+Gadgets,Tablet
+Gadgets,USB Drive
+Gadgets,VR Headset
+Gadgets,Webcam
+Halloween,Bat
+Halloween,Black Cat
+Halloween,Broomstick
+Halloween,Candy
+Halloween,Cauldron
+Halloween,Cobweb
+Halloween,Coffin
+Halloween,Costume
+Halloween,Dracula
+Halloween,Frankenstein
+Halloween,Ghost
+Halloween,Goblin
+Halloween,Graveyard
+Halloween,Haunted House
+Halloween,Jack-o-Lantern
+Halloween,Monster
+Halloween,Mummy
+Halloween,Owl
+Halloween,Pirate
+Halloween,Potion
+Halloween,Pumpkin
+Halloween,Scarecrow
+Halloween,Skeleton
+Halloween,Spider
+Halloween,Tombstone
+Halloween,Trick or Treat
+Halloween,Vampire
+Halloween,Werewolf
+Halloween,Witch
+Halloween,Zombie
+Movies,Aladdin
+Movies,Avatar
+Movies,Bambi
+Movies,Braveheart
+Movies,Cars
+Movies,Coco
+Movies,Encanto
+Movies,Finding Nemo
+Movies,Forrest Gump
+Movies,Frozen
+Movies,Ghost
+Movies,Gladiator
+Movies,Home Alone
+Movies,Inception
+Movies,Inside Out
+Movies,Jaws
+Movies,Jumanji
+Movies,Jurassic Park
+Movies,Kung Fu Panda
+Movies,Madagascar
+Movies,Moana
+Movies,Mulan
+Movies,Ratatouille
+Movies,Rocky
+Movies,Shrek
+Movies,Soul
+Movies,Tarzan
+Movies,The Lion King
+Movies,Titanic
+Movies,Toy Story
+Movies,Up
+Movies,Wall-E
+Hobbies,Baking
+Hobbies,Bird Watching
+Hobbies,Calligraphy
+Hobbies,Camping
+Hobbies,Cooking
+Hobbies,Dancing
+Hobbies,Drawing
+Hobbies,Fishing
+Hobbies,Gardening
+Hobbies,Hiking
+Hobbies,Journaling
+Hobbies,Knitting
+Hobbies,Meditation
+Hobbies,Origami
+Hobbies,Painting
+Hobbies,Photography
+Hobbies,Pottery
+Hobbies,Puzzles
+Hobbies,Reading
+Hobbies,Running
+Hobbies,Scrapbooking
+Hobbies,Singing
+Hobbies,Skateboarding
+Hobbies,Surfing
+Hobbies,Swimming
+Hobbies,Woodworking
+Hobbies,Writing
+Hobbies,Yoga
+Music Genres,Blues
+Music Genres,Classical
+Music Genres,Country
+Music Genres,Disco
+Music Genres,Dubstep
+Music Genres,EDM
+Music Genres,Funk
+Music Genres,Gospel
+Music Genres,Grunge
+Music Genres,Hip Hop
+Music Genres,House
+Music Genres,Indie
+Music Genres,Jazz
+Music Genres,K-Pop
+Music Genres,Latin
+Music Genres,Metal
+Music Genres,Opera
+Music Genres,Pop
+Music Genres,Punk
+Music Genres,R&B
+Music Genres,Reggae
+Music Genres,Rock
+Music Genres,Salsa
+Music Genres,Soul
+Music Genres,Swing
+Music Genres,Techno
+Programming Languages,Assembly
+Programming Languages,Bash
+Programming Languages,C
+Programming Languages,C#
+Programming Languages,C++
+Programming Languages,COBOL
+Programming Languages,CSS
+Programming Languages,Dart
+Programming Languages,Elixir
+Programming Languages,Erlang
+Programming Languages,Go
+Programming Languages,HTML
+Programming Languages,Haskell
+Programming Languages,Java
+Programming Languages,JavaScript
+Programming Languages,Kotlin
+Programming Languages,Lua
+Programming Languages,MATLAB
+Programming Languages,Objective-C
+Programming Languages,PHP
+Programming Languages,Perl
+Programming Languages,Python
+Programming Languages,R
+Programming Languages,Ruby
+Programming Languages,Rust
+Programming Languages,SQL
+Programming Languages,Scala
+Programming Languages,Swift
+Programming Languages,TypeScript
+Programming Languages,Zig
+Musical Instruments,Accordion
+Musical Instruments,Bagpipes
+Musical Instruments,Banjo
+Musical Instruments,Bass Guitar
+Musical Instruments,Bongos
+Musical Instruments,Cello
+Musical Instruments,Clarinet
+Musical Instruments,Cymbals
+Musical Instruments,Drums
+Musical Instruments,Flute
+Musical Instruments,French Horn
+Musical Instruments,Guitar
+Musical Instruments,Harmonica
+Musical Instruments,Harp
+Musical Instruments,Keyboard
+Musical Instruments,Mandolin
+Musical Instruments,Maracas
+Musical Instruments,Oboe
+Musical Instruments,Organ
+Musical Instruments,Piano
+Musical Instruments,Recorder
+Musical Instruments,Saxophone
+Musical Instruments,Sitar
+Musical Instruments,Tambourine
+Musical Instruments,Triangle
+Musical Instruments,Trombone
+Musical Instruments,Trumpet
+Musical Instruments,Tuba
+Musical Instruments,Ukulele
+Musical Instruments,Violin
+Musical Instruments,Xylophone
+Professions,Accountant
+Professions,Architect
+Professions,Astronaut
+Professions,Baker
+Professions,Barber
+Professions,Carpenter
+Professions,Chef
+Professions,Dentist
+Professions,Detective
+Professions,Doctor
+Professions,Electrician
+Professions,Engineer
+Professions,Farmer
+Professions,Firefighter
+Professions,Journalist
+Professions,Judge
+Professions,Lawyer
+Professions,Librarian
+Professions,Mechanic
+Professions,Musician
+Professions,Nurse
+Professions,Paramedic
+Professions,Pharmacist
+Professions,Photographer
+Professions,Pilot
+Professions,Plumber
+Professions,Police Officer
+Professions,Programmer
+Professions,Scientist
+Professions,Teacher
+Professions,Veterinarian
+Programming,API
+Programming,Algorithm
+Programming,Array
+Programming,Boolean
+Programming,Bug
+Programming,Cache
+Programming,Callback
+Programming,Class
+Programming,Compiler
+Programming,Database
+Programming,Debug
+Programming,Deployment
+Programming,Framework
+Programming,Function
+Programming,Git
+Programming,Interface
+Programming,Library
+Programming,Loop
+Programming,Merge Conflict
+Programming,Object
+Programming,Package
+Programming,Pull Request
+Programming,Recursion
+Programming,Refactor
+Programming,Repository
+Programming,Server
+Programming,Stack Overflow
+Programming,Terminal
+Programming,Variable
+Programming,Version Control
+Mythical Creatures,Banshee
+Mythical Creatures,Basilisk
+Mythical Creatures,Bigfoot
+Mythical Creatures,Centaur
+Mythical Creatures,Cerberus
+Mythical Creatures,Chimera
+Mythical Creatures,Cyclops
+Mythical Creatures,Dragon
+Mythical Creatures,Elf
+Mythical Creatures,Fairy
+Mythical Creatures,Genie
+Mythical Creatures,Ghost
+Mythical Creatures,Griffin
+Mythical Creatures,Hydra
+Mythical Creatures,Kraken
+Mythical Creatures,Leprechaun
+Mythical Creatures,Mermaid
+Mythical Creatures,Minotaur
+Mythical Creatures,Ogre
+Mythical Creatures,Pegasus
+Mythical Creatures,Phoenix
+Mythical Creatures,Sphinx
+Mythical Creatures,Troll
+Mythical Creatures,Unicorn
+Mythical Creatures,Vampire
+Mythical Creatures,Werewolf
+Mythical Creatures,Witch
+Mythical Creatures,Yeti
+Office,Binder
+Office,Calculator
+Office,Calendar
+Office,Chair
+Office,Clipboard
+Office,Coffee Mug
+Office,Computer
+Office,Desk
+Office,Eraser
+Office,Folder
+Office,Highlighter
+Office,Keyboard
+Office,Lamp
+Office,Monitor
+Office,Mouse
+Office,Notebook
+Office,Paper Clip
+Office,Pen
+Office,Pencil
+Office,Post-it Note
+Office,Printer
+Office,Ruler
+Office,Scanner
+Office,Stapler
+Office,Tape
+Office,Trash Can
+Office,Whiteboard
+School Subjects,Algebra
+School Subjects,Art
+School Subjects,Astronomy
+School Subjects,Biology
+School Subjects,Business
+School Subjects,Chemistry
+School Subjects,Computer Science
+School Subjects,Drama
+School Subjects,Economics
+School Subjects,English
+School Subjects,Geography
+School Subjects,Geometry
+School Subjects,Health
+School Subjects,History
+School Subjects,Literature
+School Subjects,Mathematics
+School Subjects,Music
+School Subjects,Philosophy
+School Subjects,Photography
+School Subjects,Physical Education
+School Subjects,Physics
+School Subjects,Psychology
+School Subjects,Sociology
+School Subjects,Spanish
+School Subjects,Statistics
+Space,Asteroid
+Space,Aurora
+Space,Big Bang
+Space,Black Hole
+Space,Comet
+Space,Constellation
+Space,Dark Matter
+Space,Eclipse
+Space,Galaxy
+Space,Gravity
+Space,Jupiter
+Space,Mars
+Space,Mercury
+Space,Meteor
+Space,Milky Way
+Space,Moon
+Space,Nebula
+Space,Neptune
+Space,Orbit
+Space,Pluto
+Space,Rocket
+Space,Satellite
+Space,Saturn
+Space,Space Station
+Space,Sun
+Space,Supernova
+Space,Telescope
+Space,Uranus
+Space,Venus
+Space,Wormhole
+Tech Companies,Adobe
+Tech Companies,Airbnb
+Tech Companies,Amazon
+Tech Companies,Apple
+Tech Companies,Atlassian
+Tech Companies,Cisco
+Tech Companies,Dropbox
+Tech Companies,Facebook
+Tech Companies,Google
+Tech Companies,IBM
+Tech Companies,Intel
+Tech Companies,LinkedIn
+Tech Companies,Meta
+Tech Companies,Microsoft
+Tech Companies,Netflix
+Tech Companies,Nvidia
+Tech Companies,Oracle
+Tech Companies,PayPal
+Tech Companies,Salesforce
+Tech Companies,Samsung
+Tech Companies,Shopify
+Tech Companies,Slack
+Tech Companies,Snap
+Tech Companies,Spotify
+Tech Companies,Stripe
+Tech Companies,Tesla
+Tech Companies,TikTok
+Tech Companies,Twitter
+Tech Companies,Uber
+Tech Companies,Zoom
+Sports,Archery
+Sports,Badminton
+Sports,Baseball
+Sports,Basketball
+Sports,Boxing
+Sports,Cricket
+Sports,Curling
+Sports,Cycling
+Sports,Diving
+Sports,Fencing
+Sports,Football
+Sports,Golf
+Sports,Gymnastics
+Sports,Handball
+Sports,Hockey
+Sports,Judo
+Sports,Karate
+Sports,Lacrosse
+Sports,Rowing
+Sports,Rugby
+Sports,Skiing
+Sports,Snowboarding
+Sports,Soccer
+Sports,Softball
+Sports,Surfing
+Sports,Swimming
+Sports,Table Tennis
+Sports,Tennis
+Sports,Track and Field
+Sports,Volleyball
+Sports,Water Polo
+Sports,Wrestling
+Superheroes,Aquaman
+Superheroes,Batgirl
+Superheroes,Batman
+Superheroes,Black Panther
+Superheroes,Black Widow
+Superheroes,Captain America
+Superheroes,Captain Marvel
+Superheroes,Catwoman
+Superheroes,Cyborg
+Superheroes,Daredevil
+Superheroes,Deadpool
+Superheroes,Doctor Strange
+Superheroes,Flash
+Superheroes,Green Arrow
+Superheroes,Green Lantern
+Superheroes,Hawkeye
+Superheroes,Hulk
+Superheroes,Iron Man
+Superheroes,Loki
+Superheroes,Nightwing
+Superheroes,Robin
+Superheroes,Shazam
+Superheroes,Silver Surfer
+Superheroes,Spider-Man
+Superheroes,Star-Lord
+Superheroes,Superman
+Superheroes,Thor
+Superheroes,Vision
+Superheroes,Wolverine
+Superheroes,Wonder Woman
+TV Shows,Breaking Bad
+TV Shows,Brooklyn Nine-Nine
+TV Shows,Dark
+TV Shows,Friends
+TV Shows,Game of Thrones
+TV Shows,Grey's Anatomy
+TV Shows,How I Met Your Mother
+TV Shows,Lost
+TV Shows,Money Heist
+TV Shows,Naruto
+TV Shows,One Piece
+TV Shows,Parks and Recreation
+TV Shows,Peaky Blinders
+TV Shows,Pokemon
+TV Shows,Schitt's Creek
+TV Shows,Seinfeld
+TV Shows,Squid Game
+TV Shows,Stranger Things
+TV Shows,Succession
+TV Shows,Survivor
+TV Shows,Ted Lasso
+TV Shows,The Crown
+TV Shows,The Mandalorian
+TV Shows,The Office
+TV Shows,The Simpsons
+TV Shows,The Witcher
+TV Shows,Wednesday
+TV Shows,You
+Vegetables,Artichoke
+Vegetables,Asparagus
+Vegetables,Beetroot
+Vegetables,Broccoli
+Vegetables,Brussels Sprout
+Vegetables,Cabbage
+Vegetables,Carrot
+Vegetables,Cauliflower
+Vegetables,Celery
+Vegetables,Corn
+Vegetables,Cucumber
+Vegetables,Eggplant
+Vegetables,Garlic
+Vegetables,Green Bean
+Vegetables,Kale
+Vegetables,Leek
+Vegetables,Lettuce
+Vegetables,Mushroom
+Vegetables,Okra
+Vegetables,Onion
+Vegetables,Peas
+Vegetables,Pepper
+Vegetables,Potato
+Vegetables,Pumpkin
+Vegetables,Radish
+Vegetables,Spinach
+Vegetables,Sweet Potato
+Vegetables,Tomato
+Vegetables,Turnip
+Vegetables,Zucchini
+Transportation,Airplane
+Transportation,Bicycle
+Transportation,Boat
+Transportation,Bus
+Transportation,Canoe
+Transportation,Car
+Transportation,Cruise Ship
+Transportation,Ferry
+Transportation,Gondola
+Transportation,Helicopter
+Transportation,Hot Air Balloon
+Transportation,Jet Ski
+Transportation,Kayak
+Transportation,Limousine
+Transportation,Minivan
+Transportation,Motorcycle
+Transportation,Rocket
+Transportation,Sailboat
+Transportation,Scooter
+Transportation,Skateboard
+Transportation,Subway
+Transportation,Taxi
+Transportation,Train
+Transportation,Tram
+Transportation,Truck
+Transportation,Yacht
+Weather,Avalanche
+Weather,Blizzard
+Weather,Breeze
+Weather,Cloud
+Weather,Drizzle
+Weather,Drought
+Weather,Dust Storm
+Weather,Earthquake
+Weather,Flood
+Weather,Fog
+Weather,Frost
+Weather,Hail
+Weather,Heat Wave
+Weather,Hurricane
+Weather,Ice Storm
+Weather,Lightning
+Weather,Monsoon
+Weather,Rain
+Weather,Rainbow
+Weather,Sleet
+Weather,Snow
+Weather,Sunshine
+Weather,Thunder
+Weather,Tornado
+Weather,Tsunami
+Weather,Typhoon
+Weather,Volcano
+Weather,Wind
+Video Games,Among Us
+Video Games,Animal Crossing
+Video Games,Call of Duty
+Video Games,Candy Crush
+Video Games,Civilization
+Video Games,Donkey Kong
+Video Games,FIFA
+Video Games,Final Fantasy
+Video Games,Fortnite
+Video Games,God of War
+Video Games,Grand Theft Auto
+Video Games,Halo
+Video Games,League of Legends
+Video Games,Mario Kart
+Video Games,Minecraft
+Video Games,Overwatch
+Video Games,Pac-Man
+Video Games,Pokemon
+Video Games,Roblox
+Video Games,Sonic
+Video Games,Street Fighter
+Video Games,Super Mario
+Video Games,Super Smash Bros
+Video Games,Tetris
+Video Games,The Legend of Zelda
+Video Games,The Sims
+Video Games,Valorant
+Video Games,World of Warcraft
