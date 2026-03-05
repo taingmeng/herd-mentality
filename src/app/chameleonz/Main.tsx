@@ -98,6 +98,7 @@ export default function Main({ questions }: MainProps) {
     const secretIdx = Math.floor(Math.random() * 16);
     const chameleonIdx = Math.floor(Math.random() * playerCount);
 
+    setPlayers(shuffle([...players]));
     setGridCategory(category);
     setGridWords(shuffledWords);
     setSecretWordIndex(secretIdx);
@@ -287,6 +288,7 @@ export default function Main({ questions }: MainProps) {
           <>
             <div className="flex flex-col items-center gap-4 w-full mt-12">
               <h2 className="text-2xl font-bold">{gridCategory}</h2>
+              <label className="text-gray-400">{players[0]} goes first</label>
               {renderGrid(revealedWord)}
 
               {revealedChameleon && (
