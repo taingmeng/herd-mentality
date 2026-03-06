@@ -1,5 +1,18 @@
 export const games = [
   {
+    title: "Caution Signz",
+    playerCount: "3-8 Players",
+    duration: "20-30 Min",
+    age: "Age: 8+",
+    playPath: "/caution-signz",
+    imagePath: "/caution-signz/icon.png",
+    paragraphs: [
+      "One player is the guesser while the rest are sketchers. Each sketcher secretly receives a unique descriptor + subject combination to draw on paper.",
+      "The guesser sees all the assigned words plus some decoys, and must match each drawing to its word pair. The better the guesses, the more points for everyone!",
+    ],
+    tags: ["paper", "drawing", "party"],
+  },
+  {
     title: "Chameleonz",
     playerCount: "3-8 Players",
     duration: "15 Min",
@@ -114,19 +127,6 @@ export const games = [
       "You have the choice – make the difference!",
     ],
     tags: ["markers", "boards", "co-op", "word association"],
-  },
-  {
-    title: "Caution Signz",
-    playerCount: "3-8 Players",
-    duration: "20-30 Min",
-    age: "Age: 8+",
-    playPath: "/caution-signz",
-    imagePath: "/caution-signz/icon.png",
-    paragraphs: [
-      "One player is the guesser while the rest are sketchers. Each sketcher secretly receives a unique descriptor + subject combination to draw on paper.",
-      "The guesser sees all the assigned words plus some decoys, and must match each drawing to its word pair. The better the guesses, the more points for everyone!",
-    ],
-    tags: ["paper", "drawing", "party"],
   },
   {
     title: "Herd Mentalityz",

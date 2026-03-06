@@ -20,7 +20,7 @@ interface Assignment {
   subject: string;
 }
 
-type GameState = "setup" | "passing" | "guesser" | "scoring" | "results";
+type GameState = "setup" | "passing" | "guesser" | "scoring" | "round-results" | "results";
 
 export default function Main({ descriptors, subjects }: MainProps) {
   const [showRules, setShowRules] = useState(false);
@@ -78,6 +78,14 @@ export default function Main({ descriptors, subjects }: MainProps) {
   // Scoring state
   const [roundScores, setRoundScores] = useLocalStorage<Record<string, number>>(
     `${GAME_PATH}.roundScores`,
+    {}
+  );
+  const [prevScores, setPrevScores] = useLocalStorage<Record<string, number>>(
+    `${GAME_PATH}.prevScores`,
+    {}
+  );
+  const [roundPointsEarned, setRoundPointsEarned] = useLocalStorage<Record<string, number>>(
+    `${GAME_PATH}.roundPointsEarned`,
     {}
   );
 
@@ -159,22 +167,31 @@ export default function Main({ descriptors, subjects }: MainProps) {
     sketchers.length > 0 && sketchers.every((s) => roundScores[s] !== undefined);
 
   const submitScores = () => {
+    setPrevScores({ ...scores });
+
+    const earned: Record<string, number> = {};
+    players.forEach((p) => (earned[p] = 0));
+
     const newScores = { ...scores };
     sketchers.forEach((sketcher) => {
       const score = roundScores[sketcher];
-      if (score === 0) {
-        // 0: sketcher 0pts, guesser 0pts
-      } else if (score === 1) {
-        // 1: sketcher 1pt, guesser 0pts
+      if (score === 1) {
+        earned[sketcher] = (earned[sketcher] || 0) + 1;
         newScores[sketcher] = (newScores[sketcher] || 0) + 1;
       } else if (score === 2) {
-        // 2: sketcher 3pts, guesser 2pts
+        earned[sketcher] = (earned[sketcher] || 0) + 3;
+        earned[guesser] = (earned[guesser] || 0) + 2;
         newScores[sketcher] = (newScores[sketcher] || 0) + 3;
         newScores[guesser] = (newScores[guesser] || 0) + 2;
       }
     });
-    setScores(newScores);
 
+    setRoundPointsEarned(earned);
+    setScores(newScores);
+    setGameState("round-results");
+  };
+
+  const advanceFromRoundResults = () => {
     const nextRound = currentRoundIndex + 1;
     if (nextRound >= totalRounds) {
       setGameState("results");
@@ -194,6 +211,8 @@ export default function Main({ descriptors, subjects }: MainProps) {
     setPassIndex(0);
     setFlipped(false);
     setRoundScores({});
+    setPrevScores({});
+    setRoundPointsEarned({});
   };
 
   // Guesser view: all assigned + decoy words, shuffled
@@ -472,6 +491,74 @@ export default function Main({ descriptors, subjects }: MainProps) {
                     onClick={submitScores}
                   >
                     Submit Scores
+                  </BigButton>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ROUND RESULTS */}
+        {gameState === "round-results" && (
+          <>
+            <div className="flex flex-col items-center gap-4 w-full mt-4">
+              <div className="text-center">
+                <label className="text-gray-400">
+                  Round {currentRoundDisplay} of {totalRounds}
+                </label>
+                <h2 className="text-xl font-bold mt-1">Round Scores</h2>
+              </div>
+
+              <div className="w-full max-w-md">
+                {/* Header */}
+                <div className="flex flex-row items-center px-4 py-2 text-gray-400 text-sm font-semibold">
+                  <span className="flex-1">Player</span>
+                  <span className="w-16 text-center">Prev</span>
+                  <span className="w-16 text-center">Round</span>
+                  <span className="w-16 text-center">Total</span>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  {Object.entries(scores)
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([name, total]) => {
+                      const prev = prevScores[name] || 0;
+                      const earned = roundPointsEarned[name] || 0;
+                      return (
+                        <div
+                          key={name}
+                          className={`flex flex-row items-center rounded-lg p-4 border ${
+                            earned > 0
+                              ? "border-pink-400 bg-pink-950/50"
+                              : "border-pink-600"
+                          }`}
+                        >
+                          <span className="text-white font-bold text-lg flex-1">
+                            {name}
+                          </span>
+                          <span className="w-16 text-center text-gray-400">
+                            {prev}
+                          </span>
+                          <span className={`w-16 text-center font-bold ${
+                            earned > 0 ? "text-green-400" : "text-gray-500"
+                          }`}>
+                            {earned > 0 ? `+${earned}` : "0"}
+                          </span>
+                          <span className="w-16 text-center text-pink-400 font-bold">
+                            {total}
+                          </span>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+
+              <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex">
+                <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
+                  <BigButton onClick={advanceFromRoundResults}>
+                    {currentRoundIndex + 1 >= totalRounds
+                      ? "Final Results"
+                      : "Next Round"}
                   </BigButton>
                 </div>
               </div>

@@ -57,8 +57,8 @@ All game state is persisted in `localStorage` keyed by game path (e.g., `herd-me
 1. Create `src/app/[gamename]/` with `page.tsx`, `Main.tsx`, `Constants.ts`
 2. Add `data/questions.csv` in that directory
 3. Add game icon to `public/[gamename]/icon.png`
-4. Add entry to the `games` array in `src/app/global/Data.ts`
+4. Insert entry at the **beginning** of the `games` array in `src/app/global/Data.ts`
 
 ## Games
 
-mandaminaz, insiderz, tapplez, wavelengthz, herd-mentalityz, just-onez, fake-artistz, poetryz, monikerz, subjectivez
+caution-signz, mandaminaz, insiderz, tapplez, wavelengthz, herd-mentalityz, just-onez, fake-artistz, poetryz, monikerz, subjectivez
