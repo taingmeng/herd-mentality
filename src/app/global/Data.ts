@@ -1,5 +1,18 @@
 export const games = [
   {
+    title: "That Sound Gamez",
+    playerCount: "2-30 Players",
+    duration: "30-120 Min",
+    age: "Age: 14+",
+    playPath: "/that-sound-gamez",
+    imagePath: "/that-sound-gamez/icon.png",
+    paragraphs: [
+      `The goal is to get your team to guess as many answers on the category cards as they can in a minute.`,
+      `Use any combination of sounds and movements, but your hands must be behind your back.`,
+    ],
+    tags: ["no setup", "co-op", "silent" ],
+  },
+  {
     title: "Mandaminaz",
     playerCount: "1-4 Players",
     duration: "10-15 Min",
