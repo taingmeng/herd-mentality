@@ -2,11 +2,14 @@
 
 import { useState, useCallback, useMemo } from "react";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
+import useSound from "@/app/hooks/useSound";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import { shuffle } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
+import rightSoundFile from "@/assets/right.mp3";
+import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
 
 interface MainProps {
   categories: string[];
@@ -70,9 +73,8 @@ function generateDeck(categories: string[], numCards: number): Card[] {
 
 export default function Main({ categories }: MainProps) {
   const [showRules, setShowRules] = useState(false);
-  const [dealAnimKey, setDealAnimKey] = useState(0);
-  const [lastDealtPlayer, setLastDealtPlayer] = useState<number | null>(null);
-  const [lastDealtWild, setLastDealtWild] = useState(false);
+  const playFaceOffSound = useSound(rightSoundFile);
+  const playDealSound = useSound(bubblePopSoundFile);
 
   // Setup state
   const [topRowNames, setTopRowNames] = useLocalStorage<string>(
@@ -209,6 +211,7 @@ export default function Main({ categories }: MainProps) {
     const newRemaining = [...remainingCards];
     const card = newRemaining.pop()!;
     setRemainingCards(newRemaining);
+    playDealSound();
 
     let updatedPlayers = [...players];
     let updatedWild = activeWildCard;
@@ -216,22 +219,18 @@ export default function Main({ categories }: MainProps) {
     if (card.type === "wild") {
       updatedWild = card;
       setActiveWildCard(card);
-      setLastDealtWild(true);
-      setLastDealtPlayer(null);
     } else {
       updatedPlayers = updatedPlayers.map((p, i) =>
         i === currentPlayerIndex ? { ...p, cards: [...p.cards, card] } : p
       );
       setPlayers(updatedPlayers);
-      setLastDealtPlayer(currentPlayerIndex);
-      setLastDealtWild(false);
     }
-    setDealAnimKey((k) => k + 1);
 
     // Check for face-off
     const detectedFaceOff = checkForFaceOff(updatedPlayers, updatedWild);
     if (detectedFaceOff) {
       setFaceOff(detectedFaceOff);
+      playFaceOffSound();
     } else if (card.type === "wild") {
       // Wild card dealt to center — same player gets next turn
       if (newRemaining.length === 0) {
@@ -280,9 +279,13 @@ export default function Main({ categories }: MainProps) {
     const cascadeFaceOff = checkForFaceOff(updatedPlayers, activeWildCard);
     if (cascadeFaceOff) {
       setFaceOff(cascadeFaceOff);
+      playFaceOffSound();
     } else {
-      // Advance to next player
-      const nextIndex = (currentPlayerIndex + 1) % updatedPlayers.length;
+      // Advance to next player, skipping the loser
+      let nextIndex = (currentPlayerIndex + 1) % updatedPlayers.length;
+      if (nextIndex === loserIndex) {
+        nextIndex = (nextIndex + 1) % updatedPlayers.length;
+      }
       setCurrentPlayerIndex(nextIndex);
 
       // Check if game is over
@@ -352,7 +355,6 @@ export default function Main({ categories }: MainProps) {
       player.cards.length > 0 ? player.cards[player.cards.length - 1] : null;
     const inFaceOff = isInFaceOff(index);
     const isCurrentPlayer = index === currentPlayerIndex && !faceOff;
-    const justDealt = lastDealtPlayer === index;
 
     const nameEl = (
       <span
@@ -380,7 +382,6 @@ export default function Main({ categories }: MainProps) {
         {/* Card */}
         {topCard && topCard.type === "category" ? (
           <div
-            key={justDealt ? dealAnimKey : undefined}
             style={{ width: cardWidth, maxWidth: cardMaxWidth }}
             className={`relative flex flex-col items-center justify-between rounded-xl border-2 bg-white p-2 sm:p-3 aspect-[5/7] ${
               inFaceOff
@@ -388,7 +389,7 @@ export default function Main({ categories }: MainProps) {
                 : isCurrentPlayer
                 ? "border-pink-400"
                 : "border-gray-300"
-            } ${justDealt && !inFaceOff ? "animate-[deal-from-right_0.4s_ease-out]" : ""}`}
+            }`}
           >
             {/* Category at top (upside down) */}
             <span className="text-xl sm:text-2xl text-gray-700 font-bold text-center leading-tight w-full rotate-180">
@@ -418,7 +419,7 @@ export default function Main({ categories }: MainProps) {
         ) : (
           <div
             style={{ width: cardWidth, maxWidth: cardMaxWidth }}
-            className={`flex flex-col items-center justify-center rounded-xl border-2 transition-all aspect-[5/7] ${
+            className={`flex flex-col items-center justify-center rounded-xl border-2 aspect-[5/7] ${
               inFaceOff
                 ? "border-yellow-400 animate-[glow_0.8s_ease-in-out_infinite]"
                 : isCurrentPlayer
@@ -539,8 +540,7 @@ export default function Main({ categories }: MainProps) {
 
               {activeWildCard && activeWildCard.symbols ? (
                 <div
-                  key={lastDealtWild ? dealAnimKey : undefined}
-                  className={`flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-4 py-2 h-[72px] sm:h-[88px] gap-4 ${lastDealtWild ? "animate-[deal-from-right_0.4s_ease-out]" : ""}`}
+                  className="flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-4 py-2 h-[72px] sm:h-[88px] gap-4"
                 >
                   {/* First symbol */}
                   <span
