@@ -1,5 +1,18 @@
 export const games = [
   {
+    title: "Anomiaz",
+    playerCount: "3-8 Players",
+    duration: "15-30 Min",
+    age: "Age: 8+",
+    playPath: "/anomiaz",
+    imagePath: "/anomiaz/icon.png",
+    paragraphs: [
+      "Players are dealt cards with categories and colored symbols. When two players' top cards share the same symbol, a face-off begins!",
+      "In a face-off, the group decides who gave the worst answer to their category. That player loses their card, and the other scores a point. Wild cards link two different symbols for surprise matchups!",
+    ],
+    tags: ["no setup", "fast-paced", "party"],
+  },
+  {
     title: "That Sound Gamez",
     playerCount: "2-30 Players",
     duration: "30-120 Min",
