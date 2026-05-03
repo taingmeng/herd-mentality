@@ -8,6 +8,7 @@ import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
 import IncrementalInput from "../components/IncrementalInput";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 interface MainProps {
   descriptors: string[];
@@ -231,7 +232,14 @@ export default function Main({ descriptors, subjects }: MainProps) {
   const currentRoundDisplay = currentRoundIndex + 1;
   const currentPassSketcher = assignments[passIndex];
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -252,6 +260,7 @@ export default function Main({ descriptors, subjects }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[75vh] items-center justify-center px-4">
         {/* SETUP */}
         {gameState === "setup" && (
@@ -606,6 +615,7 @@ export default function Main({ descriptors, subjects }: MainProps) {
           </>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }

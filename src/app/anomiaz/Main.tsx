@@ -10,6 +10,7 @@ import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
 import rightSoundFile from "@/assets/right.mp3";
 import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 interface MainProps {
   categories: string[];
@@ -150,7 +151,7 @@ export default function Main({ categories }: MainProps) {
     setPlayers(initialPlayers);
     setRemainingCards(deck);
     setActiveWildCard(null);
-    setCurrentPlayerIndex(0);
+    setCurrentPlayerIndex(Math.floor(Math.random() * parsedNames.length));
     setFaceOff(null);
     setGameState("gameplay");
   };
@@ -322,7 +323,14 @@ export default function Main({ categories }: MainProps) {
   // Bottom row: stored in deal order (R→L), reverse for display (L→R)
   const bottomRowPlayers = [...players.slice(topRowCount)].reverse();
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -339,12 +347,14 @@ export default function Main({ categories }: MainProps) {
       : []),
   ];
 
-  const maxPerRow = Math.max(topRowCount, bottomRowPlayers.length);
-  // Width: fill horizontal space (subtract deal button ~60px, padding, gaps)
-  const cardWidth = `calc((100vw - 6rem) / ${maxPerRow} - 0.75rem)`;
-  // Height constraint: two rows + wild card + names must fit viewport
-  const cardMaxHeight = `calc((100vh - 14rem) / 2)`;
-  const cardMaxWidth = `min(220px, calc(${cardMaxHeight} * 5 / 7))`;
+
+  const getCategoryTextSize = (category: string) => {
+    const len = category.length;
+    if (len <= 8)  return "text-[24px] sm:text-[30px]";
+    if (len <= 13) return "text-[20px] sm:text-[24px]";
+    if (len <= 18) return "text-[16px] sm:text-[20px]";
+    return "text-[12px] sm:text-[16px]";
+  };
 
   const renderPlayerCard = (
     player: Player,
@@ -382,8 +392,7 @@ export default function Main({ categories }: MainProps) {
         {/* Card */}
         {topCard && topCard.type === "category" ? (
           <div
-            style={{ width: cardWidth, maxWidth: cardMaxWidth }}
-            className={`relative flex flex-col items-center justify-between rounded-xl border-2 bg-white p-2 sm:p-3 aspect-[5/7] ${
+            className={`relative flex flex-col items-center justify-between rounded-xl border-2 bg-white p-2 sm:p-3 w-[134px] h-[188px] sm:w-[157px] sm:h-[220px] ${
               inFaceOff
                 ? "border-yellow-400 animate-[glow_0.8s_ease-in-out_infinite]"
                 : isCurrentPlayer
@@ -392,20 +401,20 @@ export default function Main({ categories }: MainProps) {
             }`}
           >
             {/* Category at top (upside down) */}
-            <span className="text-xl sm:text-2xl text-gray-700 font-bold text-center leading-tight w-full rotate-180">
+            <span className={`${getCategoryTextSize(topCard.category ?? "")} text-gray-700 font-bold text-center leading-tight w-full rotate-180`}>
               {topCard.category}
             </span>
 
             {/* Symbol in center */}
             <span
-              className="text-6xl sm:text-8xl font-bold"
+              className="text-5xl sm:text-[67px] font-bold"
               style={{ color: SYMBOL_COLORS[topCard.symbol || "@"] }}
             >
               {topCard.symbol}
             </span>
 
             {/* Category at bottom (right-side up) */}
-            <span className="text-xl sm:text-2xl text-gray-700 font-bold text-center leading-tight w-full">
+            <span className={`${getCategoryTextSize(topCard.category ?? "")} text-gray-700 font-bold text-center leading-tight w-full`}>
               {topCard.category}
             </span>
 
@@ -418,8 +427,7 @@ export default function Main({ categories }: MainProps) {
           </div>
         ) : (
           <div
-            style={{ width: cardWidth, maxWidth: cardMaxWidth }}
-            className={`flex flex-col items-center justify-center rounded-xl border-2 aspect-[5/7] ${
+            className={`flex flex-col items-center justify-center rounded-xl border-2 w-[134px] h-[188px] sm:w-[157px] sm:h-[220px] ${
               inFaceOff
                 ? "border-yellow-400 animate-[glow_0.8s_ease-in-out_infinite]"
                 : isCurrentPlayer
@@ -450,6 +458,7 @@ export default function Main({ categories }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[75vh] items-center justify-center px-2 pt-20">
         {/* SETUP */}
         {gameState === "setup" && (
@@ -516,9 +525,7 @@ export default function Main({ categories }: MainProps) {
 
         {/* GAMEPLAY */}
         {gameState === "gameplay" && (
-          <div className="flex flex-row items-center w-full max-w-5xl">
-            {/* Cards area */}
-            <div className="flex flex-col items-center gap-1 sm:gap-2 flex-1">
+          <div className="flex flex-col items-center gap-1 sm:gap-2 w-full max-w-5xl">
 
             {/* Top row of players */}
             <div className="flex flex-row gap-1 sm:gap-2 justify-center w-full">
@@ -540,7 +547,7 @@ export default function Main({ categories }: MainProps) {
 
               {activeWildCard && activeWildCard.symbols ? (
                 <div
-                  className="flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-4 py-2 h-[72px] sm:h-[88px] gap-4"
+                  className="flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-4 py-2 h-[58px] sm:h-[70px] gap-4"
                 >
                   {/* First symbol */}
                   <span
@@ -566,7 +573,7 @@ export default function Main({ categories }: MainProps) {
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 px-6 h-[72px] sm:h-[88px]">
+                <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 px-6 h-[58px] sm:h-[70px]">
                   <span className="text-sm text-gray-500">No wild card</span>
                 </div>
               )}
@@ -592,10 +599,8 @@ export default function Main({ categories }: MainProps) {
               )}
             </div>
 
-            </div>
-
-            {/* Deal button - right side, vertical, centered */}
-            <div className="flex flex-col items-center justify-center gap-3 pl-2 sm:pl-4">
+            {/* Deal button - fixed to right edge */}
+            <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2">
               <span className="text-[10px] sm:text-xs text-gray-400 text-center">
                 {remainingCards.length} left
               </span>
@@ -648,6 +653,7 @@ export default function Main({ categories }: MainProps) {
           </div>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import useSound from "use-sound";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import ActionButton from "./ActionButton";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 // import useSound from "@/app/hooks/useSound";
@@ -212,7 +213,14 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     clearSessionQuestions;
   }
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU: NavMenu[] = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Home",
       icon: "/icons/home.svg",
@@ -442,6 +450,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
   return (
     <>
       <Navbar title="Monikerz" menus={NAV_MENU} />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <Modal
           title={`Round ${currentRound + 1}`}
@@ -719,6 +728,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
           </>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }

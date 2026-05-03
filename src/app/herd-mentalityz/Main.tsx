@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import BigButton from "../components/BigButton";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import { Question } from "../global/Types";
@@ -99,7 +100,14 @@ export default function Main({ questions }: { questions: Question[] }) {
     setShowCategorySelect(true);
   };
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Categories",
       icon: "/icons/new.svg",
@@ -129,6 +137,7 @@ export default function Main({ questions }: { questions: Question[] }) {
           visible={showRules}
           onClose={() => setShowRules(false)}
         />
+        <FullScreen handle={fullScreenHandle}>
         <main className="flex flex-col pt-24 pb-32 min-h-[75vh] items-center px-4">
           <h2 className="text-2xl font-bold text-white mb-2">
             Select Categories
@@ -176,6 +185,7 @@ export default function Main({ questions }: { questions: Question[] }) {
             })}
           </div>
         </main>
+        </FullScreen>
         <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
           <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
             <BigButton
@@ -203,6 +213,7 @@ export default function Main({ questions }: { questions: Question[] }) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col pt-32 min-h-[75vh] items-center justify-center">
         <div className="relative flex flex-col place-items-center mb-24">
           {currentQuestion && (
@@ -218,6 +229,7 @@ export default function Main({ questions }: { questions: Question[] }) {
         </div>
         <div></div>
       </main>
+      </FullScreen>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
         <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
           <BigButton onClick={() => popRandomQuestion()}>Next</BigButton>

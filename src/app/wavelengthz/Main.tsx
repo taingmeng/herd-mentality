@@ -10,6 +10,7 @@ import Rules from "../components/Rules";
 import WavelengthSlider from "./WavelengthSlider";
 import Loader from "../components/Loader";
 import confetti from "canvas-confetti";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export const dynamic = "force-dynamic";
 
@@ -109,7 +110,14 @@ export default function Main({ questions }: MainProps) {
     popRandomItem();
   }, [setSessionScore, setRoundState, popRandomItem, setCurrentRound]);
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU: NavMenu[] = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Home",
       icon: "/icons/home.svg",
@@ -191,6 +199,7 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[80vh] items-center justify-center overflow-hidden">
         {!currentQuestion && <Loader />}
         {currentQuestion && (
@@ -238,6 +247,7 @@ export default function Main({ questions }: MainProps) {
           </div>
         </div>
       </main>
+      </FullScreen>
     </>
   );
 }

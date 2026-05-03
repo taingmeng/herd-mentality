@@ -18,6 +18,8 @@ npm run tsc      # TypeScript type check (no emit)
 
 No test framework is configured.
 
+**Never run `npm run build`, `npm run dev`, or `npm run tsc` automatically after every prompt.** Only run these when explicitly requested.
+
 ## Tech Stack
 
 - **Next.js 14.2.3** with App Router, React 18, TypeScript 5 (strict mode)

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import BigButton from "../components/BigButton";
 import { MainProps, Question } from "../global/Types";
@@ -23,7 +24,14 @@ export default function Main({ questions }: MainProps) {
     clearSessionQuestions;
   }
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU: NavMenu[] = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -40,6 +48,7 @@ export default function Main({ questions }: MainProps) {
     <>
       <Navbar title={GAME_NAME} menus={NAV_MENU} iconFilePath={GAME_ICON_PATH} />
       <Rules gameName={GAME_NAME} gamePath={GAME_PATH} visible={showRules} onClose={() => setShowRules(false)} />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <div className="flip-card partikers text-center w-160">
           <div className="flip-card-front flex">
@@ -58,6 +67,7 @@ export default function Main({ questions }: MainProps) {
           </div>
         </div>
       </main>
+      </FullScreen>
     </>
   );
 }

@@ -8,6 +8,7 @@ import { MainProps } from "../global/Types";
 import { usePopRandomQuestion } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Rules from "../components/Rules";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export default function Main({ questions }: MainProps) {
   const { currentQuestion, popRandomQuestion } = usePopRandomQuestion(
@@ -16,7 +17,14 @@ export default function Main({ questions }: MainProps) {
   );
   const [showRules, setShowRules] = useState(false);
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -37,9 +45,11 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[75vh] items-center justify-center">
         {currentQuestion && <JustOneQuestion question={currentQuestion} />}
       </main>
+      </FullScreen>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
         <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
           <BigButton onClick={() => popRandomQuestion()}>Next</BigButton>

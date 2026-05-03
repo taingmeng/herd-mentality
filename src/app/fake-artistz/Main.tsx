@@ -10,6 +10,7 @@ import { shuffle, usePopRandomQuestion } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 interface Player {
   name: string;
@@ -185,7 +186,14 @@ export default function Main({ questions }: MainProps) {
     setRevealedWord(true);
   };
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -206,6 +214,7 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[75vh] items-center justify-center">
         {gameState === "new" && (
           <>
@@ -417,6 +426,7 @@ export default function Main({ questions }: MainProps) {
           </>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }

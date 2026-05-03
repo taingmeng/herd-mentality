@@ -8,6 +8,7 @@ import { shuffle } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 export default function Main({ questions }: MainProps) {
   const [showRules, setShowRules] = useState(false);
@@ -164,7 +165,14 @@ export default function Main({ questions }: MainProps) {
     </div>
   );
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "Rules",
       icon: "/book.svg",
@@ -185,6 +193,7 @@ export default function Main({ questions }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[75vh] items-center justify-center px-4">
         {gameState === "new" && (
           <>
@@ -318,6 +327,7 @@ export default function Main({ questions }: MainProps) {
           </>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }

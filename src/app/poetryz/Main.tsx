@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import useSound from "@/app/hooks/useSound";
 import Modal from "../components/Modal";
@@ -118,7 +119,14 @@ export default function Main({ questions }: PoetryMainProps) {
     setCurrentRound(1);
   }
 
+  const fullScreenHandle = useFullScreenHandle();
+
   const NAV_MENU: NavMenu[] = [
+    {
+      name: "Full screen",
+      icon: "/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
     {
       name: "New Game",
       icon: "/book.svg",
@@ -321,6 +329,7 @@ export default function Main({ questions }: PoetryMainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      <FullScreen handle={fullScreenHandle}>
       <main className="flex flex-col min-h-[80vh] items-center justify-center">
         <Modal
           title={`Round ${currentRound} of ${rounds}`}
@@ -606,6 +615,7 @@ export default function Main({ questions }: PoetryMainProps) {
           </>
         )}
       </main>
+      </FullScreen>
     </>
   );
 }
