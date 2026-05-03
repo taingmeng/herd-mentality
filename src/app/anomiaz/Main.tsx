@@ -10,6 +10,7 @@ import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
 import rightSoundFile from "@/assets/right.mp3";
 import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
+import bonusSoundFile from "@/assets/bonus.mp3";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 interface MainProps {
@@ -49,20 +50,18 @@ const SYMBOL_COLORS: Record<string, string> = {
   "\u00A7": "#ec4899",
 };
 
-function generateDeck(categories: string[], numCards: number): Card[] {
+function generateDeck(categorySequence: string[], numCards: number): Card[] {
   const wildCount = Math.floor(numCards * 0.08);
   const categoryCount = numCards - wildCount;
 
   const deck: Card[] = [];
 
-  // Generate category cards
   for (let i = 0; i < categoryCount; i++) {
-    const category = categories[i % categories.length];
+    const category = categorySequence[i];
     const symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
     deck.push({ type: "category", category, symbol });
   }
 
-  // Generate wild cards
   for (let i = 0; i < wildCount; i++) {
     const shuffledSymbols = shuffle([...SYMBOLS]);
     const symbols: [string, string] = [shuffledSymbols[0], shuffledSymbols[1]];
@@ -76,6 +75,7 @@ export default function Main({ categories }: MainProps) {
   const [showRules, setShowRules] = useState(false);
   const playFaceOffSound = useSound(rightSoundFile);
   const playDealSound = useSound(bubblePopSoundFile);
+  const playBonusSound = useSound(bonusSoundFile);
 
   // Setup state
   const [topRowNames, setTopRowNames] = useLocalStorage<string>(
@@ -116,6 +116,10 @@ export default function Main({ categories }: MainProps) {
     `${GAME_PATH}.faceOff`,
     null
   );
+  const [categoryPool, setCategoryPool] = useLocalStorage<string[]>(
+    `${GAME_PATH}.categoryPool`,
+    []
+  );
 
   const parsedTopNames = useMemo(
     () =>
@@ -142,7 +146,19 @@ export default function Main({ categories }: MainProps) {
   );
 
   const startGame = () => {
-    const deck = generateDeck(categories, numCards);
+    const wildCount = Math.floor(numCards * 0.08);
+    const categoryCount = numCards - wildCount;
+
+    // Build category sequence by draining the persistent pool, refilling when empty
+    const sequence: string[] = [];
+    let pool = categoryPool.length > 0 ? [...categoryPool] : shuffle([...categories]);
+    while (sequence.length < categoryCount) {
+      if (pool.length === 0) pool = shuffle([...categories]);
+      sequence.push(pool.pop()!);
+    }
+    setCategoryPool(pool);
+
+    const deck = generateDeck(sequence, numCards);
     const initialPlayers: Player[] = parsedNames.map((name) => ({
       name,
       cards: [],
@@ -382,6 +398,7 @@ export default function Main({ categories }: MainProps) {
         className="flex flex-col items-center gap-1 cursor-pointer"
         onClick={() => {
           if (inFaceOff && faceOff) {
+            playBonusSound();
             resolveFaceOff(index);
           }
         }}

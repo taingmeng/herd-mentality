@@ -56,44 +56,28 @@ export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
     setOpen((cur) => !cur);
   }
 
-  React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpen(false)
-    );
-  }, []);
-
   const menuHeight = `h-${menus.length * 14}`;
 
   return (
-    <div className="fixed w-screen px-4 border-0 z-40 top-0 bg-neutral-800 bg-opacity-75">
+    <div className={`fixed w-screen px-4 border-0 z-40 top-0 transition-colors duration-300 ${open ? 'bg-neutral-800 bg-opacity-75' : ''}`}>
       <div className="mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image src={iconFilePath || "/party.svg"} width="36" height="36" alt="Just Words" className="fill-cyan-500" />
-          <h2 className="text-lg font-bold my-4">
-            {title || "Partyz"}
-          </h2>
-        </Link>
-
-        <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {menus.map(({ name, icon, href, target, onClick }) => (
-            <NavItem key={name} href={href} target={target} onClick={onClick}>
-              <Image src={icon} width="24" height="24" alt={name} className="tint" />
-              <span>{name}</span>
-            </NavItem>
-          ))}
-        </ul>
-        {menus.length > 0 && <div
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden flex items-center justify-center"
-        >
-          {open ? (
-            <RxCross1 className="h-6 w-6" />
-          ) : (
-            <RxHamburgerMenu className="h-6 w-6" />
+        <div className="flex items-center gap-3">
+          {menus.length > 0 && (
+            <div onClick={handleOpen} className="flex items-center justify-center cursor-pointer">
+              {open ? (
+                <RxCross1 className="h-6 w-6" />
+              ) : (
+                <RxHamburgerMenu className="h-6 w-6" />
+              )}
+            </div>
           )}
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <Image src={iconFilePath || "/party.svg"} width="36" height="36" alt="Just Words" className="fill-cyan-500" />
+            <h2 className="text-lg font-bold my-4">
+              {title || "Partyz"}
+            </h2>
+          </Link>
         </div>
-        }
       </div>
       <div
         className={`${open ? menuHeight : 'h-0'
@@ -109,7 +93,6 @@ export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
             ))}
           </ul>
         </div>
-
       </div>
     </div>
   );
