@@ -116,6 +116,19 @@ export const games = [
     tags: ["markers", "boards", "co-op", "word association"],
   },
   {
+    title: "Fake Artistz",
+    playerCount: "5-10 Players",
+    duration: "20-30 Min",
+    age: "Age: 8+",
+    playPath: "/fake-artistz",
+    imagePath: "/fake-artistz/icon.png",
+    paragraphs: [
+      "One player secretly plays as the Fake Artist — they know the category but not the secret word. Everyone takes turns drawing exactly one continuous line on a shared canvas.",
+      "After two rounds, players vote on who they think the Fake Artist is. If caught, the Fake Artist gets one chance to guess the word and steal the win!",
+    ],
+    tags: ["paper", "drawing", "deduction"],
+  },
+  {
     title: "Monikerz",
     playerCount: "4-16 Players",
     duration: "30-60 Min",

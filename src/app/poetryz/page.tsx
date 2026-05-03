@@ -1,32 +1,15 @@
-import path from "path";
-import csv from "csvtojson";
-import Main, { PoetryQuestion } from "./Main";
+import type { Metadata } from "next";
+import GameLanding from "../components/GameLanding";
+import { games } from "../global/Data";
+import { GAME_PATH, GAME_NAME } from "./Constants";
 
-export const dynamic = "force-dynamic";
+const gameData = games.find((g) => g.playPath === `/${GAME_PATH}`)!;
 
-const capitalize = (words: string) => {
-  return words
-    .split(" ")
-    .filter((word) => word.length)
-    .map((word) => {
-      if (word.length === 1) {
-        return word.toUpperCase();
-      }
-      return word[0].toUpperCase() + word.substring(1);
-    })
-    .join(" ");
+export const metadata: Metadata = {
+  title: `${GAME_NAME} — Partyz`,
+  description: gameData.paragraphs.join(" "),
 };
 
-export default async function Poetry() {
-  const questionPath = path.join(
-    process.cwd(),
-    "src/data/poetry/questions.csv"
-  );
-  const questions: PoetryQuestion[] = (await csv().fromFile(questionPath))
-  .map(question => ({
-    word: capitalize(question.word),
-    long: capitalize(question.long),
-  }));
-
-  return <Main questions={questions} />;
+export default function Page() {
+  return <GameLanding game={gameData} />;
 }

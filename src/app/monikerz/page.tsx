@@ -1,15 +1,14 @@
-import path from "path";
-import csv from "csvtojson";
-import Partikers, { PartikersQuestion } from "./PartikersMain";
+import type { Metadata } from "next";
+import GameLanding from "../components/GameLanding";
+import { games } from "../global/Data";
 
-export const dynamic = "force-dynamic";
+const gameData = games.find((g) => g.playPath === "/monikerz")!;
 
-export default async function Poetry() {
-  const questionPath = path.join(
-    process.cwd(),
-    "src/app/monikerz/data/questions.csv"
-  );
-  const questions: PartikersQuestion[] = (await csv().fromFile(questionPath));
+export const metadata: Metadata = {
+  title: "Monikerz — Partyz",
+  description: gameData.paragraphs.join(" "),
+};
 
-  return <Partikers questions={questions} />;
+export default function Page() {
+  return <GameLanding game={gameData} />;
 }

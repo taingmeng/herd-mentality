@@ -476,7 +476,7 @@ export default function Main({ categories }: MainProps) {
         onClose={() => setShowRules(false)}
       />
       <FullScreen handle={fullScreenHandle}>
-      <main className="flex flex-col min-h-[75vh] items-center justify-center px-2 pt-20">
+      <main className="flex flex-col min-h-[75vh] items-center justify-center px-2 pt-20 pb-20">
         {/* SETUP */}
         {gameState === "setup" && (
           <>

@@ -83,7 +83,7 @@ export default async function HeroCard({
           <p key={index} className="mb-2 font-normal">{p}</p>
         ))}
 
-        <LinkButton href={playPath}>Play</LinkButton>
+        {playPath && <LinkButton href={playPath}>Play</LinkButton>}
       </div>
       
     </div>

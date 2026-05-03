@@ -49,21 +49,22 @@ interface NavbarProps {
   iconFilePath?: string;
 }
 
+const HOME_MENU: NavMenu = { name: "Home", icon: "/icons/home.svg", href: "/" };
+
 export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
+  const allMenus = menus.length > 0 ? [HOME_MENU, ...menus] : [];
 
   function handleOpen() {
     setOpen((cur) => !cur);
   }
 
-  const menuHeight = `h-${menus.length * 14}`;
-
   return (
-    <div className={`fixed w-screen px-4 border-0 z-40 top-0 transition-colors duration-300 ${open ? 'bg-neutral-800 bg-opacity-75' : ''}`}>
-      <div className="mx-auto flex items-center justify-between">
+    <div className="fixed z-40 top-0 left-0">
+      <div className={`w-fit px-4 transition-colors duration-300 ${open ? 'bg-neutral-800 bg-opacity-75 rounded-br-2xl' : ''}`}>
         <div className="flex items-center gap-3">
-          {menus.length > 0 && (
-            <div onClick={handleOpen} className="flex items-center justify-center cursor-pointer">
+          {allMenus.length > 0 && (
+            <div onClick={handleOpen} className={`flex items-center justify-center cursor-pointer transition-transform duration-300 ${open ? 'rotate-90' : 'rotate-0'}`}>
               {open ? (
                 <RxCross1 className="h-6 w-6" />
               ) : (
@@ -78,20 +79,19 @@ export function Navbar({ title, menus = [], iconFilePath }: NavbarProps) {
             </h2>
           </Link>
         </div>
-      </div>
-      <div
-        className={`${open ? menuHeight : 'h-0'
-          } data-twe-collapse-item transition-all delay-150 duration-300 overflow-hidden w-full`}
-      >
-        <div className="container mx-auto my-3 border-t border-gray-200 px-2 pt-4">
-          <ul className="flex flex-col gap-4">
-            {menus.map(({ name, icon, href, target, onClick }) => (
-              <NavItem key={name} href={href} target={target} onClick={onClick} afterClick={handleOpen}>
-                <Image src={icon} width="24" height="24" alt={name} className="tint" />
-                <span>{name}</span>
-              </NavItem>
-            ))}
-          </ul>
+        <div className={`grid transition-all duration-300 ease-in-out ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+          <div className="overflow-hidden">
+            <div className="w-fit my-3 border-t border-gray-200 px-2 pt-4">
+              <ul className="flex flex-col gap-4 pb-2">
+                {allMenus.map(({ name, icon, href, target, onClick }) => (
+                  <NavItem key={name} href={href} target={target} onClick={onClick} afterClick={handleOpen}>
+                    <Image src={icon} width="24" height="24" alt={name} className="tint" />
+                    <span>{name}</span>
+                  </NavItem>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
