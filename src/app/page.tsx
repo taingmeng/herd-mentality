@@ -7,9 +7,9 @@ import GameSearchControls from "./components/GameSearchControls";
 import { games } from "./global/Data";
 
 export const metadata: Metadata = {
-  title: "Partyz — Digital Party Games for Family and Friends",
+  title: "Partyz — Online Party Board Games for Family and Friends",
   description:
-    "Play free digital party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more. Works on any device, right in your browser.",
+    "Play online party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more. Works on any device, right in your browser.",
   keywords: [
     "party games",
     "free party games",
@@ -27,12 +27,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Partyz — Online Party Board Games for Groups",
     description:
-      "Play free digital party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more. Works on any device.",
+      "Play online party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more. Works on any device.",
     url: "https://partyz.vercel.app",
     siteName: "Partyz",
     images: [
       {
-        url: "/thumbnail.png",
+        url: "https://partyz.vercel.app/thumbnail.png",
         width: 1200,
         height: 630,
         alt: "Partyz — Online Party Board Games",
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Partyz — Online Party Board Games for Groups",
     description:
-      "Play free digital party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more.",
-    images: ["/thumbnail.png"],
+      "Play online party games with friends and family — no app needed. Herd Mentalityz, Wavelengthz, Just Onez, Fake Artistz, Poetryz, Monikerz, and more.",
+    images: ["https://partyz.vercel.app/thumbnail.png"],
   },
 };
 

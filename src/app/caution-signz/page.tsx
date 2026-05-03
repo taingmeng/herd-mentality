@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: gameData.paragraphs.join(" "),
     url: `https://partyz.vercel.app/${GAME_PATH}`,
     siteName: "Partyz",
-    images: [{ url: gameData.imagePath, alt: `${GAME_NAME} game icon` }],
+    images: [{ url: `https://partyz.vercel.app${gameData.imagePath}`, alt: `${GAME_NAME} game icon` }],
     locale: "en_US",
     type: "website",
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${GAME_NAME} — Online Party Board Game | Partyz`,
     description: gameData.paragraphs.join(" "),
-    images: [gameData.imagePath],
+    images: [`https://partyz.vercel.app${gameData.imagePath}`],
   },
 };
 
