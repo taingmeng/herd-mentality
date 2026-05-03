@@ -8,6 +8,29 @@ const gameData = games.find((g) => g.playPath === `/${GAME_PATH}`)!;
 export const metadata: Metadata = {
   title: `${GAME_NAME} — Partyz`,
   description: gameData.paragraphs.join(" "),
+  keywords: [
+    "wavelength game",
+    "spectrum party game",
+    "psychic clue game",
+    "team party game",
+    "co-op party game",
+    "free party game online",
+  ],
+  openGraph: {
+    title: `${GAME_NAME} — Online Party Board Game | Partyz`,
+    description: gameData.paragraphs.join(" "),
+    url: `https://partyz.vercel.app/${GAME_PATH}`,
+    siteName: "Partyz",
+    images: [{ url: gameData.imagePath, alt: `${GAME_NAME} game icon` }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${GAME_NAME} — Online Party Board Game | Partyz`,
+    description: gameData.paragraphs.join(" "),
+    images: [gameData.imagePath],
+  },
 };
 
 export default function Page() {
