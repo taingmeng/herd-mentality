@@ -68,11 +68,15 @@ export default function Home({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <>
-      <Navbar title="Partyz" />
+      <Navbar
+        title="Partyz"
+        headerContent={
+          <Suspense>
+            <GameSearchControls allTags={allTags} />
+          </Suspense>
+        }
+      />
       <div className="pt-32 px-8 pb-16 container mx-auto">
-        <Suspense fallback={<div className="h-14 mb-8" />}>
-          <GameSearchControls allTags={allTags} />
-        </Suspense>
         <GameSearch
           games={games}
           query={query}

@@ -1,4 +1,4 @@
-# OBJECT OF THE GAME
+# Game Objective
 
 **{{ GAME_NAME }}** is a cooperative party game.
 You all play together to get the best score!

@@ -1,4 +1,4 @@
-# OBJECT OF THE GAME
+# Game Objective
 
 **{{ GAME_NAME }}** is a drawing and guessing party game.
 

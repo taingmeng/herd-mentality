@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm install *)",
-      "Bash(node -e \"const { games } = require\\('./src/app/global/Data.ts'\\); console.log\\(JSON.stringify\\([...new Set\\(games.flatMap\\(g => g.tags\\)\\)].sort\\(\\)\\)\\)\")"
+      "Bash(node -e \"const { games } = require\\('./src/app/global/Data.ts'\\); console.log\\(JSON.stringify\\([...new Set\\(games.flatMap\\(g => g.tags\\)\\)].sort\\(\\)\\)\\)\")",
+      "Bash(xargs cat)"
     ]
   }
 }

@@ -25,7 +25,7 @@ export default async function HeroCard({
   tags = [],
 }: HeroCardProps) {
   return (
-    <div className={`container flex flex-col md:flex-row mx-auto min-h-[40vh] w-full  place-items-center`}>
+    <div className={`container flex flex-col md:flex-row mx-auto min-h-[40vh] w-full place-items-center rounded-2xl border border-white/10 bg-white/5 px-4 py-6`}>
       <Image width={horizontal ? 300 : 160} height={200} src={imagePath || ""} alt={title || ""} className="m-4 rounded-2xl " />
       <div className={`${horizontal ? "col-span-1" : "col-span-2"} row-start-2 lg:row-auto`}>
         <h1

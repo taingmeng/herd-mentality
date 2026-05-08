@@ -103,7 +103,7 @@ export default function GameSearch({
           ))}
         </div>
       ) : (
-        <div className="grid w-full grid-cols-1 place-items-center gap-4 xl:grid-cols-2">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-4 xl:grid-cols-2">
           {result.map((game) => (
             <HeroCard key={game.title} {...game} />
           ))}

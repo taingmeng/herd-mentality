@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import AuthButton from "./components/AuthButton";
 import NavigationFavicon from "./components/NavigationFavicon";
 import Providers from "./components/Providers";
 import "./globals.css";
@@ -30,7 +29,6 @@ export default function RootLayout({
         <Providers>
           <NextTopLoader />
           <NavigationFavicon />
-          <AuthButton />
           {children}
           <Analytics />
         </Providers>
