@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import NextTopLoader from "nextjs-toploader";
 import NavigationFavicon from "./components/NavigationFavicon";
 import Providers from "./components/Providers";
@@ -25,6 +26,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DZN3WMW9TP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DZN3WMW9TP');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.className} button`}>
         <Providers>
           <NextTopLoader />
