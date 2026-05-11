@@ -1,47 +1,73 @@
-# OVERVIEW
+# {{ GAME_NAME }}
 
-Can you blend into the crowd? That’s the goal of {{ GAME_NAME }}! One player will read the question to the group. All other players must then attempt to answer the question in the way they expect all other players to answer. 
+## Objective
 
-If you blend, you earn a point. If you are the odd one out, then you may earn the dreaded pink cow, making it impossible to win the game while it is in your possession. Stay with the crowd, give simple answers, and the game could be yours. 
+Think like the crowd, not like an individual. Answer every question the way you think **most other players** will answer it. Matching the majority earns you a point. Being the odd one out earns you the dreaded **Pink Cow** — and you cannot win while holding it.
 
-# SETUP
+The first player to reach **8 points** without holding the Pink Cow wins!
 
-1. Place your phone or tablet where everyone can see the questions. Questions are randomly picked.
+## What You Need
 
-1. Give everyone a piece of paper and a pen.
+- This app (phone, tablet, or laptop) placed where everyone can see the screen
+- Paper and pen for each player (or a notes app on a phone). You need to write your answer down so you can't change it after hearing others.
+- Tokens or chips for score tracking (or just write your score on your paper)
+- One physical object to represent the **Pink Cow** — something silly works best!
 
-Note: a small white boards and erasable markers would be better. If not, everyone can use any note app on their phone to write down their clue.
+## Setup
 
-Note: the purpose is to note down your answer so that you won't forget or change your answer after hearing the majority.
+1. Place the device where all players can see the question on screen.
+2. Give everyone paper and a pen to write their answers secretly.
+3. Prepare tokens or a way to track scores.
+4. Pick any object to be the Pink Cow (a salt shaker, a stuffed animal — anything fun).
+5. Randomly choose a player to go first as the **active player**.
 
-1. Use any tokens or chips for score tracking. If not, ask everyone to write their score on their paper.
+## How to Play Each Round
 
-1. Use an object to represent the pink cow. Preferablly something stupid and funny.
+### Step 1 — Read the Question
 
-# GAMEPLAY
+The active player reads the question shown on screen out loud.
 
-Randomly choose a starting playe as the active player. The active player read the question prompted by the page. All players will then write an answer on their paper. The goal is to write the same answer as everyone else. Remember, keep that {{ GAME_NAME }}. 
+### Step 2 — Everyone Answers Secretly
 
-After everyone has answered, go around the group and have each player read their answer aloud starting from the active player in clockwise order. If a player’s answer matches the majority, they earn one cow. If there is a majority tie, then none of the players earn a cow.
+All players (including the active player) write their answer on their paper **without showing anyone**. The goal is to write what you think **most other players** will write — not your personal opinion.
 
-If all players but one have the same answer, the odd man out gets to keep the pink cow! This is severe punishment for not sticking with the {{ GAME_NAME }}.
+Once written, keep your paper face down until everyone is ready.
 
-If a player has the pink cow, they are unable to win the game, but they can continue to earn points.
+### Step 3 — Reveal Answers
 
-The only way to rid yourself of the pink cow is if another player is the odd man out. In that situation, you can then pass the pink cow to them.
+Starting with the active player and going clockwise, each player reads their answer aloud.
 
-Now the player to the left of the starting player becomes the active player. Click the **Next** button to load the next question. Continue to play the game until a player earns eight points.
+### Step 4 — Score
 
-# TYPES OF QUESTIONS
+- **Majority match** — If your answer matches the most common answer, you earn **+1 point** (one cow token).
+- **Tied majority** — If two or more answers tie for most common, **no one** scores that round.
+- **Odd one out** — If only one player's answer is different from everyone else's, that player receives the **Pink Cow**.
 
-There are diffferent types of questions:
+### The Pink Cow
 
-* **Open-ended**: give your answer in a word or a phrase. Players decide whether similar answers should be considered as the same.
-* **Multiple choices**: select one answer from the given choices only.
-* **This or that**: select one answer from the given 2 choices only.
-* **Blank slate**: give your answer to make a compound word, two-word phrase, or additional syllable. Single character is not acceptable.
-* **Blank letter**: select only one single character.
-* **Blank**: give your answer in a word or a phrase.
+- Holding the Pink Cow means you **cannot win the game**, even if you have enough points.
+- You keep accumulating points normally — you just can't win while you have it.
+- The only way to get rid of the Pink Cow is if another player becomes the odd one out. You then pass the Pink Cow to them.
 
-# END OF GAME
-The game is over when a player collects eight points without holding the pink cow! If a player collects eight points and is holding the pink cow, the game continues until that player gets rid of the pink cow, or somebody else reaches eight points. The player with the highest score without holding the pink cow wins!
+### Step 5 — Next Round
+
+The player to the **left** of the active player becomes the new active player. Press **Next** on the app to load a new question.
+
+## Types of Questions
+
+| Type | How to Answer |
+|---|---|
+| **Open-ended** | Any word or short phrase. Players agree on whether similar answers count as the same. |
+| **Multiple choice** | Pick one option from the list shown on screen. |
+| **This or that** | Choose one of the two options given. |
+| **Blank slate** | Complete the blank to form a compound word, two-word phrase, or extra syllable. Single characters are not acceptable. |
+| **Blank letter** | Answer with exactly one letter. |
+| **Blank** | Fill in the blank with any word or phrase. |
+
+## Winning
+
+The game ends when a player reaches **8 points** without holding the Pink Cow.
+
+If a player reaches 8 points while holding the Pink Cow, the game continues until they pass the Pink Cow or another player reaches 8 points without it.
+
+The player with **8 or more points and no Pink Cow** wins!

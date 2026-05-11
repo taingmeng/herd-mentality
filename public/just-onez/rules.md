@@ -1,92 +1,79 @@
-# Game Objective
+# {{ GAME_NAME }}
 
-**{{ GAME_NAME }}** is a cooperative party game.
-You all play together to get the best score!
+## Objective
 
-Together, make one of the players – the active player– guess a Mystery word by secretly writing a clue on your paper.
+Work together as a team to help one player — the **active player** — guess a secret Mystery Word each round. Everyone else writes a one-word clue, but here's the catch: if two or more players write the same clue, those clues are cancelled and hidden. Be clever and original so your clue survives!
 
-Choose your clue without coordinating with each other and be original so as not to write the same clue as another player, as all identical clues will be canceled before the active player gets to see them.
+## What You Need
 
-At the end of the game, tally your score based on the number of Mystery words found. 
+- This app (phone, tablet, or laptop)
+- Paper and a pen for each player (small whiteboards with erasable markers work even better)
+- 3 or more players
 
-# SETUP
+## Setup
 
-1. Randomly choose a player to be the first active player. 
+1. Randomly pick a player to be the **first active player**.
+2. Place the device so the **active player cannot see the screen**, but everyone else can. Ideally, face the screen toward the other players.
+3. Give everyone paper and a pen to write their clues on.
 
-1. Place a phone or tablet where everyone except the active player can see the Mystery word. Ideally, place the device in front of the active player and facing the other players.
+## How to Play Each Round
 
-1. Give everyone a piece of paper and a pen.
+Each round has four steps:
 
-Note: a small white boards and erasable markers would be better. If not, everyone can use any note app on their phone to write down their clue.
+### Step 1 — Reveal the Mystery Word
 
-# GAME OVERVIEW
+The player sitting next to the active player presses **Next** to load a Mystery Word.
 
-The game plays out in a succession of turns and ends when the deck of cards is empty.
-Each turn is divided into 4 phases.
+If anyone (other than the active player) doesn't recognize the word, press **Next** again to skip to a different one.
 
-## 1. CHOOSE THE MYSTERY WORD
+### Step 2 — Write Your Clue
 
-The player sitting on the left or right of the active player presses the **Next** button to load a new Myster word.
+Each player (except the active player) **independently and secretly** writes one clue on their paper to help the active player guess the Mystery Word.
 
-**Note**: If any other player doesn’t know the chosen word, simply press **Next** again to load a new Myster word.
+**Rules for clues:**
+- Your clue must be **exactly one word**. No multi-word phrases.
+- You may **not** write the Mystery Word itself, even spelled differently.
+- You may **not** write the Mystery Word in another language.
+- You may **not** write a word from the same word family as the Mystery Word (e.g., "Princess" is not allowed if the Mystery Word is "Prince").
+- You may **not** invent a word.
+- You may **not** write a word that sounds identical to the Mystery Word (e.g., "Whether" is not allowed for "Weather").
 
-## 2. CLUE SELECTION
+**What is allowed:** digits, numbers, acronyms, onomatopoeia, and special characters all count as single words and are valid clues. For example: "007" is a valid clue for "Bond," "Riiiiiinnng" is valid for "Telephone," and "$" is valid for "America."
 
-Without communicating with each other and without showing it to anyone, each player writes one clue on their paper. That clue must be composed of a single word. Note: a digit, a number, an acronym, an onomatopoeia, or a special character are all considered to be words and hence invalid.
+Once you've written your clue, keep it hidden until everyone is done.
 
-Example: 007 is allowed to help someone guess Bond, just like Riiiiiinnng or SMS are allowed to help someone guess Telephone, and $ is allowed to help someone guess America.
+### Step 3 — Compare and Cancel Clues
 
-### Invalid clues:
-• The Mystery word but written differently.
-Example: Shurt is not allowed when trying to make the player guess Shirt.
+The active player **closes their eyes**.
 
-• The Mystery word written in a foreign language.
-Example: Buisson is not allowed if the word to be guessed is Shrub.
+Everyone else reveals their clues to each other and compares them. Any clues that are identical — or too similar — are **cancelled** (flipped face-down so the active player won't see them).
 
-• A word from the same family as the Mystery word.
-Example: Princess is not allowed if the word to be guessed is Prince.
+**What counts as identical:**
+- The exact same word (e.g., "Mouse" and "Mouse")
+- Words from the same family (e.g., "Prince" and "Princess")
+- Plurals, gender variants, or misspellings of the same word (e.g., "Actor" and "Actress," or "Philosophy" and "Filosofie")
 
-• An invented word.
-Example: Swee’ting is not allowed to try to help someone guess Cake.
+If **all** clues are cancelled, skip directly to the end of the turn — the active player gets no clues this round.
 
-• A word phonetically identical to the Mystery word, but the meaning of which is different.
-Example: Whether is not allowed to try to get someone to guess Weather.
+### Step 4 — Guess
 
-## 3. COMPARING CLUES
+Tell the active player to open their eyes. Show them all the clues that were **not** cancelled.
 
-Once all players have written their clues, the active player closes their eyes.
+The active player has **one guess only** to name the Mystery Word. No hints, no second chances.
 
-During this time, the other players show their paper around and compare their clue with the other players. All identical or invalid clues are cancelled. To cancel a clue, simply flip the paper over to hide the clue.
+## Scoring (Optional)
 
-### Identical clues:
-• Two identical words.
-Example: Mouse and Mouse are identical.
+The game is fun without scoring, but if you want a competitive element:
 
-• Variants from the same word family.
-Example: Prince and Princess are considered to be identical.
+- Active player guesses correctly → **Active player +1 point**, each player whose clue was shown also gets **+1 point**
+- Active player guesses wrong → No points scored
+- Players whose clues were cancelled → **0 points**
+- The game ends when any player reaches **10 points**
 
-• Variants of the same word: plurals, gender differentiations, and spelling mistakes don’t count as actual differences.
-Example: Prince and Princes, Actor and Actress, Philosophy and Filosofie are identical.
+## End of Turn
 
-Note: If all clues have been cancelled, move directly to the End of turn phase. 
+The active player role passes to the player on the left. Press **Next** to load a new Mystery Word.
 
-## 4. GUESS
+## 3-Player Variant
 
-Once the identical or invalid clues have been cancelled, ask the active player to open their eyes and try to guess the Mystery word with the help of the remaining clues. To do this, they’re allowed ONLY ONE GUESS.
-
-### Scoring
-If you want to add some competetiveness into the game, follow this suggested scoring rule:
-* If the active player guesses the Mystery word correctly, the active player get 1 point.
-* The players with the clues shown to the active player also get 1 point each.
-* The players with identical clues do not get any point.
-* The game ends when any player reaches 10 points.
-
-Otherwise, like many party games, you don't have to keep track of any score. Just continue to play and have fun.
-
-# END OF TURN
-The player to the left of the active player becomes the new active player. A new turn begins.
-
-# VARIANT FOR 3 PLAYERS
-With 3 players, the game plays out according to the standard rules as previous stated, with the exception of the following change:
-
-During setup, players each take two pieces of paper. During the choice of clues, they write one clue on each of their paper. Each player therefore provides 2 clues instead of a single one. Identical clues are also cancelled during the Comparison Phase of clue selection.
+With only 3 players, each non-active player writes **2 clues** instead of 1 (use two pieces of paper). Both clues are subject to the same cancellation rules. This keeps the round interesting when fewer players are writing clues.

@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import { MainProps } from "../global/Types";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import { shuffle, usePopRandomQuestion } from "../global/Utils";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
 import Rules from "../components/Rules";
@@ -50,6 +51,8 @@ export default function Main({ questions }: MainProps) {
     `${GAME_PATH}.revealedWord`,
     false
   );
+
+  useGamePlayTracking(GAME_PATH, gameState !== "new", gameState === "playing" && !!revealedFake && !!revealedWord);
   const [showPlayHint, setShowPlayHint] = useState(false);
 
   const isLastPassIndex = passIndex === players.length - 1;
@@ -188,16 +191,31 @@ export default function Main({ questions }: MainProps) {
 
   const fullScreenHandle = useFullScreenHandle();
 
+  function clearCache() {
+    Object.keys(localStorage).filter(k => k.startsWith(GAME_PATH + '.')).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  }
+
   const NAV_MENU = [
     {
+      name: "New Game",
+      icon: "/icons/new.svg",
+      onClick: newGame,
+    },
+    {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
+    },
+    {
+      name: "Clear cache",
+      icon: "/icons/broom.svg",
+      onClick: clearCache,
     },
   ];
 
@@ -207,6 +225,7 @@ export default function Main({ questions }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gamePath={GAME_PATH}
@@ -362,7 +381,7 @@ export default function Main({ questions }: MainProps) {
               onClick={() => setShowPlayHint(!showPlayHint)}
             >
               <Image
-                src="/info.svg"
+                src="/icons/info.svg"
                 width="48"
                 height="48"
                 alt="Info"

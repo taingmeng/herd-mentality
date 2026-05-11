@@ -13,7 +13,7 @@ interface CircularTimerProps {
 }
 
 export interface CircularTimerRefProps {
-  reset: () => void;
+  reset: (to?: number) => void;
   go: () => void;
   end: () => void;
   pause: () => void;
@@ -36,8 +36,8 @@ const CircularTimer = forwardRef(
     const [playTimesUpSound] = useSound(timesUpSoundFile);
 
     useImperativeHandle(ref, () => ({
-      reset() {
-        setTimeLeft(duration);
+      reset(to?: number) {
+        setTimeLeft(to ?? duration);
         setRunning(false);
         setPaused(false);
       },

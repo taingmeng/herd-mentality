@@ -108,6 +108,25 @@ h3 {
   margin-left: 0.5em;
 }
 
+.markdown table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown th,
+.markdown td {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.4em 0.75em;
+  text-align: left;
+}
+
+.markdown th {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+}
+
 /* https://codepen.io/sosuke/pen/Pjoqqp */
 .tint {
   filter: invert(67%) sepia(9%) saturate(2813%) hue-rotate(283deg)

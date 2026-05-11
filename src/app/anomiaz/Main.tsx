@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import useSound from "@/app/hooks/useSound";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import { shuffle } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
@@ -96,6 +97,9 @@ export default function Main({ categories }: MainProps) {
     `${GAME_PATH}.gameState`,
     "setup"
   );
+
+  useGamePlayTracking(GAME_PATH, gameState !== "setup", gameState === "results");
+
   const [players, setPlayers] = useLocalStorage<Player[]>(
     `${GAME_PATH}.players`,
     []
@@ -341,26 +345,32 @@ export default function Main({ categories }: MainProps) {
 
   const fullScreenHandle = useFullScreenHandle();
 
+  function clearCache() {
+    Object.keys(localStorage).filter(k => k.startsWith(GAME_PATH + '.')).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  }
+
   const NAV_MENU = [
     {
+      name: "New Game",
+      icon: "/icons/new.svg",
+      onClick: newGame,
+    },
+    {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: () => setShowRules(true),
     },
-    ...(gameState === "gameplay"
-      ? [
-          {
-            name: "New Game",
-            icon: "/arrow-circle-left.svg",
-            onClick: () => newGame(),
-          },
-        ]
-      : []),
+    {
+      name: "Clear cache",
+      icon: "/icons/broom.svg",
+      onClick: clearCache,
+    },
   ];
 
 
@@ -468,6 +478,7 @@ export default function Main({ categories }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gamePath={GAME_PATH}

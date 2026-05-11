@@ -28,7 +28,7 @@ export default function LoginClient() {
     <div className="min-h-screen flex flex-col items-center justify-center gap-8 px-4">
       <Navbar />
       <div className="flex flex-col items-center gap-2">
-        <Image src="/party.svg" width={64} height={64} alt="Partyz" />
+        <Image src="/icons/party.svg" width={64} height={64} alt="Partyz" />
         <h1 className="text-3xl font-bold">Partyz</h1>
         <p className="text-gray-400 text-sm">Sign in to play</p>
       </div>

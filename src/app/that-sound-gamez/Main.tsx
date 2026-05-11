@@ -9,6 +9,7 @@ import { MainProps } from "../global/Types";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import CircularTimer, {
   CircularTimerRefProps,
 } from "../components/CircularTimer";
@@ -25,6 +26,8 @@ interface RoundWord {
   result: "correct" | "skipped";
 }
 
+const TIMER_DURATION = 60;
+
 interface GameState {
   screen: GameScreen;
   mode: GameMode;
@@ -35,6 +38,9 @@ interface GameState {
   roundWords: RoundWord[];
   currentRoundCategory: string;
   usedIndices: number[];
+  currentWord: string;
+  currentCategory: string;
+  timerStartedAt: number;
 }
 
 const DEFAULT_STATE: GameState = {
@@ -47,6 +53,9 @@ const DEFAULT_STATE: GameState = {
   roundWords: [],
   currentRoundCategory: "",
   usedIndices: [],
+  currentWord: "",
+  currentCategory: "",
+  timerStartedAt: 0,
 };
 
 function getRandomItem<T>(arr: T[]): T {
@@ -59,25 +68,31 @@ export default function Main({ questions }: MainProps) {
     DEFAULT_STATE
   );
 
-  const [currentWord, setCurrentWord] = useState("");
-  const [currentCategory, setCurrentCategory] = useState("");
+  useGamePlayTracking(
+    GAME_PATH,
+    gameState.screen !== "setup",
+    gameState.screen === "game-over"
+  );
+
   const [showRules, setShowRules] = useState(false);
   const [playRightSound] = useSound(rightSoundFile);
   const [playWrongSound] = useSound(wrongSoundFile);
   const [playTimesUpSound] = useSound(timesUpSoundFile);
   const fullScreenHandle = useFullScreenHandle();
   const timerRef = useRef<CircularTimerRefProps>(null);
-  const shouldStartTimer = useRef(false);
 
   const categories = [...new Set(questions.map((q) => q.category))];
 
-  // Start timer after CircularTimer mounts (it's conditionally rendered)
   useEffect(() => {
-    if (gameState.screen === "playing" && shouldStartTimer.current) {
-      shouldStartTimer.current = false;
-      timerRef.current?.reset();
+    if (gameState.screen === "playing") {
+      const elapsed = gameState.timerStartedAt
+        ? Math.floor((Date.now() - gameState.timerStartedAt) / 1000)
+        : 0;
+      const remaining = Math.max(0, TIMER_DURATION - elapsed);
+      timerRef.current?.reset(remaining);
       timerRef.current?.go();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.screen]);
 
   const pickNextWord = useCallback(
@@ -117,15 +132,11 @@ export default function Main({ questions }: MainProps) {
 
   const onNewGame = useCallback(() => {
     setGameState(DEFAULT_STATE);
-    setCurrentWord("");
-    setCurrentCategory("");
     timerRef.current?.reset();
   }, [setGameState]);
 
   function clearCache() {
     setGameState(DEFAULT_STATE);
-    setCurrentWord("");
-    setCurrentCategory("");
   }
 
   const NAV_MENU: NavMenu[] = [
@@ -136,17 +147,17 @@ export default function Main({ questions }: MainProps) {
     },
     {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/broom.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -161,20 +172,13 @@ export default function Main({ questions }: MainProps) {
       targetScore: gameState.targetScore,
       currentRoundCategory: roundCategory,
       usedIndices: [],
+      timerStartedAt: Date.now(),
     };
-    setGameState(newState);
-
-    const next = pickNextWord({ ...newState, usedIndices: [] });
-    if (next) {
-      setCurrentWord(next.word);
-      setCurrentCategory(next.category);
-      setGameState((prev) => ({
-        ...prev,
-        usedIndices: [next.index],
-      }));
-    }
-
-    shouldStartTimer.current = true;
+    const next = pickNextWord(newState);
+    setGameState(next
+      ? { ...newState, usedIndices: [next.index], currentWord: next.word, currentCategory: next.category }
+      : newState
+    );
   }, [gameState.mode, gameState.targetScore, categories, pickNextWord, setGameState]);
 
   const onCorrect = useCallback(() => {
@@ -185,19 +189,16 @@ export default function Main({ questions }: MainProps) {
         roundScore: prev.roundScore + 1,
         roundWords: [
           ...prev.roundWords,
-          { word: currentWord, category: currentCategory, result: "correct" as const },
+          { word: prev.currentWord, category: prev.currentCategory, result: "correct" as const },
         ],
       };
-      // Pick next word with updated state
       const next = pickNextWord(updated);
       if (next) {
-        setCurrentWord(next.word);
-        setCurrentCategory(next.category);
-        return { ...updated, usedIndices: [...updated.usedIndices, next.index] };
+        return { ...updated, usedIndices: [...updated.usedIndices, next.index], currentWord: next.word, currentCategory: next.category };
       }
       return updated;
     });
-  }, [currentWord, currentCategory, playRightSound, pickNextWord, setGameState]);
+  }, [playRightSound, pickNextWord, setGameState]);
 
   const onSkip = useCallback(() => {
     playWrongSound();
@@ -207,18 +208,16 @@ export default function Main({ questions }: MainProps) {
         roundScore: prev.roundScore - 1,
         roundWords: [
           ...prev.roundWords,
-          { word: currentWord, category: currentCategory, result: "skipped" as const },
+          { word: prev.currentWord, category: prev.currentCategory, result: "skipped" as const },
         ],
       };
       const next = pickNextWord(updated);
       if (next) {
-        setCurrentWord(next.word);
-        setCurrentCategory(next.category);
-        return { ...updated, usedIndices: [...updated.usedIndices, next.index] };
+        return { ...updated, usedIndices: [...updated.usedIndices, next.index], currentWord: next.word, currentCategory: next.category };
       }
       return updated;
     });
-  }, [currentWord, currentCategory, playWrongSound, pickNextWord, setGameState]);
+  }, [playWrongSound, pickNextWord, setGameState]);
 
   const onTimerEnded = useCallback(() => {
     playTimesUpSound();
@@ -244,6 +243,7 @@ export default function Main({ questions }: MainProps) {
   const onNextRound = useCallback(() => {
     const roundCategory =
       gameState.mode === "random-category" ? getRandomItem(categories) : "";
+    const startedAt = Date.now();
     setGameState((prev) => {
       const updated = {
         ...prev,
@@ -251,16 +251,14 @@ export default function Main({ questions }: MainProps) {
         roundScore: 0,
         roundWords: [] as RoundWord[],
         currentRoundCategory: roundCategory,
+        timerStartedAt: startedAt,
       };
       const next = pickNextWord(updated);
       if (next) {
-        setCurrentWord(next.word);
-        setCurrentCategory(next.category);
-        return { ...updated, usedIndices: [...updated.usedIndices, next.index] };
+        return { ...updated, usedIndices: [...updated.usedIndices, next.index], currentWord: next.word, currentCategory: next.category };
       }
       return updated;
     });
-    shouldStartTimer.current = true;
   }, [gameState.mode, categories, pickNextWord, setGameState]);
 
 
@@ -270,6 +268,7 @@ export default function Main({ questions }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gameName={GAME_NAME}
@@ -395,7 +394,7 @@ export default function Main({ questions }: MainProps) {
 
               <CircularTimer
                 ref={timerRef}
-                duration={60}
+                duration={TIMER_DURATION}
                 onEnded={onTimerEnded}
                 tickSoundStartAt={10}
               />
@@ -403,10 +402,10 @@ export default function Main({ questions }: MainProps) {
               {/* Current Word */}
               <div className="w-full bg-pink-950 rounded-2xl p-8 text-center">
                 <p className="text-gray-400 text-sm mb-2">
-                  {currentCategory}
+                  {gameState.currentCategory}
                 </p>
                 <h1 className="text-4xl font-bold text-white select-none">
-                  {currentWord}
+                  {gameState.currentWord}
                 </h1>
               </div>
 

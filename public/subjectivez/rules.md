@@ -1,57 +1,90 @@
+# {{ GAME_NAME }}
+
+## Objective
+
+Work together to help the guesser identify a secret word. Clue givers each write a clue using a category of their choice — then the guesser tries to identify the word from those clues, and also tries to guess what category each clue giver used. Score points for both!
+
+## What You Need
+
+- This app (phone, tablet, or laptop)
+- An erasable marker for each player
+- 15 cards (or pieces of paper/sticky notes) with one category written on each:
+  1. Animals and Nature
+  2. Brands and Companies
+  3. Careers
+  4. Famous People
+  5. Fictional Characters
+  6. Food and Drink
+  7. Historical Figures
+  8. Items and Objects
+  9. Literature and Theatre
+  10. Movies
+  11. Places and Locations
+  12. Recreations
+  13. Songs
+  14. Tech and Inventions
+  15. Television
+- 3 or more players
+
 ## Setup
 
-- A phone, tablet or laptop to run the game.
-- A number of erasable markers equal to the number of players.
-- 15 erasable cards, which have a smooth surface on both sides.
-- Write down the following categories on one side of the card:
-  1. Animals and Nature
-  1. Brands and Companies
-  1. Careers
-  1. Famous People
-  1. Fictional Characters
-  1. Food and Drink
-  1. Historical Figures
-  1. Items and Objects
-  1. Literature and Theatre
-  1. Movies
-  1. Places and Locations
-  1. Recreations
-  1. Songs
-  1. Tech and Inventions
-  1. Television
-- Arrange the category cards in a 3x5 grid or a 5x3 grid at the center of the table.
-- Everyone sits around the table and make sure the category cards are within reach for everyone.
-- Alternatively, if you don't have markers and cards, use normal papers or sticky notes in place of the cards, and use any drawing app or Notes on your phone to write.
+1. Write each category on one side of a card (or on paper/sticky notes). The other side will be used for writing clues.
+2. Arrange all 15 category cards face-up in a grid (3×5 or 5×3) at the center of the table, within reach of everyone.
+3. If you don't have physical cards, use sticky notes, torn paper scraps, or any writing surface. Players can write their clues in a notes app instead.
 
-## One guesser, the rest are clue givers
+## Roles Each Round
 
-{{ GAME_NAME }} is a cooperative game party game. In one round, one player is designated as the guesser, and the other players are the clue givers.
+**Guesser (1 player)** — Cannot see the device screen. Tries to figure out the secret word and which category each clue came from.
 
-## Generate a card
+**Clue Givers (everyone else)** — Can see the secret word and category shown on the app. Each writes a clue related to the secret word using one of the physical category cards.
 
-The game randomly shows you a card, which consists of a category and a word or compound words. If you don't like the card, click "<b>Next</b>" to generate a new one. The card must be kept hidden from the guesser and shown to the clue givers, so place your device where the guess couldn't see the screen.
+## How to Play Each Round
 
-One clue giver, preferably the person to the left of the guesser, pick up the category card on the table matching the category shown on the device, show it to the guesser, and put it aside. This category can't be used by the clue givers.
+### Step 1 — Generate the Card
 
-## Writing clue
+One clue giver opens the app and taps to reveal a card: a **category** and a **secret word**. Keep the screen hidden from the guesser — turn the device away or pass it face-down after everyone else has seen it.
 
-The guesser says "{{ GAME_NAME }}!" to signal the start of the round! Simultaneously, each clue giver quickly picks up one category card (please don't fight if someone is trying to pick the same category as you) and write down their clue at the back of the card. Once you finish writing down your clue, keep the clue face down, and wait for everyone else to finish.
+If you want a different word, tap **Next** to generate a new one.
 
-## Guess the word
+### Step 2 — Reveal the Category to the Guesser
 
-The guesser picks one clue giver to reveal the clue. If the guesser guesses incorrectly, the guesser picks another clue giver to reveal the clue. This continues until the guesser guesses the word(s) correctly. The clue giver of that clue and the guesser each gets 1 point.
+The clue giver to the left of the guesser picks up the physical category card that matches the category shown on the app. They **show it to the guesser** so the guesser knows the word's category — then set it aside. This category card is now **off-limits** for clue givers to use.
 
-## Guess the clues
+### Step 3 — Everyone Says "{{ GAME_NAME }}!"
 
-For each of the remaining unrevealed clues, the guesser guesses what clue was written down. If the guesser guess correctly, the clue giver of that clue and the guesser each gets 1 point.
+The guesser says **"{{ GAME_NAME }}!"** to signal the round has begun.
 
-For example, in a game with 5 players, if all the guesses are correct, the guesser could get 4 points, while each of the clue giver could get 1 point each.
+### Step 4 — Write Clues Simultaneously
 
-Scoring is optional though.
+At the same moment, each clue giver quickly grabs one available category card (if two people reach for the same one, the first to grab it wins — no fighting!). Flip the card over and write your clue on the back.
 
-## New round
+Your clue must be a hint related to the secret word, framed through the category you chose. For example, if the secret word is "Paris" and you chose "Movies," you might write "Midnight in Paris."
 
-Erase the clues and put the category cards back to their original position, including the category card that was set aside.
+Once you've written your clue, place your card face-down and wait for the others to finish.
 
-In the new round, generate a new card, and the guesser role is rotated clockwise. The person to the left of the previous guesser is the new guesser. The game continues until each player has taken the role of guesser 2 times.
+### Step 5 — Guess the Word
 
+The guesser picks one clue giver and asks them to flip their card and reveal the clue. The guesser makes one guess:
+
+- **Correct** → The clue giver and the guesser each earn **1 point**.
+- **Wrong** → The guesser picks another clue giver to reveal their clue. This continues until the guesser gets it right.
+
+### Step 6 — Guess the Remaining Clues
+
+After the word is guessed, all remaining face-down clues are revealed. For each one, the guesser tries to guess **what was written on the card** before it was flipped.
+
+- **Correct guess** → That clue giver and the guesser each earn **1 point**.
+
+**Example:** In a 5-player game with 4 clue givers, if the guesser gets everything right, they could earn up to 4 points, and each clue giver earns 1 point.
+
+Scoring is optional — you can play just for fun without tracking points.
+
+### Step 7 — Reset for the Next Round
+
+Erase all clues from the cards. Return all category cards — including the one that was set aside — to their original positions in the grid.
+
+The guesser role rotates clockwise. The new guesser is the player to the left of the previous guesser. Generate a new card and begin the next round.
+
+## Winning
+
+The game continues until each player has been the guesser **2 times**. Total up the points — the player with the most points wins!

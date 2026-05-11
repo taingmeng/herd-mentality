@@ -8,6 +8,7 @@ import { MainProps } from "../global/Types";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import bubblePopSoundFile from "@/assets/bubble-pop.mp3";
 import bonusSoundFile from "@/assets/bonus.mp3";
 import wrongSoundFile from "@/assets/wrong.mp3";
@@ -73,6 +74,12 @@ export default function Main() {
   const [gameState, setGameState] = useLocalStorage<GameState>(
     `${GAME_PATH}.gameState`,
     defaultGameState
+  );
+
+  useGamePlayTracking(
+    GAME_PATH,
+    gameState.gameState !== "new",
+    gameState.gameState === "ended" || gameState.gameState === "failed"
   );
 
   const [showRules, setShowRules] = useState(false);
@@ -248,23 +255,23 @@ export default function Main() {
 
   const NAV_MENU: NavMenu[] = [
     {
-      name: "Full screen",
-      icon: "/full-screen.svg",
-      onClick: fullScreenHandle.enter,
-    },
-    {
       name: "New Game",
       icon: "/icons/new.svg",
       onClick: newGame,
     },
     {
+      name: "Full screen",
+      icon: "/icons/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
+    {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/broom.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -275,6 +282,7 @@ export default function Main() {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gameName={GAME_NAME}

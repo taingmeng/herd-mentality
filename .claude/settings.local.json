@@ -3,7 +3,26 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(node -e \"const { games } = require\\('./src/app/global/Data.ts'\\); console.log\\(JSON.stringify\\([...new Set\\(games.flatMap\\(g => g.tags\\)\\)].sort\\(\\)\\)\\)\")",
-      "Bash(xargs cat)"
+      "Bash(xargs cat)",
+      "Bash(xargs sed -i '' 's|\"/\\\\\\([^/]*\\\\\\)\\\\.svg\"|\"/icons/\\\\1.svg\"|g')",
+      "Bash(sed -n '316,321p' /Users/taingmeng/Code/personal/herd-mentality/src/app/insiderz/Main.tsx)",
+      "Bash(sed -n '267,273p' /Users/taingmeng/Code/personal/herd-mentality/src/app/that-sound-gamez/Main.tsx)",
+      "Bash(xargs sed -i '' 's|iconFilePath={GAME_ICON_PATH}|iconFilePath={GAME_ICON_PATH}\\\\n        iconHref={\"/\" + GAME_PATH}|g')",
+      "Bash(awk -F',' 'NF>2 && $3!=\"\"' /Users/taingmeng/Code/personal/herd-mentality/src/app/herd-mentalityz/data/questions.csv)",
+      "Bash(python3 *)",
+      "Bash(node *)",
+      "Bash(firebase --version)",
+      "Bash(firebase projects:list)",
+      "Bash(npx firebase-tools *)",
+      "Bash(xargs cat -n)",
+      "Bash(sed -n '55,100p' /Users/taingmeng/Code/personal/herd-mentality/src/app/wavelengthz/Main.tsx)",
+      "Bash(sed -n '85,100p' /Users/taingmeng/Code/personal/herd-mentality/src/app/mandaminaz/Main.tsx)",
+      "Bash(sed -n '130,170p' /Users/taingmeng/Code/personal/herd-mentality/src/app/that-sound-gamez/Main.tsx)",
+      "Bash(head -n 418 questions.csv)",
+      "Bash(sed \"s/^/The P's,/\" \"The P's.csv\")",
+      "Bash(sed -n '658,879p' questions.csv)",
+      "Bash(sed 's/^/Nature,/' Nature.csv)",
+      "Bash(mv /tmp/new_questions.csv questions.csv)"
     ]
   }
 }

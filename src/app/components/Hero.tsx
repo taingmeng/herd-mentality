@@ -13,15 +13,15 @@ export default async function Hero() {
         </h1>
         <div className="flex flex-row gap-4 text-gray-500 mt-4">
           <div className="flex flex-row">
-            <Image src="/users.svg" width="24" height="24" alt="Player count" className="tint-grey" />
+            <Image src="/icons/users.svg" width="24" height="24" alt="Player count" className="tint-grey" />
             <span>4-20 Players</span>
           </div>
           <div className="flex flex-row">
-            <Image src="/time.svg" width="24" height="24" alt="Player count" className="tint-grey" />
+            <Image src="/icons/time.svg" width="24" height="24" alt="Player count" className="tint-grey" />
             <span>20-30 Min</span>
           </div>
           <div className="flex flex-row">
-            <Image src="/boy.svg" width="24" height="24" alt="Player count" className="tint-grey" />
+            <Image src="/icons/boy.svg" width="24" height="24" alt="Player count" className="tint-grey" />
             <span>Age: 10+</span>
           </div>
         </div>

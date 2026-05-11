@@ -1,49 +1,71 @@
-# Game Objective
+# {{ GAME_NAME }}
 
-**{{ GAME_NAME }}** is a team party game where you race to get your teammates to guess famous people, characters, and things — but the twist is that you play the same cards three times, with tighter restrictions each round.
+## Objective
 
-The team with the most points after all three rounds wins.
+Race to get your teammates to guess famous people, characters, and things — using the same set of cards across **three rounds**, each with stricter rules than the last. The team with the most points after all three rounds wins.
 
-# SETUP
+## What You Need
 
-1. Split into two or more teams.
-2. Set the **deck size** — the number of cards in play for the whole game.
-3. Set the **timer duration** for each team's turn.
+- This app (phone, tablet, or laptop)
+- 4 or more players, split into 2 or more teams
+
+## Setup
+
+1. Split all players into two or more teams (try to keep teams even).
+2. Set the **deck size** — the number of cards all teams will share throughout the game.
+3. Set the **timer duration** for each team's turn (how many seconds each clue-giver gets).
 4. Press **Start** to begin.
 
-# ROUND 1 — SAY ANYTHING
+## How the Game Works
 
-One player from the active team is the clue-giver. They can say or do **anything** to get their team to guess the name on the card — describe the person, make sounds, act it out, or give context clues.
+The game is played over **three rounds**. All rounds use the same set of cards — as cards are guessed correctly in Round 1, those same cards come back for Rounds 2 and 3.
 
-**Rules:**
-- You cannot say the name on the card or any part of it.
-- You cannot rhyme with the name.
-- No restrictions otherwise — use words, sounds, or actions.
+Teams alternate turns. On each turn, one player from the active team is the **clue-giver**. They look at the card on screen and try to get their teammates to say the name shown.
 
-When the team guesses correctly, press **Correct** to score the card and move to the next one.
+---
 
-If you want to skip a card, press **Skip** — it goes back into the deck.
+## Round 1 — Say Anything
 
-When the timer runs out, the current card is not scored.
+The clue-giver can use **any combination of words, sounds, and actions** to get their team to guess the name on the card.
 
-Teams alternate turns until the deck reaches the target card count. Once enough cards are scored, the game advances to Round 2.
+**You may not:**
+- Say the name itself, or any part of it
+- Rhyme with the name
 
-# ROUND 2 — ONE WORD
+Everything else is allowed — describe the person, act them out, make relevant sounds, give context about what they're known for.
 
-The same scored cards from Round 1 are shuffled and used again. This time, the clue-giver can only say **one word** per card — no gestures.
+When your team guesses correctly, press **Correct** to score the card and move to the next one.
 
-When the timer runs out, unscored cards are returned to the deck for the next team's turn.
+To skip a card, press **Skip** — it goes back into the deck and can come up again this turn.
 
-Round 2 ends when all cards have been used.
+When the timer runs out, the current card is not scored. The next team takes their turn.
 
-# ROUND 3 — ACT IT OUT
+Teams keep alternating until enough cards are scored. Once all cards have been guessed at least once, Round 2 begins.
 
-The same cards are used again. This time, **no words at all** — only acting and gestures. Pure charades.
+---
 
-Round 3 ends when all cards have been used.
+## Round 2 — One Word Only
 
-# SCORING
+The same cards return, shuffled. This time, the clue-giver may say **only one single word** per card — no gestures, no sounds, no acting.
 
-Points are tracked automatically. Each correctly guessed card is worth 1 point per round.
+Because your team has already heard descriptions of every card in Round 1, one well-chosen word should be enough to jog their memory.
 
-The team with the most total points across all three rounds wins.
+When the timer runs out, unguessed cards return to the deck for the next team's turn. Round 2 ends when all cards have been guessed.
+
+---
+
+## Round 3 — Act It Out
+
+The same cards return again. This round, **no words at all** — pure charades. Use only body movements and gestures.
+
+Round 3 ends when all cards have been guessed.
+
+---
+
+## Scoring
+
+Each correctly guessed card is worth **1 point per round** — so a card guessed in all three rounds can contribute up to 3 points total (1 per round, tracked separately). Points are tracked automatically by the app.
+
+## Winning
+
+After Round 3, the team with the **most total points** across all three rounds wins!

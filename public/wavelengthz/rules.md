@@ -1,45 +1,80 @@
+# {{ GAME_NAME }}
+
+## Objective
+
+Give a single clue — a word or phrase — that pinpoints an exact location on a spectrum between two opposites. Your team must slide a marker to where they think your clue lands. The closer to the target, the more points you score!
+
+## What You Need
+
+- This app (phone, tablet, or laptop)
+- 2 or more players (works best with 4–10)
+
 ## Setup
 
-- A phone, tablet or laptop to run the game.
-- Everyone sits around the table.
-- If there are 6 or more players, consider splitting them into 2 teams, with roughly equal number of players.
+1. Everyone sits around the device.
+2. If you have **6 or more players**, consider splitting into **2 teams** of roughly equal size.
+3. Decide who goes first.
 
-## Roles
+## Roles Each Round
 
-{{ GAME_NAME }} is a cooperative game party game. In one round, one player in the team is designated as the clue giver, and the other players in the team are the guessers.
+**Clue Giver (1 player per round)** — Secretly sees the spectrum and the target position. Gives one clue to describe where on the spectrum the target falls.
 
-If you're players as 2 teams, all players in the other team will observe and also try to guess after the first team has made their guess.
+**Guessers (everyone else on the team)** — Hear the clue and try to move the slider to the correct position.
 
-## Spectrum card
+## How to Play Each Round
 
-If you're the clue giver, turn the device to face yourself so no one else can see what is on the screen.
+### Step 1 — Clue Giver Sees the Card (Privately)
 
-The game randomly shows you a spectrum card, which generally consists of a pair of words that have opposite meaning.
+The clue giver takes the device and **turns it to face themselves** so no one else can see the screen.
 
-If you're not happy with the spectrum card, feel free to click **Next** to generate a new one.
+The app shows a **spectrum card** — two words on opposite ends of a sliding scale (e.g., "Hot ←→ Cold," "Famous ←→ Unknown," "Scary ←→ Cute"). A random target position is secretly shown, along with point value markers (labelled 2, 3, 4, 3, 2 from edges to center).
 
-## Markers
+If you don't like the spectrum card, tap **Next** to get a different one.
 
-The game also shows you a random position of markers, which are labelled as 2, 3, 4, 3, and 2 on the slider. The slider can't be moved yet.
+### Step 2 — Give a Clue
 
-Your goal is to give a clue, either a word or a phrase, that best describe the position of the markers, especially the number 4 marker, in relative to the spectrum. The clue should not contain any number or quantitative word that can be easily deduced.
+Without revealing any numbers, positions, or quantitative hints, the clue giver says **one word or short phrase** that describes where the target falls on the spectrum.
 
-Click **Start** to hide the labels, and turn the device for everyone to see the spectrum.
+**Example:** If the spectrum is "Cold ←→ Hot" and the target is near the "Hot" end, you might say "Lava" or "Sauna."
 
-## Guessers
+**You may not say:**
+- Any number (e.g., "about 80%" or "three-quarters of the way")
+- Directional hints like "far left" or "slightly right"
+- Either word from the spectrum itself
 
-The rest of the team try to deduce the position of the markers based on the given clue. Everyone is free to discuss and adjust the slider, but the final decision should be based on majority or given to the person to the left of the clue giver.
+### Step 3 — Show the Spectrum to Guessers
 
-Once everyone agrees, click **Reveal** to show the markers.
+Tap **Start** to hide the target position labels. Turn the device so everyone else can see the spectrum.
 
-## Scoring
+### Step 4 — Guessers Discuss and Adjust the Slider
 
-If the slider lands on the number 4 marker, congratulations! Your team makes the perfect guess. Otherwise, 3 or 2 are okay too. If the guess is total off from the markers, that's too bad.
+The guessers discuss what the clue means in relation to the spectrum and move the **slider** to their agreed-upon position.
+
+- Everyone may contribute to the discussion.
+- The final decision goes to the **majority** or is given to the player to the left of the clue giver.
+
+Once everyone agrees on the slider position, tap **Reveal**.
+
+### Step 5 — Score
+
+The target position is revealed. Points are awarded based on where the slider landed:
+
+| Slider lands on | Points |
+|---|---|
+| **4** (center/bullseye) | 4 pts |
+| **3** (one zone out) | 3 pts |
+| **2** (two zones out) | 2 pts |
+| Outside all markers | 0 pts |
+
+## Two-Team Play
+
+When playing as two teams:
+
+1. The active team's clue giver gives a clue, and their team makes their guess first.
+2. Before the reveal, the **opposing team** also makes a guess.
+3. Both teams score independently based on where their sliders land.
+4. Teams alternate who has the clue giver each round.
 
 ## Next Round
 
-The player to the left of the clue giver becomes the new clue giver. The game continues until every one has the same number of turns as a clue giver.
-
-If you play as 2 team, alternative between the teams.
-
-
+The player to the **left** of the clue giver becomes the new clue giver. The game continues until every player has had the same number of turns as clue giver.

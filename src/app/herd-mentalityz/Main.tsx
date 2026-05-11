@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import BigButton from "../components/BigButton";
@@ -8,6 +8,10 @@ import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import { Question } from "../global/Types";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Rules from "../components/Rules";
+import { useAuth } from "@/firebase/AuthContext";
+import { startGamePlay, endGamePlay } from "@/firebase/firebaseService";
+
+const QUESTIONS_PER_PLAY = 20;
 
 export default function Main({ questions }: { questions: Question[] }) {
   const categories = useMemo(
@@ -37,6 +41,18 @@ export default function Main({ questions }: { questions: Question[] }) {
   const [currentQuestion, setCurrentQuestion] =
     useLocalStorage<Question | null>(`${GAME_PATH}.currentQuestion`, null);
 
+  const { user } = useAuth();
+  const playIdRef = useRef<string | null>(null);
+  const questionCountRef = useRef(0);
+
+  useEffect(() => {
+    if (showCategorySelect || !user) return;
+    questionCountRef.current = 0;
+    startGamePlay(user.uid, GAME_PATH).then((id) => {
+      playIdRef.current = id;
+    });
+  }, [showCategorySelect, user]);
+
   const popRandomQuestion = useCallback(() => {
     let pool = sessionQuestions.length > 0 ? sessionQuestions : [...filteredQuestions];
 
@@ -56,6 +72,19 @@ export default function Main({ questions }: { questions: Question[] }) {
       setSessionQuestions([...pool]);
     }
     setCurrentQuestion(item);
+
+    if (user) {
+      questionCountRef.current += 1;
+      if (questionCountRef.current >= QUESTIONS_PER_PLAY) {
+        const id = playIdRef.current;
+        if (id) endGamePlay(user.uid, GAME_PATH, id);
+        questionCountRef.current = 0;
+        startGamePlay(user.uid, GAME_PATH).then((newId) => {
+          playIdRef.current = newId;
+        });
+      }
+    }
+
     return item;
   }, [
     currentQuestion,
@@ -63,6 +92,7 @@ export default function Main({ questions }: { questions: Question[] }) {
     filteredQuestions,
     setSessionQuestions,
     setCurrentQuestion,
+    user,
   ]);
 
   useEffect(() => {
@@ -102,21 +132,31 @@ export default function Main({ questions }: { questions: Question[] }) {
 
   const fullScreenHandle = useFullScreenHandle();
 
+  function clearCache() {
+    Object.keys(localStorage).filter(k => k.startsWith(GAME_PATH + '.')).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  }
+
   const NAV_MENU = [
     {
-      name: "Full screen",
-      icon: "/full-screen.svg",
-      onClick: fullScreenHandle.enter,
-    },
-    {
-      name: "Categories",
+      name: "New Game",
       icon: "/icons/new.svg",
       onClick: onBackToCategories,
     },
     {
+      name: "Full screen",
+      icon: "/icons/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
+    {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
+    },
+    {
+      name: "Clear cache",
+      icon: "/icons/broom.svg",
+      onClick: clearCache,
     },
   ];
 
@@ -130,6 +170,7 @@ export default function Main({ questions }: { questions: Question[] }) {
           title={GAME_NAME}
           menus={NAV_MENU}
           iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
         />
         <Rules
           gamePath={GAME_PATH}
@@ -206,6 +247,7 @@ export default function Main({ questions }: { questions: Question[] }) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gamePath={GAME_PATH}

@@ -1,42 +1,60 @@
+# {{ GAME_NAME }}
+
+## Objective
+
+Work together — in complete silence — to organize all marbles on the board by color. Finish in as few moves as possible to earn the highest score. This is a cooperative game: everyone wins or loses together.
+
+## What You Need
+
+- This app (phone, tablet, or laptop)
+- The physical game board with marbles (multiple colors, one empty spot)
+- 2 or more players
+
+## The Golden Rule
+
+**You may not speak or communicate in any way during the game.** No talking, no pointing, no nodding, no gesturing to indicate what move someone else should make. The only action you can take is moving a marble on your own turn.
+
 ## Setup
 
-- A phone, tablet or laptop to run the game.
-- Everyone sits around the table.
+1. Set up the marble board with all marbles placed randomly. There should always be **exactly one empty spot** on the board.
+2. Designate one player as the **scorekeeper** to count and record every turn taken.
+3. The player who most recently stayed quiet while someone else was speaking goes **first**.
 
-## Game Play
+## How to Play
 
-Take turns to move marbles on the game board one at a time to organize the marbles by color.
+### Taking a Turn
 
-The marbles are clustered when all marbles of a color are orthogonally adjacent to each other.
+On your turn, pick **any marble** on the board and move it to the **empty spot**. That's it — one marble per turn, moved to the one empty space.
 
-The placement of each color cluster is free – as long as all marbles of a certain color are adjacent to each other.
+The next player clockwise then takes their turn.
 
-Do bear in mind that you are not allowed to communicate your plans or to indicate unambiguously what you want someone else to do. In effect, you may not speak at all during the game.
+**Important:** The scorekeeper must count and record every single move made, including your own.
 
-The player who last remained silent while listening to someone else may start.
+### Goal — Clustering by Color
 
-## Turn Sequence & Game End
+The game ends the moment all marbles are **clustered by color** — meaning every marble of a given color is touching at least one other marble of the same color (orthogonally adjacent — up, down, left, or right, not diagonal).
 
-On your turn, pick any marble on the board and put it on the empty spot (there is always one empty spot on the board).
+The position of each color cluster on the board doesn't matter — clusters can be anywhere, as long as all marbles of each color are grouped together.
 
-The next player clockwise takes their turn and moves any marble to the empty spot. The scorekeeper records another turn on the pad. The scorekeeper must remember to record all turns played.
+You may move any marble at any time — there's no restriction on which marble you pick up.
 
-You are allowed to move any marble until the end of the game.
+## Scoring
 
-The game ends immediately when all marbles are organized in clusters by color.
+Once the game ends, players may now talk (quietly) to calculate the final score.
 
-## Scoring Rules
+**Points from cluster shapes:** Each color cluster earns points based on its shape. Every unique cluster shape earns **5 points**. If two clusters happen to have the same shape, only one counts.
 
-Scoring is based on the shapes of the color clusters on the board, the position of the empty spot, and the number of turns played.
+**Bonus — Empty center spot:** If the one empty spot on the board is in the **center position**, earn an extra **5 points**.
 
-The players are allowed to talk when scoring, but with hushed tones.
+**Penalty — Turns taken:** Subtract the **total number of turns** played from your points.
 
-Each different shape of the color clusters:
-5 points each.
+**Final score formula:**
+> (Points from unique cluster shapes) + (Center bonus if applicable) − (Total turns taken)
 
-The middle spot is empty:
-5 points.
+**If your final score is 1 or higher, you win!**
 
-The total score is the number of turns played subtracted from the sum of the cluster shape points and the middle spot points.
+## Tips
 
-If the final score is one or more, congratulations are in order: you have won!
+- Think ahead before moving. Every wasted move reduces your score.
+- Since you can't communicate, pay attention to what your teammates seem to be building toward and try to support it.
+- Fewer turns = better score, so coordinate your intentions through your actions alone.

@@ -3,55 +3,36 @@ const fs = require("fs");
 const path = require("path");
 
 const dataPath = "src/app/herd-mentalityz/data";
-const filePath = dataPath + "/questions.csv";
-const absolutePath = path.join(process.cwd(), filePath);
+const dir = path.join(process.cwd(), dataPath);
+const outputPath = path.join(dir, "questions.csv");
 
-fs.writeFile(absolutePath, "category,word\n", (error) => {
-  if (error) {
-    console.error("Error writing file:", error);
-  } else {
-    console.log("File created successfully:", absolutePath);
+fs.writeFileSync(outputPath, "category,word\n");
+
+const files = fs.readdirSync(dir).sort();
+
+for (const file of files) {
+  if (!file.endsWith(".csv") || file === "questions.csv") continue;
+
+  const category = file.replace(".csv", "");
+  const filePath = path.join(dir, file);
+  const content = fs.readFileSync(filePath, "utf8");
+
+  const seen = new Set();
+  const unique = [];
+
+  for (const line of content.split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const key = trimmed.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push(trimmed);
+    }
   }
-});
 
-fs.readdir(path.join(process.cwd(), dataPath), (err, files) => {
-  files.forEach(file => {
-    console.log("Processing file:", file);
-    if (file === "questions.csv") {
-      return;
-    }
-    if (!file.endsWith(".csv")) {
-      return;
-    }
-    const fileName = file.replace(".csv", "");
-    const absoluteFilePath = path.join(process.cwd(), `${dataPath}/${file}`);
-    if (!fs.existsSync(absoluteFilePath)) {
-      console.error(`File not found: ${absoluteFilePath}`);
-      return;
-    }
+  unique.sort();
 
-    fs.readFile(absoluteFilePath, "utf8", (error, data) => {
-      const lines = data.split("\n");
-      const set = new Set();
-      const lowercaseSet = new Set();
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].trim().length > 0) {
-          if (!lowercaseSet.has(lines[i].toLowerCase())) {
-            lowercaseSet.add(lines[i].toLowerCase());
-            set.add(lines[i]);
-          }
-        }
-      }
-      const newLines = Array.from(set).sort();
-      fs.writeFile(absoluteFilePath, newLines.join("\n") + "\n", (error) => {
-        console.log(error || fileName + " " + newLines.length);
-      });
-      fs.writeFile(absolutePath, newLines.map(line => `${fileName},${line}`).join("\n") + "\n", { flag: 'a' }, (error) => {
-        if (error) {
-          console.error("Error appending to file:", error);
-          return;
-        }
-      });
-    });
-  });
-});
+  fs.writeFileSync(filePath, unique.join("\n") + "\n");
+  fs.appendFileSync(outputPath, unique.map(line => `${category},${line}`).join("\n") + "\n");
+  console.log(`${category}: ${unique.length}`);
+}

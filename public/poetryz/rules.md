@@ -1,39 +1,52 @@
-# OVERVIEW
+# {{ GAME_NAME }}
 
-**{{ GAME_NAME }}** is a competitive word-guessing game where the clue-giver can only speak in single syllables.
+## Objective
 
-Instead of saying *broccoli*, you might say: *green thing you eat to live long and have good health.*
+Get your teammates to guess a secret word — but you can only speak in **single-syllable words**. No multi-syllable words allowed! Teams race to score as many words as possible before time runs out. The team with the most points wins.
 
-Teams take turns giving clues and guessing as many words as possible before time runs out. The team with the most points after all rounds wins.
+## What You Need
 
-# SETUP
+- This app (phone, tablet, or laptop)
+- 4 or more players, split into 2 or more teams
+
+## Setup
 
 1. Choose the number of **teams** (2–10).
-1. Choose the **time** per round (30–180 seconds).
-1. Choose the number of **rounds**.
-1. Press **Start** to begin.
+2. Choose the **time limit** per turn (30–180 seconds).
+3. Choose the **number of rounds**.
+4. Press **Start** to begin.
 
-# GAMEPLAY
+## How It Works
 
-Each round, one team is active. The clue-giver on that team sees a card with:
+Teams take turns. On each turn, one player from the active team is the **clue-giver**. The app shows them a card with:
 
-- A **word** (highlighted) — the answer the team must guess.
-- A **hint** — a longer description to help the clue-giver come up with syllables.
+- A **word** (highlighted) — the word their team must guess
+- A **hint** — a description to help the clue-giver think of what to say
 
-The clue-giver speaks only in **single-syllable words** to get their teammates to say the word. No gestures, no mouthing, no full words allowed.
+The clue-giver must get their team to say the target word using **only single-syllable words**. Not just short words — each individual word you say must have exactly one syllable.
 
-When the team guesses correctly (or you skip), tap a scoring button and the next card appears immediately. Keep going until time runs out!
+**Example:** Instead of saying *broccoli*, you might say:
+> "Green thing — you eat it — it is good for you — like a small tree."
 
-# SCORING
+**You may not:**
+- Say any word with more than one syllable
+- Mouth or gesture the word
+- Use any quantitative or numerical words that make the answer obvious
+
+When the team guesses correctly, tap a scoring button to record the result. The next card appears immediately — keep going until time runs out!
+
+## Scoring
+
+After each card, tap the appropriate button:
 
 | Button | Points | When to use |
-|--------|--------|-------------|
+|---|---|---|
 | **+3** | 3 pts | Team guessed the word correctly |
-| **+1** | 1 pt | Team guessed a simpler version or partial credit |
+| **+1** | 1 pt | Team got a simplified version or partial credit |
 | **−1** | −1 pt | Skipped or team could not guess |
 
-After time runs out, a summary of the round appears. You can adjust individual card scores before moving on.
+After time runs out, a summary of all cards from that turn appears. You can review and adjust individual card scores before confirming.
 
-# WINNING
+## Winning
 
-After all rounds are complete, the team with the highest total score wins.
+After all rounds are complete, total up each team's points. The team with the **highest score** wins!

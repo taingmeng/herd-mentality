@@ -36,7 +36,7 @@ export default async function HeroCard({
         <div className="flex flex-row gap-4 text-gray-500 mt-4 mb-2">
           <div className="flex flex-row">
             <Image
-              src="/users.svg"
+              src="/icons/users.svg"
               width="24"
               height="24"
               alt="Player count"
@@ -46,7 +46,7 @@ export default async function HeroCard({
           </div>
           <div className="flex flex-row">
             <Image
-              src="/time.svg"
+              src="/icons/time.svg"
               width="24"
               height="24"
               alt="Player count"
@@ -56,7 +56,7 @@ export default async function HeroCard({
           </div>
           <div className="flex flex-row">
             <Image
-              src="/boy.svg"
+              src="/icons/boy.svg"
               width="24"
               height="24"
               alt="Player count"

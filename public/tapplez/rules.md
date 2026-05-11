@@ -1,35 +1,55 @@
+# {{ GAME_NAME }}
+
+## Objective
+
+Be the last player standing! Each round, players take turns naming words from a category — but each word must start with a **different letter of the alphabet**. Run out of time or fail to think of a word and you're out. Survive longest to win.
+
+## What You Need
+
+- This app (phone, tablet, or laptop) — a touchscreen device works best so players can tap letters easily
+- Everyone should be able to reach the device
+- 3 or more players
+
 ## Setup
 
-- A phone, tablet or laptop to run the game. A touchable device is preferred.
-- Everyone sits around the table and make sure the device is within reach for everyone.
+1. Place the device where everyone can reach it.
+2. The app displays all letters of the alphabet. Letters get marked off as they are used.
+3. Press **Generate** (or the equivalent button) to reveal a random **category** for the round.
 
-## Generate a category
+## How to Play
 
-The game randomly shows you a card, is a category for this round.
+### Taking Turns
 
-## Say a word in the category
+Starting with any player and going **clockwise**, each player must:
 
-Going in a clockwise order, each person has to find a word within that category within 10 seconds. The word must start with any remaining alphabets. Once a player says the word out loud, that play press the alphabet to mark it as used.
+1. Say a word out loud that fits the category **and** starts with any **available letter** (one that hasn't been used yet this round).
+2. Once you say your word, immediately tap that letter on the screen to mark it as used.
+3. The next player then has **10 seconds** to say their word.
 
-If a player is not able to come up with a word within 10 seconds, that player is eliminated. The round continues until there is only one remaining player left.
+**Example:** If the category is "Animals" and "E" is available, you could say "Elephant" and tap the E.
 
-## Pause the timer if needed
+### Being Eliminated
 
-If there is any debate on the word, press the timer to pause. Once that is resolved, press the timer again to resume.
+If a player cannot think of a valid word before the **10-second timer** runs out, that player is **eliminated** for the rest of the round. Play continues with the remaining players.
 
-## If all alphabets are used
+### Disputing a Word
 
-If all the alphabets are used up, and there are still more than 1 remaining player, all the alphabets are reset. The remaining players must use 2 alphabets (say a word for each alphabet) within 10 seconds.
+If players disagree on whether a word is valid (does it fit the category? is it a real word?), press the timer to **pause** the clock. Settle the debate, then press the timer again to **resume**.
 
-In the rare case where there are still more than 1 remaining player, all the alphabets are reset. The remaining players must use 3 alphabets (say a word for each alphabet) within 10 seconds.
+## What Happens When All Letters Are Used
 
-If there is still a tie, the number of alphabets per player keeps on increasing.
+If all 26 letters have been used but there are still 2 or more players remaining:
 
-## Last person standing is the winner
+**First reset:** All letters are reset. This time, each player must use **2 letters** on their turn — say a word for each letter within 10 seconds.
 
-The last person standing is the winner. If you want to keep track of scores, the winner is awarded one point.
+**Second reset (if still tied):** All letters reset again. Each player must now use **3 letters** per turn.
 
-## New round
+This keeps escalating until only one player remains.
 
-Generate a new category. The player on the left of the previous winner is the player to start the round.
+## Winning the Round
 
+The **last player standing** wins the round and earns **1 point** (optional scoring).
+
+## Starting the Next Round
+
+Press **Generate** to get a new category. The player to the **left of the previous round's winner** goes first in the new round.

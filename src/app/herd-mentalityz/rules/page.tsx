@@ -5,7 +5,7 @@ import { getMarkdownContent } from "../../utils/MarkdownUtil";
 const NAV_MENU = [
   {
     name: "Back to Game",
-    icon: "/arrow-circle-left.svg",
+    icon: "/icons/arrow-circle-left.svg",
     href: "/herd-party",
   },
 ];

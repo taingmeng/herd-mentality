@@ -53,12 +53,13 @@ interface NavbarProps {
   title?: string;
   menus?: NavMenu[];
   iconFilePath?: string;
+  iconHref?: string;
   headerContent?: React.ReactNode;
 }
 
 const HOME_MENU: NavMenu = { name: "Home", icon: "/icons/home.svg", href: "/" };
 
-export function Navbar({ title, menus = [], iconFilePath, headerContent }: NavbarProps) {
+export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", headerContent }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const { user, loading, signInWithGoogle, signOutUser } = useAuth();
@@ -94,9 +95,9 @@ export function Navbar({ title, menus = [], iconFilePath, headerContent }: Navba
               <RxHamburgerMenu className="h-6 w-6" />
             )}
           </div>
-          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <Link href={iconHref} className="flex items-center space-x-3 rtl:space-x-reverse">
             <Image
-              src={iconFilePath || "/party.svg"}
+              src={iconFilePath || "/icons/party.svg"}
               width="36"
               height="36"
               alt="Just Words"

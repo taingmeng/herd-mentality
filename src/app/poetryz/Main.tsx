@@ -19,6 +19,7 @@ import timesUpSoundFile from "@/assets/times-up.mp3";
 import newInfoSoundFile from "@/assets/new-info.mp3";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 
 export const dynamic = "force-dynamic";
 
@@ -64,6 +65,9 @@ export default function Main({ questions }: PoetryMainProps) {
   const [currentQuestion, setCurrentQuestion] = useState<PoetryQuestion>();
 
   const [gameState, setGameState] = useLocalStorage("poetry.gameState", "new");
+
+  useGamePlayTracking(GAME_PATH, gameState !== "new", gameState === "end");
+
   const [roundState, setRoundState] = useLocalStorage(
     "poetry.roundState",
     "ready"
@@ -121,21 +125,31 @@ export default function Main({ questions }: PoetryMainProps) {
 
   const fullScreenHandle = useFullScreenHandle();
 
+  function clearCache() {
+    Object.keys(localStorage).filter(k => k.startsWith('poetry.')).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  }
+
   const NAV_MENU: NavMenu[] = [
     {
-      name: "Full screen",
-      icon: "/full-screen.svg",
-      onClick: fullScreenHandle.enter,
-    },
-    {
       name: "New Game",
-      icon: "/book.svg",
+      icon: "/icons/new.svg",
       onClick: reset,
     },
     {
+      name: "Full screen",
+      icon: "/icons/full-screen.svg",
+      onClick: fullScreenHandle.enter,
+    },
+    {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
+    },
+    {
+      name: "Clear cache",
+      icon: "/icons/broom.svg",
+      onClick: clearCache,
     },
   ];
 
@@ -321,6 +335,7 @@ export default function Main({ questions }: PoetryMainProps) {
       <Navbar
         title={GAME_NAME}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
         menus={NAV_MENU}
       />
       <Rules
@@ -587,7 +602,7 @@ export default function Main({ questions }: PoetryMainProps) {
                     {sum(team.roundScores) === highestScore ? (
                       <Image
                         className="w-24"
-                        src="/crown.svg"
+                        src="/icons/crown.svg"
                         width="48"
                         height="48"
                         alt="Winner"
@@ -595,7 +610,7 @@ export default function Main({ questions }: PoetryMainProps) {
                     ) : (
                       <Image
                         className="w-24"
-                        src="/pile-of-poo.svg"
+                        src="/icons/pile-of-poo.svg"
                         width="48"
                         height="48"
                         alt="Loser"

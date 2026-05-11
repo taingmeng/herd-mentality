@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import BigButton from "../components/BigButton";
@@ -11,8 +11,12 @@ import WavelengthSlider from "./WavelengthSlider";
 import Loader from "../components/Loader";
 import confetti from "canvas-confetti";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { useAuth } from "@/firebase/AuthContext";
+import { startGamePlay, endGamePlay } from "@/firebase/firebaseService";
 
 export const dynamic = "force-dynamic";
+
+const ROUNDS_PER_PLAY = 10;
 
 export default function Main({ questions }: MainProps) {
   const WIDTH = 40;
@@ -42,6 +46,18 @@ export default function Main({ questions }: MainProps) {
     `${GAME_PATH}.currentValue`,
     0
   );
+
+  const { user } = useAuth();
+  const playIdRef = useRef<string | null>(null);
+  const roundCountRef = useRef(0);
+
+  useEffect(() => {
+    if (!user) return;
+    roundCountRef.current = 0;
+    startGamePlay(user.uid, GAME_PATH).then((id) => {
+      playIdRef.current = id;
+    });
+  }, [user]);
 
   function clearCache() {
     clearSessionQuestions();
@@ -80,6 +96,18 @@ export default function Main({ questions }: MainProps) {
     setRoundState("new"); // Reset round state to "new"
     if (roundState === "revealed") {
       setCurrentRound(currentRound + 1); // Increment current round
+
+      if (user) {
+        roundCountRef.current += 1;
+        if (roundCountRef.current >= ROUNDS_PER_PLAY) {
+          const id = playIdRef.current;
+          if (id) endGamePlay(user.uid, GAME_PATH, id);
+          roundCountRef.current = 0;
+          startGamePlay(user.uid, GAME_PATH).then((newId) => {
+            playIdRef.current = newId;
+          });
+        }
+      }
     }
 
     return item;
@@ -93,6 +121,7 @@ export default function Main({ questions }: MainProps) {
     setCurrentRound,
     currentRound,
     roundState,
+    user,
   ]);
 
   useEffect(() => {
@@ -107,27 +136,24 @@ export default function Main({ questions }: MainProps) {
     setSessionScore(0);
     setRoundState("new");
     setCurrentRound(1);
+    roundCountRef.current = 0;
+    if (user) {
+      const id = playIdRef.current;
+      if (id) endGamePlay(user.uid, GAME_PATH, id);
+      startGamePlay(user.uid, GAME_PATH).then((newId) => {
+        playIdRef.current = newId;
+      });
+    }
     popRandomItem();
-  }, [setSessionScore, setRoundState, popRandomItem, setCurrentRound]);
+  }, [setSessionScore, setRoundState, popRandomItem, setCurrentRound, user]);
 
   const fullScreenHandle = useFullScreenHandle();
 
   const NAV_MENU: NavMenu[] = [
     {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
-    },
-    {
-      name: "Home",
-      icon: "/icons/home.svg",
-      href: "/",
-      target: "_self",
-    },
-    {
-      name: "New game",
-      icon: "/icons/new.svg",
-      onClick: startNewGame,
     },
     {
       name: "Rules",
@@ -136,7 +162,7 @@ export default function Main({ questions }: MainProps) {
     },
     {
       name: "Clear cache",
-      icon: "/icons/clear.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -192,7 +218,7 @@ export default function Main({ questions }: MainProps) {
 
   return (
     <>
-      <Navbar title={GAME_NAME} menus={NAV_MENU} iconFilePath={ICON_PATH} />
+      <Navbar title={GAME_NAME} menus={NAV_MENU} iconFilePath={ICON_PATH} iconHref={"/" + GAME_PATH} />
       <Rules
         gameName={GAME_NAME}
         gamePath={GAME_PATH}

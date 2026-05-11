@@ -10,6 +10,8 @@ import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
 import { usePopRandomQuestion } from "../global/Utils";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useAuth } from "@/firebase/AuthContext";
+import { startGamePlay, endGamePlay } from "@/firebase/firebaseService";
 import Round from "../components/Round";
 import CircularTimer, {
   CircularTimerRefProps,
@@ -21,6 +23,7 @@ import timesUpSoundFile from "@/assets/times-up.mp3";
 export const dynamic = "force-dynamic";
 
 const ALPHABETS = "ABCDEFGHIJKLMNOPRSTW";
+const WORDS_PER_PLAY = 10;
 
 interface GameState {
   currentRound: number;
@@ -50,23 +53,41 @@ export default function Main({ questions }: MainProps) {
 
   function clearCache() {
     clearSessionQuestions();
+    setGameState({ currentRound: 1, usedAlphabets: "", correctCount: 0, gameState: "new" });
   }
   const timerRef = useRef<CircularTimerRefProps>(null);
 
+  const { user } = useAuth();
+  const playIdRef = useRef<string | null>(null);
+  const wordCountRef = useRef(0);
+
+  useEffect(() => {
+    if (!user) return;
+    wordCountRef.current = 0;
+    startGamePlay(user.uid, GAME_PATH).then((id) => {
+      playIdRef.current = id;
+    });
+  }, [user]);
+
   const NAV_MENU: NavMenu[] = [
     {
+      name: "New Game",
+      icon: "/icons/new.svg",
+      onClick: () => resetRound(),
+    },
+    {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/broom.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -126,7 +147,18 @@ export default function Main({ questions }: MainProps) {
     resetRound();
     timerRef.current?.go();
     timerRef.current?.reset();
-  }, []);
+    if (user) {
+      wordCountRef.current += 1;
+      if (wordCountRef.current >= WORDS_PER_PLAY) {
+        const id = playIdRef.current;
+        if (id) endGamePlay(user.uid, GAME_PATH, id);
+        wordCountRef.current = 0;
+        startGamePlay(user.uid, GAME_PATH).then((newId) => {
+          playIdRef.current = newId;
+        });
+      }
+    }
+  }, [popRandomQuestion, resetRound, user]);
 
   const onStart = useCallback(() => {
     timerRef.current?.go();
@@ -176,6 +208,7 @@ export default function Main({ questions }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gameName={GAME_NAME}

@@ -6,6 +6,7 @@ export const games = [
     age: "Age: 8+",
     playPath: "/anomiaz",
     imagePath: "/anomiaz/icon.png",
+    gameplayImagePath: "/anomiaz/gameplay.png",
     paragraphs: [
       "Players are dealt cards with categories and colored symbols. When two players' top cards share the same symbol, a face-off begins!",
       "In a face-off, the group decides who gave the worst answer to their category. That player loses their card, and the other scores a point. Wild cards link two different symbols for surprise matchups!",

@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import { MainProps } from "../global/Types";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import { shuffle } from "../global/Utils";
 import BigButton from "../components/BigButton";
 import Navbar from "../components/Navbar";
@@ -53,6 +54,8 @@ export default function Main({ questions }: MainProps) {
     `${GAME_PATH}.revealedWord`,
     false
   );
+
+  useGamePlayTracking(GAME_PATH, gameState !== "new", gameState === "playing" && !!revealedChameleon && !!revealedWord);
   const [flipped, setFlipped] = useLocalStorage(
     `${GAME_PATH}.flipped`,
     false
@@ -167,16 +170,31 @@ export default function Main({ questions }: MainProps) {
 
   const fullScreenHandle = useFullScreenHandle();
 
+  function clearCache() {
+    Object.keys(localStorage).filter(k => k.startsWith(GAME_PATH + '.')).forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  }
+
   const NAV_MENU = [
     {
+      name: "New Game",
+      icon: "/icons/new.svg",
+      onClick: newGame,
+    },
+    {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
+    },
+    {
+      name: "Clear cache",
+      icon: "/icons/broom.svg",
+      onClick: clearCache,
     },
   ];
 
@@ -186,6 +204,7 @@ export default function Main({ questions }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gamePath={GAME_PATH}

@@ -111,18 +111,13 @@ export default function New({ questions }: MainProps) {
 
   const NAV_MENU: NavMenu[] = [
     {
-      name: "New game",
-      icon: "/icons/new.svg",
-      onClick: startNewGame,
-    },
-    {
       name: "Rules",
       icon: "/icons/rules.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/icons/clear.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];

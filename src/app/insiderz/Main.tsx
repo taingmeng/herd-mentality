@@ -10,6 +10,7 @@ import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
 import { shuffle, usePopRandomQuestion } from "../global/Utils";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 import CircularTimer, {
   CircularTimerRefProps,
 } from "../components/CircularTimer";
@@ -57,6 +58,8 @@ export default function Main({ questions }: MainProps) {
     defaultGameState
   );
 
+  useGamePlayTracking(GAME_PATH, gameState.gameState !== "new", gameState.gameState === "ended");
+
   const [showRules, setShowRules] = useState(false);
   const [playTimesUpSound] = useSound(timesUpSoundFile);
   const fullScreenHandle = useFullScreenHandle();
@@ -75,18 +78,23 @@ export default function Main({ questions }: MainProps) {
 
   const NAV_MENU: NavMenu[] = [
     {
+      name: "New Game",
+      icon: "/icons/new.svg",
+      onClick: () => onNew(),
+    },
+    {
       name: "Full screen",
-      icon: "/full-screen.svg",
+      icon: "/icons/full-screen.svg",
       onClick: fullScreenHandle.enter,
     },
     {
       name: "Rules",
-      icon: "/book.svg",
+      icon: "/icons/book.svg",
       onClick: setShowRules.bind(null, true),
     },
     {
       name: "Clear cache",
-      icon: "/broom.svg",
+      icon: "/icons/broom.svg",
       onClick: clearCache,
     },
   ];
@@ -317,6 +325,7 @@ export default function Main({ questions }: MainProps) {
         title={GAME_NAME}
         menus={NAV_MENU}
         iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
       />
       <Rules
         gameName={GAME_NAME}

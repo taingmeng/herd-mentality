@@ -1,6 +1,7 @@
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import remarkGfm from "remark-gfm";
 
 interface MarkdownContent {
   content: string;
@@ -18,6 +19,7 @@ export async function getMarkdownContentReact(
 
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
+    .use(remarkGfm)
     .use(html)
     .process(matterResult.content);
   const content = processedContent.toString()
