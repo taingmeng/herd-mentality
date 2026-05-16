@@ -22,7 +22,16 @@
       "Bash(sed \"s/^/The P's,/\" \"The P's.csv\")",
       "Bash(sed -n '658,879p' questions.csv)",
       "Bash(sed 's/^/Nature,/' Nature.csv)",
-      "Bash(mv /tmp/new_questions.csv questions.csv)"
+      "Bash(mv /tmp/new_questions.csv questions.csv)",
+      "Bash(npx firebase *)",
+      "Bash(npm run *)",
+      "Bash(npx ts-node *)",
+      "Bash(gcloud auth *)",
+      "Read(//Users/taingmeng/.config/**)",
+      "Read(//Users/taingmeng/.config/firebase/**)",
+      "Bash(xxd)",
+      "Bash(grep -v \"^Love Story$\\\\|^Rolling in the Deep$\" \"src/app/monikerz/data/Et Cetera.csv\")",
+      "Bash(mv /tmp/etc_tmp.csv \"src/app/monikerz/data/Et Cetera.csv\")"
     ]
   }
 }

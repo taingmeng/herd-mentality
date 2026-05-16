@@ -45,14 +45,6 @@ export default function Main({ questions }: { questions: Question[] }) {
   const playIdRef = useRef<string | null>(null);
   const questionCountRef = useRef(0);
 
-  useEffect(() => {
-    if (showCategorySelect || !user) return;
-    questionCountRef.current = 0;
-    startGamePlay(user.uid, GAME_PATH).then((id) => {
-      playIdRef.current = id;
-    });
-  }, [showCategorySelect, user]);
-
   const popRandomQuestion = useCallback(() => {
     let pool = sessionQuestions.length > 0 ? sessionQuestions : [...filteredQuestions];
 
@@ -123,6 +115,12 @@ export default function Main({ questions }: { questions: Question[] }) {
     setSessionQuestions([...newFiltered]);
     setCurrentQuestion(null);
     window.localStorage.removeItem(`${GAME_PATH}.currentQuestion`);
+    if (user) {
+      questionCountRef.current = 0;
+      startGamePlay(user.uid, GAME_PATH).then((id) => {
+        playIdRef.current = id;
+      });
+    }
     setShowCategorySelect(false);
   };
 
@@ -179,7 +177,7 @@ export default function Main({ questions }: { questions: Question[] }) {
           onClose={() => setShowRules(false)}
         />
         <FullScreen handle={fullScreenHandle}>
-        <main className="flex flex-col pt-24 pb-32 min-h-[75vh] items-center px-4">
+        <main className="flex flex-col pt-24 pb-8 min-h-[75vh] items-center px-4">
           <h2 className="text-2xl font-bold text-white mb-2">
             Select Categories
           </h2>
@@ -204,39 +202,38 @@ export default function Main({ questions }: { questions: Question[] }) {
             </button>
           </div>
 
-          <div className="w-full max-w-md flex flex-col gap-2">
+          <div className="w-full max-w-md grid grid-cols-4 gap-2">
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category);
               return (
                 <button
                   key={category}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg font-medium text-left transition-colors cursor-pointer select-none ${
+                  className={`w-full flex flex-col items-center justify-center px-2 py-3 rounded-lg font-medium text-center transition-colors cursor-pointer select-none ${
                     isSelected
                       ? "bg-pink-900 text-white"
                       : "bg-gray-800 text-gray-400"
                   }`}
                   onClick={() => toggleCategory(category)}
                 >
-                  <span>{category}</span>
-                  <span className="text-sm opacity-70">
+                  <span className="text-sm leading-tight">{category}</span>
+                  <span className="text-xs opacity-70">
                     {categoryCount(category)}
                   </span>
                 </button>
               );
             })}
           </div>
-        </main>
-        </FullScreen>
-        <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-          <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
+
+          <div className="w-full max-w-md mt-4">
             <BigButton
               onClick={onStartPlaying}
               disabled={selectedCategories.length === 0}
             >
-              Play ({filteredQuestions.length} questions)
+              Play
             </BigButton>
           </div>
-        </div>
+        </main>
+        </FullScreen>
       </>
     );
   }
@@ -271,12 +268,12 @@ export default function Main({ questions }: { questions: Question[] }) {
         </div>
         <div></div>
       </main>
-      </FullScreen>
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex  bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
         <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
           <BigButton onClick={() => popRandomQuestion()}>Next</BigButton>
         </div>
       </div>
+      </FullScreen>
     </>
   );
 }

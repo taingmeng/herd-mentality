@@ -28,6 +28,14 @@ body {
   overflow-x: hidden;
 }
 
+.fullscreen {
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+}
+
 html {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-end-rgb));

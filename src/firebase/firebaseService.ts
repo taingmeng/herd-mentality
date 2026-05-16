@@ -4,14 +4,7 @@ import { collection, doc, setDoc, updateDoc, serverTimestamp } from "firebase/fi
 export const startGamePlay = async (userId: string, gameId: string): Promise<string | null> => {
   try {
     const userPlayRef = doc(collection(firestore, "users", userId, "games", gameId, "plays"));
-    const gamePlayRef = doc(firestore, "games", gameId, "plays", userPlayRef.id);
-
-    const startTime = serverTimestamp();
-    await Promise.all([
-      setDoc(userPlayRef, { startTime }),
-      setDoc(gamePlayRef, { startTime, userId }),
-    ]);
-
+    await setDoc(userPlayRef, { startedAt: serverTimestamp() });
     return userPlayRef.id;
   } catch (e) {
     console.error("Error starting game play:", e);
@@ -22,13 +15,7 @@ export const startGamePlay = async (userId: string, gameId: string): Promise<str
 export const endGamePlay = async (userId: string, gameId: string, playId: string): Promise<void> => {
   try {
     const userPlayRef = doc(firestore, "users", userId, "games", gameId, "plays", playId);
-    const gamePlayRef = doc(firestore, "games", gameId, "plays", playId);
-
-    const endTime = serverTimestamp();
-    await Promise.all([
-      updateDoc(userPlayRef, { endTime }),
-      updateDoc(gamePlayRef, { endTime }),
-    ]);
+    await updateDoc(userPlayRef, { endedAt: serverTimestamp() });
   } catch (e) {
     console.error("Error ending game play:", e);
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Image from "next/image";
 import useSound from "use-sound";
 import Navbar, { NavMenu } from "@/app/components/Navbar";
@@ -57,8 +57,23 @@ const roundName = (currentRound: number): string => {
 };
 
 export default function PoetryMain({ questions }: PoetryMainProps) {
+  const categories = useMemo(
+    () => [...new Set(questions.map((q) => q.category))].sort(),
+    [questions]
+  );
+
+  const [selectedCategories, setSelectedCategories] = useLocalStorage<string[]>(
+    "partikers.selectedCategories",
+    categories
+  );
+
+  const filteredQuestions = useMemo(
+    () => questions.filter((q) => selectedCategories.includes(q.category)),
+    [questions, selectedCategories]
+  );
+
   const [sessionQuestions, setSessionQuestions, clearSessionQuestions] =
-    useLocalStorage<PartikersQuestion[]>("partikers.questions", questions);
+    useLocalStorage<PartikersQuestion[]>("partikers.questions", filteredQuestions);
 
   const [playRightSound] = useSound(rightSoundFile);
   const [playWrongSound] = useSound(wrongSoundFile);
@@ -143,7 +158,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       setCurrentQuestion(poppedQuestion);
       setSessionQuestions([...sessionQuestions]);
       if (sessionQuestions.length <= 0) {
-        setSessionQuestions([...questions]);
+        setSessionQuestions([...filteredQuestions]);
       }
       if (
         deck.length +
@@ -174,7 +189,7 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
       setCurrentQuestion(poppedQuestion);
     }
   }, [
-    questions,
+    filteredQuestions,
     sessionQuestions,
     currentQuestion,
     setSessionQuestions,
@@ -313,10 +328,22 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
     ]
   );
 
+  const toggleCategory = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const categoryCount = (category: string) =>
+    questions.filter((q) => q.category === category).length;
+
   const startGame = useCallback(() => {
     reset();
+    setSessionQuestions([...filteredQuestions]);
     setGameState("playing");
-  }, [reset, setGameState]);
+  }, [reset, setGameState, filteredQuestions, setSessionQuestions]);
 
   useEffect(() => {
     if (roundState === "playing") {
@@ -587,6 +614,12 @@ export default function PoetryMain({ questions }: PoetryMainProps) {
             onTimeChanged={setRoundDuration}
             onWordCountChanged={setWordCount}
             onStart={startGame}
+            categories={categories}
+            selectedCategories={selectedCategories}
+            categoryCount={categoryCount}
+            onToggleCategory={toggleCategory}
+            onSelectAll={() => setSelectedCategories([...categories])}
+            onDeselectAll={() => setSelectedCategories([])}
           />
         )}
 

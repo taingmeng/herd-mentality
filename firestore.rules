@@ -3,26 +3,19 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Root games collection: anyone can read or create, no update or delete
+    // Root games collection: anyone can read; only cloud functions can write
     match /games/{gameId} {
-      allow read, create: if true;
-      allow update, delete: if false;
+      allow read: if true;
+      allow write: if false;
     }
 
-    // Plays subcollection under root games: anyone can read, create, or update, no delete
-    match /games/{gameId}/plays/{playId} {
-      allow read, create, update: if true;
-      allow delete: if false;
+    // User game document (stores playCount): user can read; only cloud functions can write
+    match /users/{userId}/games/{gameId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
     }
 
-    // Users collection: only the authenticated user matching the document id
-    // can read or create their own games subcollection, no update or delete
-    match /users/{userId}/{document=**} {
-      allow read, create: if request.auth != null && request.auth.uid == userId;
-      allow update, delete: if false;
-    }
-
-    // Plays subcollection under user games: only matching user can read, create, or update, no delete
+    // Plays subcollection: only matching user can read, create, or update, no delete
     match /users/{userId}/games/{gameId}/plays/{playId} {
       allow read, create, update: if request.auth != null && request.auth.uid == userId;
       allow delete: if false;

@@ -68,9 +68,11 @@ export default function Main({ questions }: MainProps) {
     DEFAULT_STATE
   );
 
+  const [hasStartedThisSession, setHasStartedThisSession] = useState(false);
+
   useGamePlayTracking(
     GAME_PATH,
-    gameState.screen !== "setup",
+    hasStartedThisSession,
     gameState.screen === "game-over"
   );
 
@@ -91,6 +93,8 @@ export default function Main({ questions }: MainProps) {
       const remaining = Math.max(0, TIMER_DURATION - elapsed);
       timerRef.current?.reset(remaining);
       timerRef.current?.go();
+    } else {
+      timerRef.current?.reset();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.screen]);
@@ -132,11 +136,13 @@ export default function Main({ questions }: MainProps) {
 
   const onNewGame = useCallback(() => {
     setGameState(DEFAULT_STATE);
+    setHasStartedThisSession(false);
     timerRef.current?.reset();
   }, [setGameState]);
 
   function clearCache() {
     setGameState(DEFAULT_STATE);
+    setHasStartedThisSession(false);
   }
 
   const NAV_MENU: NavMenu[] = [
@@ -179,19 +185,30 @@ export default function Main({ questions }: MainProps) {
       ? { ...newState, usedIndices: [next.index], currentWord: next.word, currentCategory: next.category }
       : newState
     );
+    setHasStartedThisSession(true);
   }, [gameState.mode, gameState.targetScore, categories, pickNextWord, setGameState]);
 
   const onCorrect = useCallback(() => {
     playRightSound();
     setGameState((prev) => {
-      const updated = {
-        ...prev,
-        roundScore: prev.roundScore + 1,
-        roundWords: [
-          ...prev.roundWords,
-          { word: prev.currentWord, category: prev.currentCategory, result: "correct" as const },
-        ],
-      };
+      const newRoundScore = prev.roundScore + 1;
+      const newTotal = prev.totalScore + newRoundScore;
+      const updatedWords = [
+        ...prev.roundWords,
+        { word: prev.currentWord, category: prev.currentCategory, result: "correct" as const },
+      ];
+
+      if (newTotal >= prev.targetScore) {
+        return {
+          ...prev,
+          roundScore: newRoundScore,
+          roundWords: updatedWords,
+          screen: "game-over" as GameScreen,
+          totalScore: newTotal,
+        };
+      }
+
+      const updated = { ...prev, roundScore: newRoundScore, roundWords: updatedWords };
       const next = pickNextWord(updated);
       if (next) {
         return { ...updated, usedIndices: [...updated.usedIndices, next.index], currentWord: next.word, currentCategory: next.category };
@@ -237,7 +254,6 @@ export default function Main({ questions }: MainProps) {
         totalScore: newTotal,
       };
     });
-    timerRef.current?.reset();
   }, [playTimesUpSound, setGameState]);
 
   const onNextRound = useCallback(() => {

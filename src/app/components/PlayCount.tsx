@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getCountFromServer } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
 import Image from "next/image";
 
@@ -9,8 +9,8 @@ export default function PlayCount({ gameId }: { gameId: string }) {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    getCountFromServer(collection(firestore, "games", gameId, "plays"))
-      .then((snapshot) => setCount(snapshot.data().count))
+    getDoc(doc(firestore, "games", gameId))
+      .then((snap) => setCount(snap.exists() ? (snap.data().playCount ?? 0) : 0))
       .catch(() => {});
   }, [gameId]);
 

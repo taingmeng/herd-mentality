@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, getCountFromServer, limit, orderBy, query, Timestamp } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/AuthContext";
 import Modal from "./Modal";
@@ -9,8 +9,8 @@ import Image from "next/image";
 
 interface PlayLog {
   id: string;
-  startTime: Timestamp;
-  endTime?: Timestamp;
+  startedAt: Timestamp;
+  endedAt?: Timestamp;
 }
 
 function formatDateTime(ts: Timestamp): string {
@@ -35,8 +35,8 @@ export default function MyPlayLogs({ gameId }: { gameId: string }) {
 
   useEffect(() => {
     if (!user) return;
-    getCountFromServer(collection(firestore, "users", user.uid, "games", gameId, "plays"))
-      .then((snap) => setCount(snap.data().count))
+    getDoc(doc(firestore, "users", user.uid, "games", gameId))
+      .then((snap) => setCount(snap.exists() ? (snap.data().playCount ?? 0) : 0))
       .catch(() => {});
   }, [user, gameId]);
 
@@ -44,9 +44,12 @@ export default function MyPlayLogs({ gameId }: { gameId: string }) {
     setOpen(true);
     if (logs !== null || !user) return;
     try {
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
       const q = query(
         collection(firestore, "users", user.uid, "games", gameId, "plays"),
-        orderBy("startTime", "desc"),
+        where("startedAt", ">=", Timestamp.fromDate(ninetyDaysAgo)),
+        orderBy("startedAt", "desc"),
         limit(30)
       );
       const snap = await getDocs(q);
@@ -78,11 +81,11 @@ export default function MyPlayLogs({ gameId }: { gameId: string }) {
             {logs.map((log, i) => (
               <li key={log.id} className="py-3 flex flex-col gap-0.5">
                 <span className="text-white text-sm font-medium">Play #{logs.length - i}</span>
-                <span className="text-gray-400 text-sm">Started: {formatDateTime(log.startTime)}</span>
-                {log.endTime ? (
+                <span className="text-gray-400 text-sm">Started: {formatDateTime(log.startedAt)}</span>
+                {log.endedAt ? (
                   <>
-                    <span className="text-gray-400 text-sm">Ended: {formatDateTime(log.endTime)}</span>
-                    <span className="text-pink-400 text-sm">Duration: {formatDuration(log.startTime, log.endTime)}</span>
+                    <span className="text-gray-400 text-sm">Ended: {formatDateTime(log.endedAt)}</span>
+                    <span className="text-pink-400 text-sm">Duration: {formatDuration(log.startedAt, log.endedAt)}</span>
                   </>
                 ) : (
                   <span className="text-yellow-500 text-sm">Incomplete</span>
