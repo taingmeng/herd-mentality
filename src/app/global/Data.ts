@@ -1,5 +1,18 @@
 export const games = [
   {
+    title: "So Cloverz",
+    playerCount: "2-6 Players",
+    duration: "30–45 Min",
+    age: "Age: 10+",
+    playPath: "/so-cloverz",
+    imagePath: "/so-cloverz/icon.png",
+    paragraphs: [
+      "Deal a set of clover cards, each with four category words — one on every edge. Shuffle four cards face-down into a 2×2 grid and reveal them.",
+      "Give one-word clues that connect each pair of touching words between adjacent cards. The trickier the connections, the more impressive the round!",
+    ],
+    tags: ["no setup", "co-op", "word association"],
+  },
+  {
     title: "Anomiaz",
     playerCount: "3-8 Players",
     duration: "15-30 Min",

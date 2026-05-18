@@ -51,20 +51,19 @@ const SYMBOL_COLORS: Record<string, string> = {
   "\u00A7": "#ec4899",
 };
 
-function generateDeck(categorySequence: string[], numCards: number): Card[] {
-  const wildCount = Math.floor(numCards * 0.08);
+function generateDeck(categorySequence: string[], numCards: number, activeSymbols: string[], wildCount: number): Card[] {
   const categoryCount = numCards - wildCount;
 
   const deck: Card[] = [];
 
   for (let i = 0; i < categoryCount; i++) {
     const category = categorySequence[i];
-    const symbol = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    const symbol = activeSymbols[Math.floor(Math.random() * activeSymbols.length)];
     deck.push({ type: "category", category, symbol });
   }
 
   for (let i = 0; i < wildCount; i++) {
-    const shuffledSymbols = shuffle([...SYMBOLS]);
+    const shuffledSymbols = shuffle([...activeSymbols]);
     const symbols: [string, string] = [shuffledSymbols[0], shuffledSymbols[1]];
     deck.push({ type: "wild", symbols });
   }
@@ -150,7 +149,9 @@ export default function Main({ categories }: MainProps) {
   );
 
   const startGame = () => {
-    const wildCount = Math.floor(numCards * 0.08);
+    const isTwoPlayer = parsedNames.length === 2;
+    const activeSymbols = isTwoPlayer ? SYMBOLS.slice(0, 4) : SYMBOLS;
+    const wildCount = isTwoPlayer ? 0 : Math.floor(numCards * 0.08);
     const categoryCount = numCards - wildCount;
 
     // Build category sequence by draining the persistent pool, refilling when empty
@@ -162,7 +163,7 @@ export default function Main({ categories }: MainProps) {
     }
     setCategoryPool(pool);
 
-    const deck = generateDeck(sequence, numCards);
+    const deck = generateDeck(sequence, numCards, activeSymbols, wildCount);
     const initialPlayers: Player[] = parsedNames.map((name) => ({
       name,
       cards: [],
@@ -529,7 +530,7 @@ export default function Main({ categories }: MainProps) {
                   value={numCards}
                   onChange={(e) => setNumCards(Number(e.target.value))}
                 >
-                  {[100, 200, 300, 400, 500].map((n) => (
+                  {[50, 100, 200, 300, 400, 500].map((n) => (
                     <option key={n} value={n} className="bg-neutral-800">
                       {n}
                     </option>
@@ -541,7 +542,7 @@ export default function Main({ categories }: MainProps) {
             <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex">
               <div className="fixed flex h-24 bottom-4 pb-4 gap-2 mb-4 left-0 right-0 p-4 justify-center">
                 <BigButton
-                  disabled={parsedNames.length < 3}
+                  disabled={parsedNames.length < 2}
                   onClick={startGame}
                 >
                   Start Game
