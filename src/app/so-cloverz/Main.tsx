@@ -163,18 +163,64 @@ function CloverCard({
   );
 }
 
+function DifficultyToggle({
+  label,
+  count,
+  active,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex flex-col items-center px-6 py-3 rounded-xl border-2 transition-colors cursor-pointer ${
+        active
+          ? "bg-emerald-700 border-emerald-400 text-white"
+          : "bg-neutral-800 border-neutral-600 text-neutral-400"
+      }`}
+    >
+      <span className="text-lg font-bold">{label}</span>
+      <span className="text-xs mt-0.5 opacity-70">{count} words</span>
+    </button>
+  );
+}
+
 function SetupScreen({
   additionalTiles,
   onAdditionalTilesChange,
+  useEasy,
+  useHard,
+  easyCount,
+  hardCount,
+  onToggleEasy,
+  onToggleHard,
   onStart,
 }: {
   additionalTiles: number;
   onAdditionalTilesChange: (n: number) => void;
+  useEasy: boolean;
+  useHard: boolean;
+  easyCount: number;
+  hardCount: number;
+  onToggleEasy: () => void;
+  onToggleHard: () => void;
   onStart: () => void;
 }) {
+  const canStart = useEasy || useHard;
   return (
     <div className="flex flex-col items-center gap-8 w-full max-w-md mt-8">
       <h1 className="text-3xl font-bold">{GAME_NAME}</h1>
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-lg text-neutral-300">Difficulty</p>
+        <div className="flex gap-4">
+          <DifficultyToggle label="Easy" count={easyCount} active={useEasy} onClick={onToggleEasy} />
+          <DifficultyToggle label="Hard" count={hardCount} active={useHard} onClick={onToggleHard} />
+        </div>
+      </div>
       <div className="flex flex-col items-center gap-4">
         <p className="text-lg text-neutral-300">Additional random tiles</p>
         <div className="flex gap-4">
@@ -196,7 +242,7 @@ function SetupScreen({
           {4 + additionalTiles} cards will be dealt
         </p>
       </div>
-      <BigButton onClick={onStart}>Start Game</BigButton>
+      <BigButton onClick={onStart} disabled={!canStart}>Start Game</BigButton>
     </div>
   );
 }
@@ -248,7 +294,7 @@ function EdgeLabel({ a, b, vertical = false, flip = false }: { a: string; b: str
   if (vertical) {
     return (
       <div style={base}>
-        <span style={{ color: "#94a3b8", fontSize: "9px" }}>write a word for </span>
+        <span style={{ color: "#94a3b8", fontSize: "9px" }}>Write a one-word clue for </span>
         <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>{a}</span>
         <span style={{ color: "#94a3b8", fontSize: "11px", fontWeight: 700 }}> & </span>
         <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>{b}</span>
@@ -257,7 +303,7 @@ function EdgeLabel({ a, b, vertical = false, flip = false }: { a: string; b: str
   }
   return (
     <div style={base}>
-      <div style={{ color: "#94a3b8", fontSize: "9px", lineHeight: 1.2 }}>write a word for</div>
+      <div style={{ color: "#94a3b8", fontSize: "9px", lineHeight: 1.2 }}>Write a one-word clue for</div>
       <div style={{ fontSize: "11px", fontWeight: 700 }}>
         <span style={{ color: "#fbbf24" }}>{a}</span>
         <span style={{ color: "#94a3b8" }}> & </span>
@@ -323,11 +369,13 @@ function ShuffledScreen({
   );
 }
 
-export default function Main({ words }: { words: string[] }) {
+export default function Main({ easyWords, hardWords }: { easyWords: string[]; hardWords: string[] }) {
   const [showRules, setShowRules] = useState(false);
   const fullScreenHandle = useFullScreenHandle();
   const [phase, setPhase] = useLocalStorage<Phase>(`${GAME_PATH}.phase`, "setup");
   useGamePlayTracking(GAME_PATH, phase !== "setup", false);
+  const [useEasy, setUseEasy] = useLocalStorage<boolean>(`${GAME_PATH}.useEasy`, true);
+  const [useHard, setUseHard] = useLocalStorage<boolean>(`${GAME_PATH}.useHard`, false);
   const [additionalTiles, setAdditionalTiles] = useLocalStorage<number>(
     `${GAME_PATH}.additionalTiles`,
     1
@@ -345,16 +393,22 @@ export default function Main({ words }: { words: string[] }) {
     []
   );
 
+  const activeWords = [
+    ...(useEasy ? easyWords : []),
+    ...(useHard ? hardWords : []),
+  ];
+
   const startGame = useCallback(() => {
     const cardCount = 4 + additionalTiles;
-    const shuffledWords = shuffle([...words]);
+    const shuffledWords = shuffle([...activeWords]);
     const cards: CloverCardData[] = Array.from({ length: cardCount }, (_, i) => ({
       words: shuffledWords.slice(i * 4, i * 4 + 4) as [string, string, string, string],
     }));
     setDisplayedCards(cards);
     setPlacedCards([]);
     setPhase("playing");
-  }, [additionalTiles, words, setDisplayedCards, setPlacedCards, setPhase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [additionalTiles, useEasy, useHard, setDisplayedCards, setPlacedCards, setPhase]);
 
   const handleShuffle = useCallback(() => {
     const shuffled = shuffle([...displayedCards]);
@@ -416,6 +470,12 @@ export default function Main({ words }: { words: string[] }) {
             <SetupScreen
               additionalTiles={additionalTiles}
               onAdditionalTilesChange={setAdditionalTiles}
+              useEasy={useEasy}
+              useHard={useHard}
+              easyCount={easyWords.length}
+              hardCount={hardWords.length}
+              onToggleEasy={() => setUseEasy(!useEasy)}
+              onToggleHard={() => setUseHard(!useHard)}
               onStart={startGame}
             />
           )}
