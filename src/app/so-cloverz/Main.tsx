@@ -399,16 +399,19 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
   ];
 
   const startGame = useCallback(() => {
+    const words = [
+      ...(useEasy ? easyWords : []),
+      ...(useHard ? hardWords : []),
+    ];
     const cardCount = 4 + additionalTiles;
-    const shuffledWords = shuffle([...activeWords]);
+    const shuffledWords = shuffle([...words]);
     const cards: CloverCardData[] = Array.from({ length: cardCount }, (_, i) => ({
       words: shuffledWords.slice(i * 4, i * 4 + 4) as [string, string, string, string],
     }));
     setDisplayedCards(cards);
     setPlacedCards([]);
     setPhase("playing");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [additionalTiles, useEasy, useHard, setDisplayedCards, setPlacedCards, setPhase]);
+  }, [additionalTiles, useEasy, useHard, easyWords, hardWords, setDisplayedCards, setPlacedCards, setPhase]);
 
   const handleShuffle = useCallback(() => {
     const shuffled = shuffle([...displayedCards]);
