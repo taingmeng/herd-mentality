@@ -1,24 +1,19 @@
 import path from "path";
-import fs from "fs";
+import csv from "csvtojson";
 import Main from "../Main";
 import { GAME_PATH } from "../Constants";
 
 export const dynamic = "force-dynamic";
 
-function readWordList(filePath: string): string[] {
-  const abs = path.join(process.cwd(), filePath);
-  if (!fs.existsSync(abs)) return [];
-  return fs
-    .readFileSync(abs, "utf8")
-    .split("\n")
-    .map((w) => w.trim())
-    .filter(Boolean);
-}
+export default async function Page() {
+  const questionPath = path.join(
+    process.cwd(),
+    `src/app/${GAME_PATH}/data/questions.csv`
+  );
+  const entries: { word: string; category: string }[] = await csv().fromFile(questionPath);
 
-export default function Page() {
-  const base = `src/app/${GAME_PATH}/data`;
-  const easyWords = readWordList(`${base}/easy.csv`);
-  const hardWords = readWordList(`${base}/hard.csv`);
+  const easyWords = entries.filter((e) => e.category === "easy").map((e) => e.word);
+  const hardWords = entries.filter((e) => e.category === "hard").map((e) => e.word);
 
   return <Main easyWords={easyWords} hardWords={hardWords} />;
 }

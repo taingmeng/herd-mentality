@@ -393,11 +393,6 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
     []
   );
 
-  const activeWords = [
-    ...(useEasy ? easyWords : []),
-    ...(useHard ? hardWords : []),
-  ];
-
   const startGame = useCallback(() => {
     const words = [
       ...(useEasy ? easyWords : []),
