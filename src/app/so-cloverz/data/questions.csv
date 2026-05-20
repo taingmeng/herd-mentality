@@ -232,6 +232,7 @@ Branch,easy
 Bravado,hard
 Brave,hard
 Bread,easy
+Brick,easy
 Bridge,easy
 Bright,hard
 Brine,hard
@@ -442,6 +443,7 @@ Crater,hard
 Crayon,hard
 Cream,easy
 Create,hard
+Creek,easy
 Crepe,hard
 Crescent,easy
 Crest,hard
@@ -618,7 +620,7 @@ Fair,easy
 Fairy,easy
 Family,easy
 Famine,hard
-Farm,hard
+Farm,easy
 Farmer,hard
 Fashion,easy
 Fast,easy
@@ -1408,6 +1410,7 @@ Season,easy
 Secret,easy
 Seed,hard
 Sense,easy
+Serendipity,hard
 Serene,hard
 Series,easy
 Sewer,easy
@@ -1620,6 +1623,7 @@ Tornado,easy
 Torrent,hard
 Toucan,hard
 Tournament,hard
+Towel,easy
 Tower,hard
 Town,easy
 Toy,easy
@@ -1754,5 +1758,4 @@ Yogurt,hard
 Young,easy
 Zebra,hard
 Zipper,hard
-Zoo,easy
-farm,easy
+ZooPebble,easy

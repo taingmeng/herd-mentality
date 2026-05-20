@@ -34,7 +34,9 @@
       "Bash(mv /tmp/etc_tmp.csv \"src/app/monikerz/data/Et Cetera.csv\")",
       "Bash(npx tsc *)",
       "Bash(awk 'NR==1 { print; next } { lower=tolower\\($0\\); if \\(!seen[lower]++\\) print }' /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/questions.csv)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/easy.csv)",
+      "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/hard.csv)"
     ]
   }
 }

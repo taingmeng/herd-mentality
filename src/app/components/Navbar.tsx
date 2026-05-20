@@ -63,6 +63,7 @@ export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", header
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const { user, loading, signInWithGoogle, signOutUser } = useAuth();
+  const navRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     function onScroll() {
@@ -72,6 +73,16 @@ export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", header
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  React.useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (open && navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [open]);
+
   const gameMenus = menus.length > 0 ? [HOME_MENU, ...menus] : [];
 
   function handleOpen() {
@@ -79,7 +90,7 @@ export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", header
   }
 
   return (
-    <div className="fixed z-40 top-0 left-0 right-0">
+    <div className="fixed z-40 top-0 left-0 right-0" ref={navRef}>
       <div
         className={`w-full px-4 transition-colors duration-300 ${scrolled || open ? "bg-neutral-900" : ""}`}
       >
