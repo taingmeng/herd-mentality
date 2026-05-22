@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import useSound from "@/app/hooks/useSound";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
@@ -71,6 +71,33 @@ function generateDeck(categorySequence: string[], numCards: number, activeSymbol
   return shuffle(deck);
 }
 
+function getBaseWordSize(word: string): number {
+  const len = word.length;
+  if (len <= 8)  return 24;
+  if (len <= 13) return 20;
+  if (len <= 18) return 16;
+  return 12;
+}
+
+function SettingsSlider({ label, value, min, max, step, unit = "", onChange }: {
+  label: string; value: number; min: number; max: number; step: number; unit?: string;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex justify-between text-sm">
+        <span className="text-gray-300">{label}</span>
+        <span className="text-pink-400 font-mono font-bold">{value}{unit}</span>
+      </div>
+      <input
+        type="range" min={min} max={max} step={step} value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full accent-pink-500 cursor-pointer"
+      />
+    </div>
+  );
+}
+
 export default function Main({ categories }: MainProps) {
   const [showRules, setShowRules] = useState(false);
   const playFaceOffSound = useSound(rightSoundFile);
@@ -123,6 +150,22 @@ export default function Main({ categories }: MainProps) {
     `${GAME_PATH}.categoryPool`,
     []
   );
+
+  const [faceOffCursor, setFaceOffCursor] = useState<number | null>(null);
+
+  useEffect(() => {
+    setFaceOffCursor(null);
+  }, [faceOff?.player1Index, faceOff?.player2Index]);
+
+  // Display settings
+  const [showSettings, setShowSettings] = useState(false);
+  const [symbolSize, setSymbolSize] = useLocalStorage<number>(`${GAME_PATH}.symbolSize`, 56);
+  const [wordFontSize, setWordFontSize] = useLocalStorage<number>(`${GAME_PATH}.wordFontSize`, 100);
+  const [cardWidth, setCardWidth] = useLocalStorage<number>(`${GAME_PATH}.cardWidth`, 134);
+  const [cardHeight, setCardHeight] = useLocalStorage<number>(`${GAME_PATH}.cardHeight`, 188);
+  const [cardGap, setCardGap] = useLocalStorage<number>(`${GAME_PATH}.cardGap`, 4);
+  const [verticalGap, setVerticalGap] = useLocalStorage<number>(`${GAME_PATH}.verticalGap`, 24);
+  const [arcAngle, setArcAngle] = useLocalStorage<number>(`${GAME_PATH}.arcAngle`, 0);
 
   const parsedTopNames = useMemo(
     () =>
@@ -326,6 +369,30 @@ export default function Main({ categories }: MainProps) {
     setFaceOff(null);
   };
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (gameState !== "gameplay") return;
+      if (faceOff) {
+        const options = [faceOff.player1Index, faceOff.player2Index];
+        if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
+          e.preventDefault();
+          setFaceOffCursor(prev =>
+            prev === null ? options[0] : options[1 - options.indexOf(prev)]
+          );
+        } else if (e.code === "Space" && faceOffCursor !== null) {
+          e.preventDefault();
+          playBonusSound();
+          resolveFaceOff(faceOffCursor);
+        }
+      } else if (remainingCards.length > 0 && e.code === "Space") {
+        e.preventDefault();
+        dealCard();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [gameState, faceOff, faceOffCursor, remainingCards, dealCard, resolveFaceOff, playBonusSound]);
+
   const isInFaceOff = (playerIndex: number): boolean => {
     if (!faceOff) return false;
     return (
@@ -363,6 +430,11 @@ export default function Main({ categories }: MainProps) {
       onClick: fullScreenHandle.enter,
     },
     {
+      name: "Display",
+      icon: "/icons/controller.svg",
+      onClick: () => setShowSettings(true),
+    },
+    {
       name: "Rules",
       icon: "/icons/book.svg",
       onClick: () => setShowRules(true),
@@ -375,27 +447,33 @@ export default function Main({ categories }: MainProps) {
   ];
 
 
-  const getCategoryTextSize = (category: string) => {
-    const len = category.length;
-    if (len <= 8)  return "text-[24px] sm:text-[30px]";
-    if (len <= 13) return "text-[20px] sm:text-[24px]";
-    if (len <= 18) return "text-[16px] sm:text-[20px]";
-    return "text-[12px] sm:text-[16px]";
-  };
-
   const renderPlayerCard = (
     player: Player,
     index: number,
-    position: "top" | "bottom"
+    position: "top" | "bottom",
+    arcIndex: number,
+    arcTotal: number,
   ) => {
-    const topCard =
-      player.cards.length > 0 ? player.cards[player.cards.length - 1] : null;
+    const topCard = player.cards.length > 0 ? player.cards[player.cards.length - 1] : null;
     const inFaceOff = isInFaceOff(index);
     const isCurrentPlayer = index === currentPlayerIndex && !faceOff;
+    const isCursorSelected = faceOff !== null && faceOffCursor === index;
+
+    const centerIdx = (arcTotal - 1) / 2;
+    const offset = arcIndex - centerIdx;
+    const maxAngleRad = centerIdx * arcAngle * Math.PI / 180;
+    const cardAngleRad = Math.abs(offset) * arcAngle * Math.PI / 180;
+    const yOffset = position === "top"
+      ? 200 * (Math.cos(maxAngleRad) - Math.cos(cardAngleRad))
+      : 200 * (Math.cos(cardAngleRad) - Math.cos(maxAngleRad));
+    const rotationDeg = (position === "bottom" ? -offset : offset) * arcAngle;
+    const arcTransform = arcAngle !== 0
+      ? `translateY(${yOffset.toFixed(1)}px) rotate(${rotationDeg.toFixed(1)}deg)`
+      : undefined;
 
     const nameEl = (
       <span
-        className={`text-sm sm:text-base font-bold truncate max-w-[20vw] ${
+        className={`text-sm font-bold truncate max-w-[20vw] ${
           isCurrentPlayer ? "text-pink-400" : "text-white"
         }`}
       >
@@ -407,6 +485,7 @@ export default function Main({ categories }: MainProps) {
       <div
         key={player.name}
         className="flex flex-col items-center gap-1 cursor-pointer"
+        style={arcTransform ? { transform: arcTransform } : undefined}
         onClick={() => {
           if (inFaceOff && faceOff) {
             playBonusSound();
@@ -414,39 +493,37 @@ export default function Main({ categories }: MainProps) {
           }
         }}
       >
-        {/* Player name above card for top row */}
         {position === "top" && nameEl}
 
-        {/* Card */}
         {topCard && topCard.type === "category" ? (
           <div
-            className={`relative flex flex-col items-center justify-between rounded-xl border-2 bg-white p-2 sm:p-3 w-[134px] h-[188px] sm:w-[157px] sm:h-[220px] ${
+            className={`relative flex flex-col items-center justify-between rounded-xl border-2 bg-white p-2 ${
               inFaceOff
                 ? "border-yellow-400 animate-[glow_0.8s_ease-in-out_infinite]"
                 : isCurrentPlayer
                 ? "border-pink-400"
                 : "border-gray-300"
             }`}
+            style={{ width: cardWidth, height: cardHeight, ...(isCursorSelected ? { outline: "4px solid #ec4899", outlineOffset: "3px" } : {}) }}
           >
-            {/* Category at top (upside down) */}
-            <span className={`${getCategoryTextSize(topCard.category ?? "")} text-gray-700 font-bold text-center leading-tight w-full rotate-180`}>
+            <span
+              className="text-gray-700 font-bold text-center leading-tight w-full rotate-180"
+              style={{ fontSize: getBaseWordSize(topCard.category ?? "") * wordFontSize / 100 }}
+            >
               {topCard.category}
             </span>
-
-            {/* Symbol in center */}
             <span
-              className="text-5xl sm:text-[67px] font-bold"
-              style={{ color: SYMBOL_COLORS[topCard.symbol || "@"] }}
+              className="text-gray-700 font-bold text-center leading-tight w-full"
+              style={{ fontSize: getBaseWordSize(topCard.category ?? "") * wordFontSize / 100 }}
+            >
+              {topCard.category}
+            </span>
+            <span
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold"
+              style={{ fontSize: symbolSize, color: SYMBOL_COLORS[topCard.symbol || "@"] }}
             >
               {topCard.symbol}
             </span>
-
-            {/* Category at bottom (right-side up) */}
-            <span className={`${getCategoryTextSize(topCard.category ?? "")} text-gray-700 font-bold text-center leading-tight w-full`}>
-              {topCard.category}
-            </span>
-
-            {/* Card count badge */}
             {player.cards.length > 1 && (
               <span className="absolute -bottom-2 -right-2 bg-gray-700 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center">
                 {player.cards.length}
@@ -455,19 +532,19 @@ export default function Main({ categories }: MainProps) {
           </div>
         ) : (
           <div
-            className={`flex flex-col items-center justify-center rounded-xl border-2 w-[134px] h-[188px] sm:w-[157px] sm:h-[220px] ${
+            className={`flex flex-col items-center justify-center rounded-xl border-2 ${
               inFaceOff
                 ? "border-yellow-400 animate-[glow_0.8s_ease-in-out_infinite]"
                 : isCurrentPlayer
                 ? "border-pink-400 border-dashed"
                 : "border-gray-600 border-dashed"
             }`}
+            style={{ width: cardWidth, height: cardHeight, ...(isCursorSelected ? { outline: "4px solid #ec4899", outlineOffset: "3px" } : {}) }}
           >
             <span className="text-xs text-gray-500">No card</span>
           </div>
         )}
 
-        {/* Player name below card for bottom row */}
         {position === "bottom" && nameEl}
       </div>
     );
@@ -487,8 +564,47 @@ export default function Main({ categories }: MainProps) {
         visible={showRules}
         onClose={() => setShowRules(false)}
       />
+      {/* Settings panel */}
+      {showSettings && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowSettings(false)} />
+          <div className="relative w-72 sm:w-80 h-full bg-neutral-900 border-l border-gray-700 flex flex-col p-5 gap-6 overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <span className="text-white font-bold text-lg">Display</span>
+              <button
+                onClick={() => setShowSettings(false)}
+                className="text-gray-400 hover:text-white text-xl leading-none"
+              >
+                ✕
+              </button>
+            </div>
+            <SettingsSlider label="Symbol size" value={symbolSize} min={20} max={100} step={1} unit="px" onChange={setSymbolSize} />
+            <SettingsSlider label="Word scale" value={wordFontSize} min={50} max={200} step={5} unit="%" onChange={setWordFontSize} />
+            <SettingsSlider label="Card width" value={cardWidth} min={50} max={250} step={4} unit="px" onChange={setCardWidth} />
+            <SettingsSlider label="Card height" value={cardHeight} min={80} max={320} step={4} unit="px" onChange={setCardHeight} />
+            <SettingsSlider label="Horizontal gap" value={cardGap} min={0} max={120} step={4} unit="px" onChange={setCardGap} />
+            <SettingsSlider label="Vertical gap" value={verticalGap} min={0} max={200} step={4} unit="px" onChange={setVerticalGap} />
+            <SettingsSlider label="Arc" value={arcAngle} min={0} max={90} step={0.5} unit="°" onChange={setArcAngle} />
+            <button
+              onClick={() => {
+                setSymbolSize(56);
+                setWordFontSize(100);
+                setCardWidth(134);
+                setCardHeight(188);
+                setCardGap(4);
+                setVerticalGap(24);
+                setArcAngle(0);
+              }}
+              className="mt-2 w-full py-2 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 text-sm transition-colors"
+            >
+              Reset to defaults
+            </button>
+          </div>
+        </div>
+      )}
+
       <FullScreen handle={fullScreenHandle}>
-      <main className="flex flex-col min-h-[75vh] items-center justify-center px-2 pt-20 pb-20">
+      <main className="flex flex-col min-h-screen items-center justify-center px-2">
         {/* SETUP */}
         {gameState === "setup" && (
           <>
@@ -554,82 +670,75 @@ export default function Main({ categories }: MainProps) {
 
         {/* GAMEPLAY */}
         {gameState === "gameplay" && (
-          <div className="flex flex-col items-center gap-1 sm:gap-2 w-full max-w-5xl">
+          <div className="flex flex-col items-center justify-center w-full max-w-5xl flex-1" style={{ gap: verticalGap }}>
 
-            {/* Top row of players */}
-            <div className="flex flex-row gap-1 sm:gap-2 justify-center w-full">
-              {topRowPlayers.map((player, i) =>
-                renderPlayerCard(player, i, "top")
-              )}
-            </div>
-
-            {/* Center: Face-off warning (upside down) + wild card + face-off warning */}
-            <div className="flex flex-col items-center gap-1">
-              {/* Face-off indicator above wild card (upside down, always reserves space) */}
-              <div className="h-6 flex items-center justify-center">
-                {faceOff && (
-                  <span className="text-yellow-300 font-bold text-xs sm:text-sm rotate-180">
-                    FACE-OFF! Tap the loser.
-                  </span>
-                )}
-              </div>
-
-              {activeWildCard && activeWildCard.symbols ? (
-                <div
-                  className="flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-4 py-2 h-[58px] sm:h-[70px] gap-4"
-                >
-                  {/* First symbol */}
-                  <span
-                    className="text-2xl sm:text-3xl font-bold"
-                    style={{ color: SYMBOL_COLORS[activeWildCard.symbols[0]] }}
-                  >
-                    {activeWildCard.symbols[0]}
-                  </span>
-
-                  {/* Wild Card text */}
-                  <div className="flex flex-col items-center">
-                    <span className="text-sm sm:text-base text-gray-700 font-bold leading-none">
+            {/* Wild card - floating on left, rotated 90deg CCW */}
+            <div
+              className="fixed z-30"
+              style={{
+                left: "-24px",
+                top: "50%",
+                transform: "translateY(-50%) rotate(-90deg)",
+              }}
+            >
+              <div className="relative w-[160px] h-[58px] sm:h-[70px]">
+                {activeWildCard?.symbols ? (
+                  <div className="grid grid-cols-3 items-center rounded-xl border-2 border-gray-300 bg-white px-3 py-2 h-full">
+                    <span
+                      className="text-2xl sm:text-3xl font-bold"
+                      style={{ color: SYMBOL_COLORS[activeWildCard.symbols[0]] }}
+                    >
+                      {activeWildCard.symbols[0]}
+                    </span>
+                    <span className="text-sm sm:text-base text-gray-700 font-bold text-center">
                       Wild Card
                     </span>
+                    <span
+                      className="text-2xl sm:text-3xl font-bold text-right"
+                      style={{ color: SYMBOL_COLORS[activeWildCard.symbols[1]] }}
+                    >
+                      {activeWildCard.symbols[1]}
+                    </span>
                   </div>
-
-                  {/* Second symbol */}
-                  <span
-                    className="text-2xl sm:text-3xl font-bold"
-                    style={{ color: SYMBOL_COLORS[activeWildCard.symbols[1]] }}
-                  >
-                    {activeWildCard.symbols[1]}
-                  </span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 px-6 h-[58px] sm:h-[70px]">
-                  <span className="text-sm text-gray-500">No wild card</span>
-                </div>
-              )}
-
-              {/* Face-off indicator below wild card (always reserves space) */}
-              <div className="h-6 flex items-center justify-center">
-                {faceOff && (
-                  <span className="text-yellow-300 font-bold text-xs sm:text-sm">
-                    FACE-OFF! Tap the loser.
-                  </span>
+                ) : (
+                  <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 mt-4 px-4 h-full">
+                    <span className="text-sm text-gray-500">No wild</span>
+                  </div>
                 )}
+
+                {/* FACE-OFF at bottom of card (appears on the right after rotation) */}
+                <div className="absolute top-full left-0 right-0 flex justify-center mt-1">
+                  {faceOff && (
+                    <span className="text-yellow-300 font-bold text-xs text-center whitespace-nowrap">
+                      FACE-OFF! Tap the loser.
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Bottom row of players */}
-            <div className="flex flex-row gap-1 sm:gap-2 justify-center w-full">
+            {/* Top row - upper half */}
+            <div className="flex flex-row justify-center w-full" style={{ gap: cardGap }}>
+              {topRowPlayers.map((player, i) =>
+                renderPlayerCard(player, i, "top", i, topRowPlayers.length)
+              )}
+            </div>
+
+            {/* Bottom row - lower half */}
+            <div className="flex flex-row justify-center w-full" style={{ gap: cardGap }}>
               {bottomRowPlayers.map((player, i) =>
                 renderPlayerCard(
                   player,
                   topRowCount + (bottomRowPlayers.length - 1 - i),
-                  "bottom"
+                  "bottom",
+                  i,
+                  bottomRowPlayers.length
                 )
               )}
             </div>
 
             {/* Deal button - fixed to right edge */}
-            <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2">
+            <div className="fixed right-4 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-2">
               <span className="text-[10px] sm:text-xs text-gray-400 text-center">
                 {remainingCards.length} left
               </span>
@@ -650,28 +759,35 @@ export default function Main({ categories }: MainProps) {
             <h2 className="text-3xl font-bold">Final Scores</h2>
 
             <div className="w-full max-w-md flex flex-col gap-3">
-              {sortedResults.map((player, index) => (
-                <div
-                  key={player.name}
-                  className={`flex flex-row items-center justify-between rounded-lg p-4 ${
-                    index === 0
-                      ? "border-2 border-pink-400 bg-pink-950"
-                      : "border border-pink-600"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-400 font-bold text-lg">
-                      #{index + 1}
-                    </span>
-                    <span className="text-white font-bold text-xl">
-                      {player.name}
+              {sortedResults.map((player, index) => {
+                const isTopScorer = player.score === sortedResults[0].score;
+                return (
+                  <div
+                    key={player.name}
+                    className={`flex flex-row items-center justify-between rounded-lg p-4 ${
+                      isTopScorer
+                        ? "border-2 border-pink-400 bg-pink-950"
+                        : "border border-pink-600"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={isTopScorer ? "/icons/crown.svg" : "/icons/pile-of-poo.svg"}
+                        width="28"
+                        height="28"
+                        alt={isTopScorer ? "Winner" : ""}
+                      />
+                      <span className="text-white font-bold text-xl">
+                        {player.name}
+                      </span>
+                    </div>
+                    <span className="text-pink-400 font-bold text-2xl">
+                      {player.score} pts
                     </span>
                   </div>
-                  <span className="text-pink-400 font-bold text-2xl">
-                    {player.score} pts
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex">

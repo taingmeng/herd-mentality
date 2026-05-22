@@ -3,6 +3,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import BigButton from "../components/BigButton";
+import { Modal } from "../components/Modal";
 import Rules from "../components/Rules";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -24,13 +25,20 @@ const ROTATIONS = [0, 90, 180, 270];
 
 function isCorrect(card: PlacedCard | null, target: PlacedCard): boolean {
   if (!card) return false;
-  return card.words.every((w, i) => w === target.words[i]) && card.rotation === target.rotation;
+  return (
+    card.words.every((w, i) => w === target.words[i]) &&
+    card.rotation === target.rotation
+  );
 }
 
 // Returns which word indices to highlight based on grid position and card rotation.
 // Physical outer edges: top if row=0, right if col=1, bottom if row=1, left if col=0.
 // Rotation maps physical edges back to word indices: index = (edgeIdx - rotSteps + 4) % 4
-function getHighlightedWordIndices(row: number, col: number, rotation: number): number[] {
+function getHighlightedWordIndices(
+  row: number,
+  col: number,
+  rotation: number,
+): number[] {
   const outerEdges: number[] = [];
   if (row === 0) outerEdges.push(0); // top
   if (col === 1) outerEdges.push(1); // right
@@ -38,7 +46,7 @@ function getHighlightedWordIndices(row: number, col: number, rotation: number): 
   if (col === 0) outerEdges.push(3); // left
 
   const rotSteps = rotation / 90;
-  return outerEdges.map((e) => ((e - rotSteps) % 4 + 4) % 4);
+  return outerEdges.map((e) => (((e - rotSteps) % 4) + 4) % 4);
 }
 
 // Renders text inside a container, shrinking the font size until the text fits.
@@ -64,8 +72,10 @@ function FitText({
     if (!container || !textEl) return;
 
     // Match the navbar game title (text-lg = 18px); shrink only if it doesn't fit.
-    const constrainingDim = vertical ? container.clientWidth : container.clientHeight;
-    let size = Math.min(Math.max(Math.round(constrainingDim * 0.70), 8), 18);
+    const constrainingDim = vertical
+      ? container.clientWidth
+      : container.clientHeight;
+    let size = Math.min(Math.max(Math.round(constrainingDim * 0.7), 8), 18);
     textEl.style.fontSize = `${size}px`;
 
     while (size > 8) {
@@ -154,7 +164,12 @@ function CloverCard({
       {/* Left strip — 22% width, middle 56% height, rotated so text reads bottom-to-top */}
       <div
         className="absolute left-0"
-        style={{ top: "22%", bottom: "22%", width: "22%", transform: "rotate(180deg)" }}
+        style={{
+          top: "22%",
+          bottom: "22%",
+          width: "22%",
+          transform: "rotate(180deg)",
+        }}
       >
         <FitText text={words[3]} vertical color={color(3)} shadow={shadow(3)} />
       </div>
@@ -204,6 +219,8 @@ function SetupScreen({
   hardCount,
   onToggleEasy,
   onToggleHard,
+  clueMode,
+  onClueModeChange,
   onStart,
 }: {
   additionalTiles: number;
@@ -214,17 +231,28 @@ function SetupScreen({
   hardCount: number;
   onToggleEasy: () => void;
   onToggleHard: () => void;
+  clueMode: "paper" | "digital";
+  onClueModeChange: (mode: "paper" | "digital") => void;
   onStart: () => void;
 }) {
   const canStart = useEasy || useHard;
   return (
     <div className="flex flex-col items-center gap-8 w-full max-w-md mt-8">
-      <h1 className="text-3xl font-bold">{GAME_NAME}</h1>
       <div className="flex flex-col items-center gap-3">
         <p className="text-lg text-neutral-300">Difficulty</p>
         <div className="flex gap-4">
-          <DifficultyToggle label="Easy" count={easyCount} active={useEasy} onClick={onToggleEasy} />
-          <DifficultyToggle label="Hard" count={hardCount} active={useHard} onClick={onToggleHard} />
+          <DifficultyToggle
+            label="Easy"
+            count={easyCount}
+            active={useEasy}
+            onClick={onToggleEasy}
+          />
+          <DifficultyToggle
+            label="Hard"
+            count={hardCount}
+            active={useHard}
+            onClick={onToggleHard}
+          />
         </div>
       </div>
       <div className="flex flex-col items-center gap-4">
@@ -248,7 +276,36 @@ function SetupScreen({
           {4 + additionalTiles} cards will be dealt
         </p>
       </div>
-      <BigButton onClick={onStart} disabled={!canStart} className="!h-10 !text-base !py-2">Start Game</BigButton>
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-lg text-neutral-300">Write clues</p>
+        <div className="flex gap-4">
+          {(["paper", "digital"] as const).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => onClueModeChange(mode)}
+              className={`flex flex-col items-center px-6 py-3 rounded-xl border-2 transition-colors cursor-pointer ${
+                clueMode === mode
+                  ? "bg-emerald-700 border-emerald-400 text-white"
+                  : "bg-neutral-800 border-neutral-600 text-neutral-400"
+              }`}
+            >
+              <span className="text-lg font-bold">
+                {mode === "paper" ? "On paper" : "In game"}
+              </span>
+              <span className="text-xs mt-0.5 opacity-70">
+                {mode === "paper" ? "Write clues manually" : "Type clues here"}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <BigButton
+        onClick={onStart}
+        disabled={!canStart}
+        className="!h-10 !text-base !py-2"
+      >
+        Start Game
+      </BigButton>
     </div>
   );
 }
@@ -256,11 +313,9 @@ function SetupScreen({
 function PlayingScreen({
   displayedCards,
   onShuffle,
-  onNewCards,
 }: {
   displayedCards: CloverCardData[];
   onShuffle: () => void;
-  onNewCards: () => void;
 }) {
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-sm">
@@ -270,12 +325,15 @@ function PlayingScreen({
           <CloverCard key={i} words={card.words} />
         ))}
       </div>
-      <div className="flex flex-row gap-3 w-full mt-2">
+      <p className="text-sm text-neutral-300 text-center">
+        Write down all these words in{" "}
+        <span className="font-bold text-white">{displayedCards.length}</span>{" "}
+        different cards. Then shuffle the cards and make sure to rotate them
+        randomly.
+      </p>
+      <div className="flex flex-row gap-3 w-full">
         <BigButton onClick={onShuffle} className="!h-10 !text-base !py-2">
           Shuffle
-        </BigButton>
-        <BigButton onClick={onNewCards} className="!h-10 !text-base !py-2">
-          New Cards
         </BigButton>
       </div>
     </div>
@@ -284,12 +342,29 @@ function PlayingScreen({
 
 function getWordAtPhysicalEdge(card: PlacedCard, physicalEdge: number): string {
   const rotSteps = card.rotation / 90;
-  const wordIndex = ((physicalEdge - rotSteps) % 4 + 4) % 4;
+  const wordIndex = (((physicalEdge - rotSteps) % 4) + 4) % 4;
   return card.words[wordIndex];
 }
 
-function EdgeLabel({ a, b, vertical = false, flip = false }: { a: string; b: string; vertical?: boolean; flip?: boolean }) {
+function EdgeLabel({
+  a,
+  b,
+  vertical = false,
+  flip = false,
+  clickable = false,
+  onClick,
+}: {
+  a: string;
+  b: string;
+  vertical?: boolean;
+  flip?: boolean;
+  clickable?: boolean;
+  onClick?: () => void;
+}) {
+  const prefix = clickable ? "Click here to write a one-word clue for" : "Write a one-word clue for";
   const base: React.CSSProperties = {
+    position: "relative",
+    zIndex: 10,
     background: "rgba(10, 15, 30, 0.92)",
     border: "1px solid rgba(251,191,36,0.5)",
     borderRadius: "0.5rem",
@@ -298,20 +373,33 @@ function EdgeLabel({ a, b, vertical = false, flip = false }: { a: string; b: str
     whiteSpace: "nowrap",
     writingMode: vertical ? "vertical-rl" : undefined,
     transform: flip ? "rotate(180deg)" : undefined,
+    cursor: onClick ? "pointer" : undefined,
+    opacity: onClick ? 0.8 : undefined,
   };
   if (vertical) {
     return (
-      <div style={base}>
-        <span style={{ color: "#94a3b8", fontSize: "9px" }}>Write a one-word clue for </span>
-        <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>{a}</span>
-        <span style={{ color: "#94a3b8", fontSize: "11px", fontWeight: 700 }}> & </span>
-        <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>{b}</span>
+      <div style={base} onClick={onClick} role={onClick ? "button" : undefined} tabIndex={onClick ? 0 : undefined}>
+        <span style={{ color: "#94a3b8", fontSize: "9px" }}>
+          {prefix}{" "}
+        </span>
+        <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>
+          {a}
+        </span>
+        <span style={{ color: "#94a3b8", fontSize: "11px", fontWeight: 700 }}>
+          {" "}
+          &{" "}
+        </span>
+        <span style={{ color: "#fbbf24", fontSize: "11px", fontWeight: 700 }}>
+          {b}
+        </span>
       </div>
     );
   }
   return (
-    <div style={base}>
-      <div style={{ color: "#94a3b8", fontSize: "9px", lineHeight: 1.2 }}>Write a one-word clue for</div>
+    <div style={base} onClick={onClick} role={onClick ? "button" : undefined} tabIndex={onClick ? 0 : undefined}>
+      <div style={{ color: "#94a3b8", fontSize: "9px", lineHeight: 1.2 }}>
+        {prefix}
+      </div>
       <div style={{ fontSize: "11px", fontWeight: 700 }}>
         <span style={{ color: "#fbbf24" }}>{a}</span>
         <span style={{ color: "#94a3b8" }}> & </span>
@@ -321,7 +409,17 @@ function EdgeLabel({ a, b, vertical = false, flip = false }: { a: string; b: str
   );
 }
 
-function ClueLabel({ clue, vertical = false, flip = false }: { clue: string; vertical?: boolean; flip?: boolean }) {
+function ClueLabel({
+  clue,
+  vertical = false,
+  flip = false,
+  onClick,
+}: {
+  clue: string;
+  vertical?: boolean;
+  flip?: boolean;
+  onClick?: () => void;
+}) {
   const base: React.CSSProperties = {
     background: "rgba(10, 15, 30, 0.92)",
     border: "1px solid rgba(251,191,36,0.5)",
@@ -331,10 +429,14 @@ function ClueLabel({ clue, vertical = false, flip = false }: { clue: string; ver
     whiteSpace: "nowrap",
     writingMode: vertical ? "vertical-rl" : undefined,
     transform: flip ? "rotate(180deg)" : undefined,
+    cursor: onClick ? "pointer" : undefined,
+    opacity: onClick ? 0.8 : undefined,
   };
   return (
-    <div style={base}>
-      <span style={{ color: "#fbbf24", fontSize: "14px", fontWeight: 700 }}>{clue || "?"}</span>
+    <div style={base} onClick={onClick} role={onClick ? "button" : undefined} tabIndex={onClick ? 0 : undefined}>
+      <span style={{ color: "#fbbf24", fontSize: "14px", fontWeight: 700 }}>
+        {clue || "?"}
+      </span>
     </div>
   );
 }
@@ -353,10 +455,22 @@ function WritingScreen({
   const edges =
     placedCards.length === 4
       ? [
-          { a: getWordAtPhysicalEdge(placedCards[0], 0), b: getWordAtPhysicalEdge(placedCards[1], 0) },
-          { a: getWordAtPhysicalEdge(placedCards[1], 1), b: getWordAtPhysicalEdge(placedCards[3], 1) },
-          { a: getWordAtPhysicalEdge(placedCards[2], 2), b: getWordAtPhysicalEdge(placedCards[3], 2) },
-          { a: getWordAtPhysicalEdge(placedCards[0], 3), b: getWordAtPhysicalEdge(placedCards[2], 3) },
+          {
+            a: getWordAtPhysicalEdge(placedCards[0], 0),
+            b: getWordAtPhysicalEdge(placedCards[1], 0),
+          },
+          {
+            a: getWordAtPhysicalEdge(placedCards[1], 1),
+            b: getWordAtPhysicalEdge(placedCards[3], 1),
+          },
+          {
+            a: getWordAtPhysicalEdge(placedCards[2], 2),
+            b: getWordAtPhysicalEdge(placedCards[3], 2),
+          },
+          {
+            a: getWordAtPhysicalEdge(placedCards[0], 3),
+            b: getWordAtPhysicalEdge(placedCards[2], 3),
+          },
         ]
       : [];
 
@@ -379,7 +493,9 @@ function WritingScreen({
           />
         </div>
       ))}
-      <BigButton onClick={onGuess} className="mt-2 !h-10 !text-base !py-2">Guess</BigButton>
+      <BigButton onClick={onGuess} className="mt-2 !h-10 !text-base !py-2">
+        Guess
+      </BigButton>
     </div>
   );
 }
@@ -413,7 +529,10 @@ function GuessScreen({
   onShowAnswer: () => void;
   onNewGame: () => void;
 }) {
-  const dragSrc = useRef<{ from: "pool"; index: number } | { from: "grid"; index: number } | null>(null);
+  const dragSrc = useRef<
+    { from: "pool"; index: number } | { from: "grid"; index: number } | null
+  >(null);
+  const ghostRef = useRef<HTMLDivElement | null>(null);
   const [draggingKey, setDraggingKey] = useState<string | null>(null);
 
   // Cumulative per-slot rotation (never wraps) so CSS transition always goes clockwise
@@ -435,15 +554,21 @@ function GuessScreen({
     cumulRots.current[i] += 90;
     setAnimatingSlots((prev) => (prev.includes(i) ? prev : [...prev, i]));
     onRotate(i);
-    setTimeout(() => setAnimatingSlots((prev) => prev.filter((x) => x !== i)), 520);
+    setTimeout(
+      () => setAnimatingSlots((prev) => prev.filter((x) => x !== i)),
+      520,
+    );
   }
 
   const interactive = guessAttempt < 2;
   const allFilled = grid.every((c) => c !== null);
-  const allCorrect = guessAttempt === 2 && placedCards.length === 4 && placedCards.every((t, i) => isCorrect(grid[i], t));
+  const allCorrect =
+    guessAttempt === 2 &&
+    placedCards.length === 4 &&
+    placedCards.every((t, i) => isCorrect(grid[i], t));
 
-  function locked(i: number) {
-    return guessAttempt === 1 && !!grid[i] && isCorrect(grid[i], placedCards[i]);
+  function locked(_i: number) {
+    return false;
   }
 
   function startDrag(from: "pool" | "grid", index: number) {
@@ -470,7 +595,10 @@ function GuessScreen({
       if (displaced) newPool.push(displaced);
     } else {
       if (src.index !== targetIndex) {
-        [newGrid[src.index], newGrid[targetIndex]] = [newGrid[targetIndex], newGrid[src.index]];
+        [newGrid[src.index], newGrid[targetIndex]] = [
+          newGrid[targetIndex],
+          newGrid[src.index],
+        ];
       }
     }
     onGridChange(newGrid);
@@ -492,117 +620,225 @@ function GuessScreen({
     endDrag();
   }
 
+  function createGhost(sourceEl: Element, touchX: number, touchY: number) {
+    const rect = sourceEl.getBoundingClientRect();
+    const clone = sourceEl.cloneNode(true) as HTMLDivElement;
+    clone.style.cssText = `position:fixed;left:${touchX - rect.width / 2}px;top:${touchY - rect.height / 2}px;width:${rect.width}px;height:${rect.height}px;pointer-events:none;opacity:0.8;z-index:9999;border-radius:8px;`;
+    document.body.appendChild(clone);
+    ghostRef.current = clone;
+  }
+
+  function moveGhost(touchX: number, touchY: number) {
+    const ghost = ghostRef.current;
+    if (!ghost) return;
+    ghost.style.left = `${touchX - ghost.offsetWidth / 2}px`;
+    ghost.style.top = `${touchY - ghost.offsetHeight / 2}px`;
+  }
+
+  function removeGhost() {
+    ghostRef.current?.remove();
+    ghostRef.current = null;
+  }
+
+  function handleTouchStart(
+    from: "pool" | "grid",
+    index: number,
+    e: React.TouchEvent<HTMLDivElement>,
+  ) {
+    if (from === "grid" && locked(index)) return;
+    startDrag(from, index);
+    const touch = e.touches[0];
+    createGhost(e.currentTarget, touch.clientX, touch.clientY);
+  }
+
+  function handleTouchMove(e: React.TouchEvent) {
+    if (!dragSrc.current) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    moveGhost(touch.clientX, touch.clientY);
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    removeGhost();
+    if (!dragSrc.current) return;
+    const touch = e.changedTouches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const gridSlot = target?.closest("[data-grid-slot]");
+    if (gridSlot) {
+      const idx = parseInt(gridSlot.getAttribute("data-grid-slot")!, 10);
+      dropOnGrid(idx);
+      return;
+    }
+    if (target?.closest("[data-pool]")) {
+      dropOnPool();
+      return;
+    }
+    endDrag();
+  }
+
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-sm landscape:max-w-none">
-      {guessScore !== null && (
-        <div className="w-full text-center py-2 px-4 rounded-xl bg-emerald-900/50 border border-emerald-600">
-          {guessScore === 6 ? (
-            <p className="text-xl font-bold text-amber-400">🎉 Perfect! +6 points</p>
-          ) : (
-            <p className="text-xl font-bold text-amber-400">
-              +{guessScore} point{guessScore !== 1 ? "s" : ""}
-            </p>
-          )}
-        </div>
-      )}
-
       <div className="flex flex-col landscape:flex-row gap-4 w-full">
-      <div className="flex flex-col items-center gap-1 w-full landscape:flex-1">
-        <ClueLabel clue={clues[0]} />
-        <div className="flex items-center gap-1 w-full">
-          <ClueLabel clue={clues[3]} vertical flip />
-          <div className="grid grid-cols-2 gap-3 flex-1">
-            {grid.map((card, i) => {
-              const isLocked = locked(i);
-              const correctness = guessAttempt === 2 ? isCorrect(card, placedCards[i]) : null;
-              const dragging = draggingKey === `grid-${i}`;
-              const draggable = interactive && !isLocked;
-              return (
+        <div className="flex flex-col items-center gap-1 w-full landscape:flex-1">
+          <ClueLabel clue={clues[0]} />
+          <div className="flex items-center gap-1 w-full">
+            <ClueLabel clue={clues[3]} vertical flip />
+            <div className="grid grid-cols-2 gap-3 flex-1">
+              {grid.map((card, i) => {
+                const isLocked = locked(i);
+                const correctness =
+                  guessAttempt === 2 ? isCorrect(card, placedCards[i]) : null;
+                const dragging = draggingKey === `grid-${i}`;
+                const draggable = interactive && !isLocked;
+                return (
+                  <div
+                    key={i}
+                    className="relative aspect-square"
+                    data-grid-slot={i}
+                    onDragOver={(e) => {
+                      if (interactive && !isLocked) e.preventDefault();
+                    }}
+                    onDrop={() => dropOnGrid(i)}
+                  >
+                    {card ? (
+                      <div
+                        className={`relative w-full h-full ${draggable ? "cursor-grab" : ""}`}
+                        style={{
+                          opacity: dragging ? 0.4 : 1,
+                          touchAction: draggable ? "none" : undefined,
+                        }}
+                        draggable={draggable}
+                        onDragStart={
+                          draggable ? () => startDrag("grid", i) : undefined
+                        }
+                        onDragEnd={draggable ? endDrag : undefined}
+                        onTouchStart={
+                          draggable
+                            ? (e) => handleTouchStart("grid", i, e)
+                            : undefined
+                        }
+                        onTouchMove={draggable ? handleTouchMove : undefined}
+                        onTouchEnd={draggable ? handleTouchEnd : undefined}
+                      >
+                        {(isLocked || correctness !== null) && (
+                          <div
+                            className={`absolute inset-0 z-20 rounded-lg ring-4 pointer-events-none ${
+                              isLocked || correctness
+                                ? "ring-green-400"
+                                : "ring-red-500"
+                            }`}
+                          />
+                        )}
+                        <CloverCard
+                          words={card.words}
+                          rotation={displayRots[i]}
+                          transition={
+                            animatingSlots.includes(i)
+                              ? "transform 0.5s ease"
+                              : undefined
+                          }
+                        />
+                        {draggable && (
+                          <button
+                            className="absolute inset-[22%] z-10 flex items-center justify-center rounded bg-black/10 text-white text-2xl"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRotateClick(i);
+                            }}
+                            title="Rotate card"
+                          >
+                            ↻
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="w-full h-full border-2 border-dashed border-neutral-600 rounded-lg bg-neutral-900/30 flex items-center justify-center">
+                        <span className="text-neutral-600 text-xs">
+                          Drop here
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <ClueLabel clue={clues[1]} vertical />
+          </div>
+          <ClueLabel clue={clues[2]} />
+        </div>
+
+        <div className="flex flex-col gap-3 w-full landscape:flex-1">
+          <div
+            className="flex flex-wrap content-start justify-center gap-3 w-full p-3 min-h-20 border-2 border-dashed border-neutral-700 rounded-xl bg-neutral-900/20"
+            data-pool="true"
+            onDragOver={interactive ? (e) => e.preventDefault() : undefined}
+            onDrop={interactive ? dropOnPool : undefined}
+          >
+            {pool.length === 0 ? (
+              <p className="text-neutral-500 text-sm self-center">
+                All cards placed
+              </p>
+            ) : (
+              pool.map((card, i) => (
                 <div
                   key={i}
-                  className="relative aspect-square"
-                  onDragOver={(e) => { if (interactive && !isLocked) e.preventDefault(); }}
-                  onDrop={() => dropOnGrid(i)}
+                  className={`w-28 aspect-square ${interactive ? "cursor-grab" : ""}`}
+                  style={{
+                    opacity: draggingKey === `pool-${i}` ? 0.4 : 1,
+                    touchAction: interactive ? "none" : undefined,
+                  }}
+                  draggable={interactive}
+                  onDragStart={
+                    interactive ? () => startDrag("pool", i) : undefined
+                  }
+                  onDragEnd={interactive ? endDrag : undefined}
+                  onTouchStart={
+                    interactive
+                      ? (e) => handleTouchStart("pool", i, e)
+                      : undefined
+                  }
+                  onTouchMove={interactive ? handleTouchMove : undefined}
+                  onTouchEnd={interactive ? handleTouchEnd : undefined}
                 >
-                  {card ? (
-                    <div
-                      className={`relative w-full h-full ${draggable ? "cursor-grab" : ""}`}
-                      style={{ opacity: dragging ? 0.4 : 1 }}
-                      draggable={draggable}
-                      onDragStart={draggable ? () => startDrag("grid", i) : undefined}
-                      onDragEnd={draggable ? endDrag : undefined}
-                    >
-                      {(isLocked || correctness !== null) && (
-                        <div
-                          className={`absolute inset-0 z-20 rounded-lg ring-4 pointer-events-none ${
-                            isLocked || correctness ? "ring-green-400" : "ring-red-500"
-                          }`}
-                        />
-                      )}
-                      <CloverCard
-                        words={card.words}
-                        rotation={displayRots[i]}
-                        transition={animatingSlots.includes(i) ? "transform 0.5s ease" : undefined}
-                      />
-                      {draggable && (
-                        <button
-                          className="absolute inset-[22%] z-10 flex items-center justify-center rounded bg-black/10 text-white text-2xl"
-                          onClick={(e) => { e.stopPropagation(); handleRotateClick(i); }}
-                          title="Rotate card"
-                        >
-                          ↻
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="w-full h-full border-2 border-dashed border-neutral-600 rounded-lg bg-neutral-900/30 flex items-center justify-center">
-                      <span className="text-neutral-600 text-xs">Drop here</span>
-                    </div>
-                  )}
+                  <CloverCard words={card.words} rotation={card.rotation} />
                 </div>
-              );
-            })}
+              ))
+            )}
           </div>
-          <ClueLabel clue={clues[1]} vertical />
-        </div>
-        <ClueLabel clue={clues[2]} />
-      </div>
-
-      <div
-        className="flex flex-wrap content-start justify-center gap-3 w-full landscape:flex-1 p-3 min-h-20 border-2 border-dashed border-neutral-700 rounded-xl bg-neutral-900/20"
-        onDragOver={interactive ? (e) => e.preventDefault() : undefined}
-        onDrop={interactive ? dropOnPool : undefined}
-      >
-        {pool.length === 0 ? (
-          <p className="text-neutral-500 text-sm self-center">All cards placed</p>
-        ) : (
-          pool.map((card, i) => (
-            <div
-              key={i}
-              className={`w-28 aspect-square ${interactive ? "cursor-grab" : ""}`}
-              style={{ opacity: draggingKey === `pool-${i}` ? 0.4 : 1 }}
-              draggable={interactive}
-              onDragStart={interactive ? () => startDrag("pool", i) : undefined}
-              onDragEnd={interactive ? endDrag : undefined}
-            >
-              <CloverCard words={card.words} rotation={card.rotation} />
+          {guessScore !== null && (
+            <div className="w-full text-center py-2 px-4 rounded-xl bg-emerald-900/50 border border-emerald-600">
+              {guessScore === 6 ? (
+                <p className="text-xl font-bold text-amber-400">
+                  🎉 Perfect! +6 points
+                </p>
+              ) : (
+                <p className="text-xl font-bold text-amber-400">
+                  +{guessScore} point{guessScore !== 1 ? "s" : ""}
+                </p>
+              )}
             </div>
-          ))
-        )}
-      </div>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-row gap-3 w-full">
         {interactive && allFilled && (
-          <BigButton onClick={guessAttempt === 0 ? onConfirm : onConfirmLastChance} className="!h-10 !text-base !py-2">
+          <BigButton
+            onClick={guessAttempt === 0 ? onConfirm : onConfirmLastChance}
+            className="!h-10 !text-base !py-2"
+          >
             {guessAttempt === 0 ? "Confirm" : "Confirm (Last Chance)"}
           </BigButton>
         )}
         {guessAttempt === 2 && !allCorrect && (
-          <BigButton onClick={onShowAnswer} className="!h-10 !text-base !py-2">Show Answer</BigButton>
+          <BigButton onClick={onShowAnswer} className="!h-10 !text-base !py-2">
+            Show Answer
+          </BigButton>
         )}
         {guessAttempt === 2 && allCorrect && (
-          <BigButton onClick={onNewGame} className="!h-10 !text-base !py-2">New Game</BigButton>
+          <BigButton onClick={onNewGame} className="!h-10 !text-base !py-2">
+            New Game
+          </BigButton>
         )}
       </div>
     </div>
@@ -611,33 +847,86 @@ function GuessScreen({
 
 function ShuffledScreen({
   placedCards,
-  leftoverCards,
-  onShuffle,
-  onWriteClues,
+  clueMode,
+  clues,
+  onClueChange,
+  onNewGame,
+  onGuess,
 }: {
   placedCards: PlacedCard[];
-  leftoverCards: CloverCardData[];
-  onShuffle: () => void;
-  onWriteClues: () => void;
+  clueMode: "paper" | "digital";
+  clues: [string, string, string, string];
+  onClueChange: (i: number, value: string) => void;
+  onNewGame: () => void;
+  onGuess: () => void;
 }) {
-  // Physical edges: 0=top, 1=right, 2=bottom, 3=left
-  // Grid layout: card[0]=top-left, card[1]=top-right, card[2]=bottom-left, card[3]=bottom-right
+  const [editingEdge, setEditingEdge] = useState<{
+    index: number;
+    a: string;
+    b: string;
+  } | null>(null);
+  const [draftClue, setDraftClue] = useState("");
+  const [showInstructions, setShowInstructions] = useState(false);
+
   const outerEdges =
     placedCards.length === 4
       ? {
-          top:    { a: getWordAtPhysicalEdge(placedCards[0], 0), b: getWordAtPhysicalEdge(placedCards[1], 0) },
-          left:   { a: getWordAtPhysicalEdge(placedCards[0], 3), b: getWordAtPhysicalEdge(placedCards[2], 3) },
-          right:  { a: getWordAtPhysicalEdge(placedCards[1], 1), b: getWordAtPhysicalEdge(placedCards[3], 1) },
-          bottom: { a: getWordAtPhysicalEdge(placedCards[2], 2), b: getWordAtPhysicalEdge(placedCards[3], 2) },
+          top: {
+            a: getWordAtPhysicalEdge(placedCards[0], 0),
+            b: getWordAtPhysicalEdge(placedCards[1], 0),
+          },
+          left: {
+            a: getWordAtPhysicalEdge(placedCards[0], 3),
+            b: getWordAtPhysicalEdge(placedCards[2], 3),
+          },
+          right: {
+            a: getWordAtPhysicalEdge(placedCards[1], 1),
+            b: getWordAtPhysicalEdge(placedCards[3], 1),
+          },
+          bottom: {
+            a: getWordAtPhysicalEdge(placedCards[2], 2),
+            b: getWordAtPhysicalEdge(placedCards[3], 2),
+          },
         }
       : null;
+
+  const allCluesFilled = clues.every((c) => c.trim() !== "");
+
+  function openModal(index: number, a: string, b: string) {
+    setEditingEdge({ index, a, b });
+    setDraftClue(clues[index]);
+  }
+
+  function saveClue() {
+    if (!editingEdge) return;
+    onClueChange(editingEdge.index, draftClue.trim());
+    setEditingEdge(null);
+  }
+
+  function renderEdgeLabel(
+    index: number,
+    edge: { a: string; b: string },
+    vertical = false,
+    flip = false,
+  ) {
+    const clue = clues[index];
+    if (clueMode === "digital") {
+      const handleClick = () => openModal(index, edge.a, edge.b);
+      return clue ? (
+        <ClueLabel clue={clue} vertical={vertical} flip={flip} onClick={handleClick} />
+      ) : (
+        <EdgeLabel a={edge.a} b={edge.b} vertical={vertical} flip={flip} clickable onClick={handleClick} />
+      );
+    }
+    return <EdgeLabel a={edge.a} b={edge.b} vertical={vertical} flip={flip} />;
+  }
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-sm">
       <div className="flex flex-col items-center gap-1 w-full">
-        {outerEdges && <EdgeLabel a={outerEdges.top.a} b={outerEdges.top.b} />}
+        {outerEdges && renderEdgeLabel(0, outerEdges.top)}
         <div className="flex items-center gap-1 w-full">
-          {outerEdges && <EdgeLabel a={outerEdges.left.a} b={outerEdges.left.b} vertical flip />}
+          {outerEdges && renderEdgeLabel(3, outerEdges.left, true, true)}
           <div className="grid grid-cols-2 gap-3 flex-1">
             {placedCards.map((card, i) => {
               const row = Math.floor(i / 2);
@@ -647,61 +936,163 @@ function ShuffledScreen({
                   key={i}
                   words={card.words}
                   rotation={card.rotation}
-                  highlightedIndices={getHighlightedWordIndices(row, col, card.rotation)}
+                  highlightedIndices={getHighlightedWordIndices(
+                    row,
+                    col,
+                    card.rotation,
+                  )}
                 />
               );
             })}
           </div>
-          {outerEdges && <EdgeLabel a={outerEdges.right.a} b={outerEdges.right.b} vertical />}
+          {outerEdges && renderEdgeLabel(1, outerEdges.right, true)}
         </div>
-        {outerEdges && <EdgeLabel a={outerEdges.bottom.a} b={outerEdges.bottom.b} />}
+        {outerEdges && renderEdgeLabel(2, outerEdges.bottom)}
       </div>
 
+      {clueMode === "digital" && (
+        <div className="flex flex-col items-center gap-2 w-full">
+          <button
+            onClick={() => setShowInstructions((v) => !v)}
+            className="text-sm text-emerald-400 underline underline-offset-2 cursor-pointer"
+          >
+            {showInstructions ? "Hide Instructions" : "Show Instructions"}
+          </button>
+          {showInstructions && (
+            <p className="text-sm text-neutral-300 text-center leading-relaxed">
+              Click on the 4 edges to write a one-word clue for each side. Once you&apos;re done, you&apos;ll see the Guess button. Press the Guess button and pass the device to other players.
+            </p>
+          )}
+        </div>
+      )}
+
+      {clueMode === "paper" && (
+        <div className="flex flex-col items-center gap-2 w-full">
+          <button
+            onClick={() => setShowInstructions((v) => !v)}
+            className="text-sm text-emerald-400 underline underline-offset-2 cursor-pointer"
+          >
+            {showInstructions ? "Hide Instructions" : "Show Instructions"}
+          </button>
+          {showInstructions && (
+            <p className="text-sm text-neutral-300 text-center leading-relaxed">
+              Write a one-word clue for each side on 4 different cards. Arrange them
+              back in the exact order and orientation as they are now, so the clues
+              match the words. Let other players put the word cards back in the
+              correct position and orientation.
+
+              After other players lock in their guess, if all cards are placed correctly, you get 6 points. Otherwise, remove the incorrect cards including those in the correct position by wrong orientation.
+
+              Other players have another chance to guess. After other players lock in their guess, you get 1 point for each correctly placed card.
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-row gap-3 w-full mt-2">
-        <BigButton onClick={onShuffle} className="!h-10 !text-base !py-2">Reshuffle</BigButton>
-        <BigButton onClick={onWriteClues} className="!h-10 !text-base !py-2">Write Clues</BigButton>
+        {clueMode === "paper" && (
+          <BigButton onClick={onNewGame} className="!h-10 !text-base !py-2">
+            New Game
+          </BigButton>
+        )}
+        {clueMode === "digital" && allCluesFilled && (
+          <BigButton onClick={onGuess} className="!h-10 !text-base !py-2">
+            Guess
+          </BigButton>
+        )}
       </div>
+
+      {clueMode === "digital" && (
+        <Modal
+          visible={!!editingEdge}
+          title={
+            editingEdge ? `Clue for ${editingEdge.a} & ${editingEdge.b}` : ""
+          }
+          onClose={() => setEditingEdge(null)}
+          confirmButtonText="Save"
+          onConfirm={saveClue}
+          declineButtonText="Cancel"
+          onDecline={() => setEditingEdge(null)}
+        >
+          <input
+            type="text"
+            value={draftClue}
+            onChange={(e) => setDraftClue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") saveClue();
+            }}
+            className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-white focus:border-emerald-400 focus:outline-none"
+            placeholder="One word..."
+            autoFocus
+          />
+        </Modal>
+      )}
     </div>
   );
 }
 
-export default function Main({ easyWords, hardWords }: { easyWords: string[]; hardWords: string[] }) {
+export default function Main({
+  easyWords,
+  hardWords,
+}: {
+  easyWords: string[];
+  hardWords: string[];
+}) {
   const [showRules, setShowRules] = useState(false);
   const fullScreenHandle = useFullScreenHandle();
-  const [phase, setPhase] = useLocalStorage<Phase>(`${GAME_PATH}.phase`, "setup");
+  const [phase, setPhase] = useLocalStorage<Phase>(
+    `${GAME_PATH}.phase`,
+    "setup",
+  );
   useGamePlayTracking(GAME_PATH, phase !== "setup", false);
-  const [useEasy, setUseEasy] = useLocalStorage<boolean>(`${GAME_PATH}.useEasy`, true);
-  const [useHard, setUseHard] = useLocalStorage<boolean>(`${GAME_PATH}.useHard`, false);
+  const [useEasy, setUseEasy] = useLocalStorage<boolean>(
+    `${GAME_PATH}.useEasy`,
+    true,
+  );
+  const [useHard, setUseHard] = useLocalStorage<boolean>(
+    `${GAME_PATH}.useHard`,
+    false,
+  );
   const [additionalTiles, setAdditionalTiles] = useLocalStorage<number>(
     `${GAME_PATH}.additionalTiles`,
-    1
+    1,
   );
   const [displayedCards, setDisplayedCards] = useLocalStorage<CloverCardData[]>(
     `${GAME_PATH}.displayedCards`,
-    []
+    [],
   );
   const [placedCards, setPlacedCards] = useLocalStorage<PlacedCard[]>(
     `${GAME_PATH}.placedCards`,
-    []
+    [],
   );
   const [leftoverCards, setLeftoverCards] = useLocalStorage<CloverCardData[]>(
     `${GAME_PATH}.leftoverCards`,
-    []
+    [],
   );
   const [clues, setClues] = useLocalStorage<[string, string, string, string]>(
     `${GAME_PATH}.clues`,
-    ["", "", "", ""]
+    ["", "", "", ""],
   );
   const [guessGrid, setGuessGrid] = useLocalStorage<(PlacedCard | null)[]>(
     `${GAME_PATH}.guessGrid`,
-    [null, null, null, null]
+    [null, null, null, null],
   );
   const [guessPool, setGuessPool] = useLocalStorage<PlacedCard[]>(
     `${GAME_PATH}.guessPool`,
-    []
+    [],
   );
-  const [guessAttempt, setGuessAttempt] = useLocalStorage<number>(`${GAME_PATH}.guessAttempt`, 0);
-  const [guessScore, setGuessScore] = useLocalStorage<number | null>(`${GAME_PATH}.guessScore`, null);
+  const [guessAttempt, setGuessAttempt] = useLocalStorage<number>(
+    `${GAME_PATH}.guessAttempt`,
+    0,
+  );
+  const [guessScore, setGuessScore] = useLocalStorage<number | null>(
+    `${GAME_PATH}.guessScore`,
+    null,
+  );
+  const [clueMode, setClueMode] = useLocalStorage<"paper" | "digital">(
+    `${GAME_PATH}.clueMode`,
+    "paper",
+  );
 
   const startGame = useCallback(() => {
     const words = [
@@ -710,26 +1101,80 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
     ];
     const cardCount = 4 + additionalTiles;
     const shuffledWords = shuffle([...words]);
-    const cards: CloverCardData[] = Array.from({ length: cardCount }, (_, i) => ({
-      words: shuffledWords.slice(i * 4, i * 4 + 4) as [string, string, string, string],
-    }));
-    setDisplayedCards(cards);
-    setPlacedCards([]);
-    setPhase("playing");
-  }, [additionalTiles, useEasy, useHard, easyWords, hardWords, setDisplayedCards, setPlacedCards, setPhase]);
+    const allCards: CloverCardData[] = Array.from(
+      { length: cardCount },
+      (_, i) => ({
+        words: shuffledWords.slice(i * 4, i * 4 + 4) as [
+          string,
+          string,
+          string,
+          string,
+        ],
+      }),
+    );
+    if (clueMode === "digital") {
+      const mainCards = allCards.slice(0, 4);
+      const extraCards = allCards.slice(4);
+      const withRotations: PlacedCard[] = shuffle([...mainCards]).map(
+        (card) => ({
+          ...card,
+          rotation: ROTATIONS[Math.floor(Math.random() * 4)],
+        }),
+      );
+      setDisplayedCards(mainCards);
+      setPlacedCards(withRotations);
+      setLeftoverCards(extraCards);
+      setClues(["", "", "", ""]);
+      setPhase("shuffled");
+    } else {
+      setDisplayedCards(allCards);
+      setPlacedCards([]);
+      setPhase("playing");
+    }
+  }, [
+    additionalTiles,
+    useEasy,
+    useHard,
+    easyWords,
+    hardWords,
+    clueMode,
+    setDisplayedCards,
+    setPlacedCards,
+    setLeftoverCards,
+    setClues,
+    setPhase,
+  ]);
 
   const handleShuffle = useCallback(() => {
-    const shuffled = shuffle([...displayedCards]);
-    const four = shuffled.slice(0, 4);
-    const leftovers = shuffled.slice(4);
-    const withRotations: PlacedCard[] = four.map((card) => ({
-      ...card,
-      rotation: ROTATIONS[Math.floor(Math.random() * 4)],
-    }));
-    setPlacedCards(withRotations);
-    setLeftoverCards(leftovers);
-    setPhase("shuffled");
-  }, [displayedCards, setPlacedCards, setLeftoverCards, setPhase]);
+    if (clueMode === "digital") {
+      const withRotations: PlacedCard[] = shuffle([...displayedCards]).map(
+        (card) => ({
+          ...card,
+          rotation: ROTATIONS[Math.floor(Math.random() * 4)],
+        }),
+      );
+      setPlacedCards(withRotations);
+      setClues(["", "", "", ""]);
+    } else {
+      const shuffled = shuffle([...displayedCards]);
+      const four = shuffled.slice(0, 4);
+      const leftovers = shuffled.slice(4);
+      const withRotations: PlacedCard[] = four.map((card) => ({
+        ...card,
+        rotation: ROTATIONS[Math.floor(Math.random() * 4)],
+      }));
+      setPlacedCards(withRotations);
+      setLeftoverCards(leftovers);
+      setPhase("shuffled");
+    }
+  }, [
+    clueMode,
+    displayedCards,
+    setPlacedCards,
+    setLeftoverCards,
+    setClues,
+    setPhase,
+  ]);
 
   const handleNewGame = useCallback(() => {
     setPhase("setup");
@@ -740,26 +1185,45 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
     setPhase("writing");
   }, [setClues, setPhase]);
 
-  const handleClueChange = useCallback((i: number, value: string) => {
-    const next = [...clues] as [string, string, string, string];
-    next[i] = value;
-    setClues(next);
-  }, [clues, setClues]);
+  const handleClueChange = useCallback(
+    (i: number, value: string) => {
+      const next = [...clues] as [string, string, string, string];
+      next[i] = value;
+      setClues(next);
+    },
+    [clues, setClues],
+  );
 
   const handleGuess = useCallback(() => {
     const allCards: PlacedCard[] = shuffle([
-      ...placedCards.map((c) => ({ ...c, rotation: ROTATIONS[Math.floor(Math.random() * 4)] })),
-      ...leftoverCards.map((c) => ({ words: c.words, rotation: ROTATIONS[Math.floor(Math.random() * 4)] })),
+      ...placedCards.map((c) => ({
+        ...c,
+        rotation: ROTATIONS[Math.floor(Math.random() * 4)],
+      })),
+      ...leftoverCards.map((c) => ({
+        words: c.words,
+        rotation: ROTATIONS[Math.floor(Math.random() * 4)],
+      })),
     ]);
     setGuessGrid([null, null, null, null]);
     setGuessPool(allCards);
     setGuessAttempt(0);
     setGuessScore(null);
     setPhase("guess");
-  }, [placedCards, leftoverCards, setGuessGrid, setGuessPool, setGuessAttempt, setGuessScore, setPhase]);
+  }, [
+    placedCards,
+    leftoverCards,
+    setGuessGrid,
+    setGuessPool,
+    setGuessAttempt,
+    setGuessScore,
+    setPhase,
+  ]);
 
   const handleConfirm = useCallback(() => {
-    const correct = placedCards.map((target, i) => isCorrect(guessGrid[i], target));
+    const correct = placedCards.map((target, i) =>
+      isCorrect(guessGrid[i], target),
+    );
     if (correct.every(Boolean)) {
       setGuessScore(6);
       setGuessAttempt(2);
@@ -767,35 +1231,62 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
       const newGrid = [...guessGrid] as (PlacedCard | null)[];
       const wrong: PlacedCard[] = [];
       correct.forEach((ok, i) => {
-        if (!ok && newGrid[i]) { wrong.push(newGrid[i]!); newGrid[i] = null; }
+        if (!ok && newGrid[i]) {
+          wrong.push(newGrid[i]!);
+          newGrid[i] = null;
+        }
       });
       setGuessGrid(newGrid);
       setGuessPool([...guessPool, ...wrong]);
+      setGuessScore(correct.filter(Boolean).length);
       setGuessAttempt(1);
     }
-  }, [guessGrid, guessPool, placedCards, setGuessGrid, setGuessPool, setGuessScore, setGuessAttempt]);
+  }, [
+    guessGrid,
+    guessPool,
+    placedCards,
+    setGuessGrid,
+    setGuessPool,
+    setGuessScore,
+    setGuessAttempt,
+  ]);
 
   const handleConfirmLastChance = useCallback(() => {
-    const score = placedCards.filter((target, i) => isCorrect(guessGrid[i], target)).length;
+    const score = placedCards.filter((target, i) =>
+      isCorrect(guessGrid[i], target),
+    ).length;
     setGuessScore(score);
     setGuessAttempt(2);
   }, [guessGrid, placedCards, setGuessScore, setGuessAttempt]);
 
   const handleShowAnswer = useCallback(() => {
+    const answerKeys = placedCards.map((c) => c.words.join("\x00"));
+    const allOnScreen = [
+      ...guessGrid.filter((c): c is PlacedCard => c !== null),
+      ...guessPool,
+    ];
+    const extras = allOnScreen.filter(
+      (c) => !answerKeys.includes(c.words.join("\x00")),
+    );
     setGuessGrid([...placedCards]);
-    setGuessPool([]);
-  }, [placedCards, setGuessGrid, setGuessPool]);
+    setGuessPool(extras);
+  }, [placedCards, guessGrid, guessPool, setGuessGrid, setGuessPool]);
 
-  const handleRotateInGrid = useCallback((gridIndex: number) => {
-    const card = guessGrid[gridIndex];
-    if (!card) return;
-    const newGrid = [...guessGrid] as (PlacedCard | null)[];
-    newGrid[gridIndex] = { ...card, rotation: (card.rotation + 90) % 360 };
-    setGuessGrid(newGrid);
-  }, [guessGrid, setGuessGrid]);
+  const handleRotateInGrid = useCallback(
+    (gridIndex: number) => {
+      const card = guessGrid[gridIndex];
+      if (!card) return;
+      const newGrid = [...guessGrid] as (PlacedCard | null)[];
+      newGrid[gridIndex] = { ...card, rotation: (card.rotation + 90) % 360 };
+      setGuessGrid(newGrid);
+    },
+    [guessGrid, setGuessGrid],
+  );
 
   function clearCache() {
-    Object.keys(localStorage).filter(k => k.startsWith(GAME_PATH + '.')).forEach(k => localStorage.removeItem(k));
+    Object.keys(localStorage)
+      .filter((k) => k.startsWith(GAME_PATH + "."))
+      .forEach((k) => localStorage.removeItem(k));
     window.location.reload();
   }
 
@@ -824,7 +1315,12 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
 
   return (
     <div className="min-h-screen text-white">
-      <Navbar title={GAME_NAME} menus={NAV_MENU} iconFilePath={GAME_ICON_PATH} iconHref={"/" + GAME_PATH} />
+      <Navbar
+        title={GAME_NAME}
+        menus={NAV_MENU}
+        iconFilePath={GAME_ICON_PATH}
+        iconHref={"/" + GAME_PATH}
+      />
       <Rules
         gamePath={GAME_PATH}
         gameName={GAME_NAME}
@@ -843,6 +1339,8 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
               hardCount={hardWords.length}
               onToggleEasy={() => setUseEasy(!useEasy)}
               onToggleHard={() => setUseHard(!useHard)}
+              clueMode={clueMode}
+              onClueModeChange={setClueMode}
               onStart={startGame}
             />
           )}
@@ -851,16 +1349,17 @@ export default function Main({ easyWords, hardWords }: { easyWords: string[]; ha
             <PlayingScreen
               displayedCards={displayedCards}
               onShuffle={handleShuffle}
-              onNewCards={startGame}
             />
           )}
 
           {phase === "shuffled" && (
             <ShuffledScreen
               placedCards={placedCards}
-              leftoverCards={leftoverCards}
-              onShuffle={handleShuffle}
-              onWriteClues={handleWriteClues}
+              clueMode={clueMode}
+              clues={clues}
+              onClueChange={handleClueChange}
+              onNewGame={handleNewGame}
+              onGuess={handleGuess}
             />
           )}
 
