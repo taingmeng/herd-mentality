@@ -1,5 +1,18 @@
 export const games = [
   {
+    title: "Wit and Wagerz",
+    playerCount: "2-7 Players",
+    duration: "30–45 Min",
+    age: "Age: 10+",
+    playPath: "/wit-and-wagerz",
+    imagePath: "/wit-and-wagerz/icon.png",
+    paragraphs: [
+      "Each round, a trivia question is revealed — the answer is always a number or percentage. Players write down their best guess, then bet on whose answer they think is closest.",
+      "Place your chips on the betting board: the closer the guess, the lower the odds. 7 rounds, all wit, all wagers!",
+    ],
+    tags: ["no setup", "trivia", "betting"],
+  },
+  {
     title: "So Cloverz",
     playerCount: "2-6 Players",
     duration: "30–45 Min",

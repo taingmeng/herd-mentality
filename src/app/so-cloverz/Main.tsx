@@ -740,7 +740,7 @@ function GuessScreen({
                         />
                         {draggable && (
                           <button
-                            className="absolute inset-[22%] z-10 flex items-center justify-center rounded bg-black/10 text-white text-2xl"
+                            className="absolute inset-[22%] z-10 flex items-center justify-center rounded bg-black/10 text-white text-2xl select-none"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleRotateClick(i);

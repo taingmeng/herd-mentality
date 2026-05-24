@@ -36,7 +36,10 @@
       "Bash(awk 'NR==1 { print; next } { lower=tolower\\($0\\); if \\(!seen[lower]++\\) print }' /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/questions.csv)",
       "Bash(npx tsx *)",
       "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/easy.csv)",
-      "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/hard.csv)"
+      "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/hard.csv)",
+      "Bash(curl -s http://localhost:3001/wit-and-wagerz)",
+      "Bash(npx playwright@latest install chromium --with-deps)",
+      "Bash(npx playwright@latest screenshot --browser chromium \"http://localhost:3001/wit-and-wagerz/play\" /tmp/wit_play.png)"
     ]
   }
 }

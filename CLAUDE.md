@@ -63,4 +63,4 @@ All game state is persisted in `localStorage` keyed by game path (e.g., `herd-me
 
 ## Games
 
-caution-signz, mandaminaz, insiderz, tapplez, wavelengthz, herd-mentalityz, just-onez, fake-artistz, poetryz, monikerz, subjectivez
+wit-and-wagerz, caution-signz, mandaminaz, insiderz, tapplez, wavelengthz, herd-mentalityz, just-onez, fake-artistz, poetryz, monikerz, subjectivez
