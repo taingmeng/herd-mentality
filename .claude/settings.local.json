@@ -39,7 +39,10 @@
       "Bash(sort /Users/taingmeng/Code/personal/herd-mentality/src/app/so-cloverz/data/hard.csv)",
       "Bash(curl -s http://localhost:3001/wit-and-wagerz)",
       "Bash(npx playwright@latest install chromium --with-deps)",
-      "Bash(npx playwright@latest screenshot --browser chromium \"http://localhost:3001/wit-and-wagerz/play\" /tmp/wit_play.png)"
+      "Bash(npx playwright@latest screenshot --browser chromium \"http://localhost:3001/wit-and-wagerz/play\" /tmp/wit_play.png)",
+      "Bash(identify *)",
+      "Bash(sips *)",
+      "Bash(ffmpeg *)"
     ]
   }
 }

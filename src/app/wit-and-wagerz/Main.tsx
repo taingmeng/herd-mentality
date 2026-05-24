@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import { GAME_ICON_PATH, GAME_NAME, GAME_PATH } from "./Constants";
 import Rules from "../components/Rules";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useGamePlayTracking } from "../hooks/useGamePlayTracking";
 
 export interface WitQuestion {
   answer: string;
@@ -87,8 +88,10 @@ export default function Main({ questions }: { questions: WitQuestion[] }) {
     DEFAULT_STATE
   );
   const [showRules, setShowRules] = useState(false);
-  const [showBoard, setShowBoard] = useState(true);
+  const [showBoard, setShowBoard] = useLocalStorage<boolean>(`${GAME_PATH}.showBoard`, true);
   const fullScreenHandle = useFullScreenHandle();
+
+  useGamePlayTracking(GAME_PATH, currentQuestion !== null, gameState.gameOver);
 
   function clearCache() {
     Object.keys(localStorage)
