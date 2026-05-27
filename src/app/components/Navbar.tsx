@@ -57,7 +57,10 @@ interface NavbarProps {
   headerContent?: React.ReactNode;
 }
 
-const HOME_MENU: NavMenu = { name: "Home", icon: "/icons/home.svg", href: "/" };
+const BASE_MENUS: NavMenu[] = [
+  { name: "Home", icon: "/icons/home.svg", href: "/" },
+  { name: "Games", icon: "/icons/party.svg", href: "/games" },
+];
 
 export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", headerContent }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
@@ -83,7 +86,7 @@ export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", header
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, [open]);
 
-  const gameMenus = menus.length > 0 ? [HOME_MENU, ...menus] : [];
+  const gameMenus = [...BASE_MENUS, ...menus];
 
   function handleOpen() {
     setOpen((cur) => !cur);
@@ -125,20 +128,16 @@ export function Navbar({ title, menus = [], iconFilePath, iconHref = "/", header
         >
           <div className="overflow-hidden">
             <div className="w-fit my-3 border-t border-gray-200 px-2 pt-4 pb-2">
-              {gameMenus.length > 0 && (
-                <ul className="flex flex-col gap-4">
-                  {gameMenus.map(({ name, icon, href, target, onClick }) => (
-                    <NavItem key={name} href={href} target={target} onClick={onClick} afterClick={handleOpen}>
-                      <Image src={icon} width="24" height="24" alt={name} className="tint" />
-                      <span>{name}</span>
-                    </NavItem>
-                  ))}
-                </ul>
-              )}
+              <ul className="flex flex-col gap-4">
+                {gameMenus.map(({ name, icon, href, target, onClick }) => (
+                  <NavItem key={name} href={href} target={target} onClick={onClick} afterClick={handleOpen}>
+                    <Image src={icon} width="24" height="24" alt={name} className="tint" />
+                    <span>{name}</span>
+                  </NavItem>
+                ))}
+              </ul>
 
-              {gameMenus.length > 0 && (
-                <div className="my-4 border-t border-gray-600" />
-              )}
+              <div className="my-4 border-t border-gray-600" />
 
               <ul className="flex flex-col gap-4">
                 {!loading && !user && (
