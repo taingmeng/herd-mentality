@@ -1,9 +1,22 @@
 export const games = [
   {
+    title: "Dice Pool Partyz",
+    playerCount: "1-8 Players",
+    duration: "15–30 Min",
+    age: "Age: 8+",
+    playPath: "/dice-pool-partyz",
+    imagePath: "/dice-pool-partyz/icon.png",
+    paragraphs: [
+      "Roll 12 colored dice — 6 pairs, each a different color. Watch them tumble, then race against the 3-second countdown before they disappear!",
+      "In Roll and Write mode, pick a scoring category before each roll. Score color sums, matching pairs, number runs, or go big with Pool Partyz — the sum of all 12 dice. 12 rounds, one category each, highest score wins!",
+    ],
+    tags: ["dice", "roll-and-write", "solo"],
+  },
+  {
     title: "Wit and Wagerz",
-    playerCount: "2-7 Players",
-    duration: "30–45 Min",
-    age: "Age: 10+",
+    playerCount: "3-21 Players",
+    duration: "20 Min",
+    age: "Age: 8+",
     playPath: "/wit-and-wagerz",
     imagePath: "/wit-and-wagerz/icon.png",
     paragraphs: [

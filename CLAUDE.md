@@ -57,9 +57,41 @@ All game state is persisted in `localStorage` keyed by game path (e.g., `herd-me
 ## Adding a New Game
 
 1. Create `src/app/[gamename]/` with `page.tsx`, `Main.tsx`, `Constants.ts`
-2. Add `data/questions.csv` in that directory
+2. Add `data/questions.csv` in that directory (if the game uses questions)
 3. Add game icon to `public/[gamename]/icon.png`
 4. Insert entry at the **beginning** of the `games` array in `src/app/global/Data.ts`
+
+### New Game Requirements
+
+**Follow the latest created game as the primary pattern.** Also look at games in a similar genre for UI and flow conventions.
+
+**Navbar menu** — every game must include these three items via `NAV_MENU`:
+```ts
+const NAV_MENU = [
+  { name: "New Game",    icon: "/icons/new.svg",         onClick: resetGame },
+  { name: "Full screen", icon: "/icons/full-screen.svg", onClick: fullScreenHandle.enter },
+  { name: "Clear cache", icon: "/icons/clear.svg",       onClick: clearCache },
+];
+```
+Wrap the entire `<main>` in `<FullScreen handle={fullScreenHandle}>` (from `react-full-screen`).
+
+**Clear cache** — remove all localStorage keys scoped to this game then reload:
+```ts
+function clearCache() {
+  Object.keys(localStorage)
+    .filter((k) => k.startsWith(GAME_PATH + "."))
+    .forEach((k) => localStorage.removeItem(k));
+  window.location.reload();
+}
+```
+
+**Local storage** — persist every piece of game state with `useLocalStorage`, keyed as `${GAME_PATH}.<stateKey>`. Transient UI-only state (e.g. animation flags) may stay in `useState`.
+
+**Personal play count** — call `incrementGamePlayCount(user?.uid ?? null, GAME_PATH)` when a new game starts.
+
+**Session tracking** — call `startGamePlay` at game start and `endGamePlay` at game end (Firebase).
+
+**High score** — track with `useLocalStorage<number | null>(\`${GAME_PATH}.highScore\`, null)` and call `recordUserHighScore(user.uid, GAME_PATH, score)` when a new high score is set.
 
 ## Games
 

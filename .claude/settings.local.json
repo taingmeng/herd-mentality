@@ -42,7 +42,15 @@
       "Bash(npx playwright@latest screenshot --browser chromium \"http://localhost:3001/wit-and-wagerz/play\" /tmp/wit_play.png)",
       "Bash(identify *)",
       "Bash(sips *)",
-      "Bash(ffmpeg *)"
+      "Bash(ffmpeg *)",
+      "Bash(cp *)",
+      "WebFetch(domain:fantasticdice.games)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(grep -o 'diceAvailable.\\\\{0,200\\\\}' node_modules/@3d-dice/dice-box/dist/dice-box.es.js)",
+      "Bash(grep *)",
+      "Bash(npx eslint *)",
+      "Bash(npx next *)"
     ]
   }
 }

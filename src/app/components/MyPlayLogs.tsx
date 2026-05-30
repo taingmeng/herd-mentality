@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, doc, getDocs, getDoc, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, limit, orderBy, query, Timestamp } from "firebase/firestore";
 import { firestore } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/AuthContext";
 import Modal from "./Modal";
@@ -44,17 +44,15 @@ export default function MyPlayLogs({ gameId }: { gameId: string }) {
     setOpen(true);
     if (logs !== null || !user) return;
     try {
-      const ninetyDaysAgo = new Date();
-      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
       const q = query(
         collection(firestore, "users", user.uid, "games", gameId, "plays"),
-        where("startedAt", ">=", Timestamp.fromDate(ninetyDaysAgo)),
         orderBy("startedAt", "desc"),
         limit(30)
       );
       const snap = await getDocs(q);
       setLogs(snap.docs.map((d) => ({ id: d.id, ...d.data() } as PlayLog)));
-    } catch {
+    } catch (e) {
+      console.error("Failed to load play logs:", e);
       setLogs([]);
     }
   };

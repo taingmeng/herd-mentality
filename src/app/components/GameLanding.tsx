@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import HeroCard from "./HeroCard";
@@ -17,6 +18,7 @@ interface GameData {
   imagePath: string;
   tags: string[];
   gameplayImagePath?: string;
+  extraStats?: React.ReactNode;
 }
 
 export default function GameLanding({ game }: { game: GameData }) {
@@ -40,6 +42,7 @@ export default function GameLanding({ game }: { game: GameData }) {
         <div className="flex flex-row items-center gap-4 mt-2">
           <PlayCount gameId={gamePath} />
           <MyPlayLogs gameId={gamePath} />
+          {game.extraStats}
         </div>
         <GameButtons gamePath={gamePath} playPath={playPath} />
         {game.gameplayImagePath && (

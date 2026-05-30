@@ -154,7 +154,8 @@ export default function Main({ categories }: MainProps) {
   const [faceOffCursor, setFaceOffCursor] = useState<number | null>(null);
 
   useEffect(() => {
-    setFaceOffCursor(null);
+    if (faceOff) setFaceOffCursor(faceOff.player1Index);
+    else setFaceOffCursor(null);
   }, [faceOff?.player1Index, faceOff?.player2Index]);
 
   // Display settings
@@ -164,7 +165,6 @@ export default function Main({ categories }: MainProps) {
   const [cardWidth, setCardWidth] = useLocalStorage<number>(`${GAME_PATH}.cardWidth`, 134);
   const [cardHeight, setCardHeight] = useLocalStorage<number>(`${GAME_PATH}.cardHeight`, 188);
   const [cardGap, setCardGap] = useLocalStorage<number>(`${GAME_PATH}.cardGap`, 4);
-  const [verticalGap, setVerticalGap] = useLocalStorage<number>(`${GAME_PATH}.verticalGap`, 24);
   const [arcAngle, setArcAngle] = useLocalStorage<number>(`${GAME_PATH}.arcAngle`, 0);
 
   const parsedTopNames = useMemo(
@@ -377,7 +377,7 @@ export default function Main({ categories }: MainProps) {
         if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
           e.preventDefault();
           setFaceOffCursor(prev =>
-            prev === null ? options[0] : options[1 - options.indexOf(prev)]
+            options[1 - options.indexOf(prev ?? options[0])]
           );
         } else if (e.code === "Space" && faceOffCursor !== null) {
           e.preventDefault();
@@ -457,7 +457,6 @@ export default function Main({ categories }: MainProps) {
     const topCard = player.cards.length > 0 ? player.cards[player.cards.length - 1] : null;
     const inFaceOff = isInFaceOff(index);
     const isCurrentPlayer = index === currentPlayerIndex && !faceOff;
-    const isCursorSelected = faceOff !== null && faceOffCursor === index;
 
     const centerIdx = (arcTotal - 1) / 2;
     const offset = arcIndex - centerIdx;
@@ -504,7 +503,7 @@ export default function Main({ categories }: MainProps) {
                 ? "border-pink-400"
                 : "border-gray-300"
             }`}
-            style={{ width: cardWidth, height: cardHeight, ...(isCursorSelected ? { outline: "4px solid #ec4899", outlineOffset: "3px" } : {}) }}
+            style={{ width: cardWidth, height: cardHeight }}
           >
             <span
               className="text-gray-700 font-bold text-center leading-tight w-full rotate-180"
@@ -539,7 +538,7 @@ export default function Main({ categories }: MainProps) {
                 ? "border-pink-400 border-dashed"
                 : "border-gray-600 border-dashed"
             }`}
-            style={{ width: cardWidth, height: cardHeight, ...(isCursorSelected ? { outline: "4px solid #ec4899", outlineOffset: "3px" } : {}) }}
+            style={{ width: cardWidth, height: cardHeight }}
           >
             <span className="text-xs text-gray-500">No card</span>
           </div>
@@ -582,9 +581,8 @@ export default function Main({ categories }: MainProps) {
             <SettingsSlider label="Word scale" value={wordFontSize} min={50} max={200} step={5} unit="%" onChange={setWordFontSize} />
             <SettingsSlider label="Card width" value={cardWidth} min={50} max={250} step={4} unit="px" onChange={setCardWidth} />
             <SettingsSlider label="Card height" value={cardHeight} min={80} max={320} step={4} unit="px" onChange={setCardHeight} />
-            <SettingsSlider label="Horizontal gap" value={cardGap} min={0} max={120} step={4} unit="px" onChange={setCardGap} />
-            <SettingsSlider label="Vertical gap" value={verticalGap} min={0} max={200} step={4} unit="px" onChange={setVerticalGap} />
-            <SettingsSlider label="Arc" value={arcAngle} min={0} max={90} step={0.5} unit="°" onChange={setArcAngle} />
+            <SettingsSlider label="Card gap" value={cardGap} min={0} max={120} step={4} unit="px" onChange={setCardGap} />
+            <SettingsSlider label="Arc" value={arcAngle} min={0} max={45} step={0.5} unit="°" onChange={setArcAngle} />
             <button
               onClick={() => {
                 setSymbolSize(56);
@@ -592,7 +590,6 @@ export default function Main({ categories }: MainProps) {
                 setCardWidth(134);
                 setCardHeight(188);
                 setCardGap(4);
-                setVerticalGap(24);
                 setArcAngle(0);
               }}
               className="mt-2 w-full py-2 rounded-lg border border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 text-sm transition-colors"
@@ -670,38 +667,38 @@ export default function Main({ categories }: MainProps) {
 
         {/* GAMEPLAY */}
         {gameState === "gameplay" && (
-          <div className="flex flex-col items-center justify-center w-full max-w-5xl flex-1" style={{ gap: verticalGap }}>
+          <div className="flex flex-col items-center justify-center gap-6 w-full max-w-5xl flex-1">
 
             {/* Wild card - floating on left, rotated 90deg CCW */}
             <div
               className="fixed z-30"
               style={{
-                left: "-24px",
+                left: "-212px",
                 top: "50%",
                 transform: "translateY(-50%) rotate(-90deg)",
               }}
             >
-              <div className="relative w-[160px] h-[58px] sm:h-[70px]">
+              <div className="relative w-[160px] h-[58px] sm:h-[70px] mt-4">
                 {activeWildCard?.symbols ? (
-                  <div className="grid grid-cols-3 items-center rounded-xl border-2 border-gray-300 bg-white px-3 py-2 h-full">
+                  <div className="flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white px-3 py-2 h-full gap-3">
                     <span
                       className="text-2xl sm:text-3xl font-bold"
                       style={{ color: SYMBOL_COLORS[activeWildCard.symbols[0]] }}
                     >
                       {activeWildCard.symbols[0]}
                     </span>
-                    <span className="text-sm sm:text-base text-gray-700 font-bold text-center">
+                    <span className="text-sm sm:text-base text-gray-700 font-bold leading-none text-center">
                       Wild Card
                     </span>
                     <span
-                      className="text-2xl sm:text-3xl font-bold text-right"
+                      className="text-2xl sm:text-3xl font-bold"
                       style={{ color: SYMBOL_COLORS[activeWildCard.symbols[1]] }}
                     >
                       {activeWildCard.symbols[1]}
                     </span>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 mt-4 px-4 h-full">
+                  <div className="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-600 px-4 h-full">
                     <span className="text-sm text-gray-500">No wild</span>
                   </div>
                 )}
@@ -759,35 +756,28 @@ export default function Main({ categories }: MainProps) {
             <h2 className="text-3xl font-bold">Final Scores</h2>
 
             <div className="w-full max-w-md flex flex-col gap-3">
-              {sortedResults.map((player, index) => {
-                const isTopScorer = player.score === sortedResults[0].score;
-                return (
-                  <div
-                    key={player.name}
-                    className={`flex flex-row items-center justify-between rounded-lg p-4 ${
-                      isTopScorer
-                        ? "border-2 border-pink-400 bg-pink-950"
-                        : "border border-pink-600"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={isTopScorer ? "/icons/crown.svg" : "/icons/pile-of-poo.svg"}
-                        width="28"
-                        height="28"
-                        alt={isTopScorer ? "Winner" : ""}
-                      />
-                      <span className="text-white font-bold text-xl">
-                        {player.name}
-                      </span>
-                    </div>
-                    <span className="text-pink-400 font-bold text-2xl">
-                      {player.score} pts
+              {sortedResults.map((player, index) => (
+                <div
+                  key={player.name}
+                  className={`flex flex-row items-center justify-between rounded-lg p-4 ${
+                    index === 0
+                      ? "border-2 border-pink-400 bg-pink-950"
+                      : "border border-pink-600"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-400 font-bold text-lg">
+                      #{index + 1}
+                    </span>
+                    <span className="text-white font-bold text-xl">
+                      {player.name}
                     </span>
                   </div>
-                );
-              })}
+                  <span className="text-pink-400 font-bold text-2xl">
+                    {player.score} pts
+                  </span>
+                </div>
+              ))}
             </div>
 
             <div className="z-10 w-full max-w-5xl items-center justify-between lg:flex">
